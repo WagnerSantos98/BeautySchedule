@@ -32,8 +32,8 @@ const salao = new Schema({
         coordinates: Array,
     },
     dataCadastro: {
-        type: String,
-        default: Date.now,
+        type: Date,
+        default: Date.now(),
     },
 });
 
