@@ -1,7 +1,7 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-//Criação da tabela Salao
+//Criação da tabela Colaborador
 const colaborador = new Schema({
     nome: {
         type: String,
