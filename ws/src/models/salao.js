@@ -1,12 +1,24 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
+//Criação da tabela Salao
 const salao = new Schema({
-    nome: String,
+    nome: {
+        //Requisição de inserção de dados
+        type: String,
+        required: [true, 'Nome é obrigatório.']
+    },
     foto: String,
     capa: String,
-    email: String,
-    senha: String,
+    email: {
+        //Requisição de inserção de dados
+        type: String,
+        required: [true, 'E-mail é obrigatório.']
+    },
+    senha: {
+        type: String,
+        default: null
+    },
     telefone: String,
     endereco: {
         cidade: String,
@@ -14,7 +26,17 @@ const salao = new Schema({
         cep: String,
         numero: Number,
         pais: String,
-    }
+    },
+    geo:{
+        tipo: String,
+        coordinates: Array,
+    },
+    dataCadastro: {
+        type: String,
+        default: Date.now,
+    },
 });
+
+salao.index({geo: '2dsphere'});
 
 module.exports = mongoose.model('Salao', salao);
