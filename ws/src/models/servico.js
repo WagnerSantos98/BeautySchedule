@@ -3,9 +3,10 @@ const Schema = mongoose.Schema;
 
 //Criação da tabela Salao
 const servico = new Schema({
-    salaoID:{ //Relacionamento com model Salao
+    salaoId:{ //Relacionamento com model Salao
         type: mongoose.Types.ObjectId,
         ref: 'Salao',
+        required: true
     },
     titulo: String,
     preco: Number,
