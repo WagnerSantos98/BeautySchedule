@@ -24,7 +24,7 @@ const salao = new Schema({
         cidade: String,
         uf: String,
         cep: String,
-        numero: Number,
+        numero: String,
         pais: String,
     },
     geo:{
