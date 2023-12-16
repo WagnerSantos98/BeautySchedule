@@ -1,16 +1,16 @@
 const mongoose = require('mongoose');
 const Schema = mongoose.Schema;
 
-//Relacionamento Colaborador/Serviço
-const colaboradorServico = new Schema({
-    colaboradorId:{
+//Relacionamento Salão/Cliente
+const salaoCliente = new Schema({
+    salaoId:{
         type: mongoose.Types.ObjectId,
-        ref: 'Colaborador',
+        ref: 'Salao',
         required: true
     },
-    servicoId:{
+    clienteId:{
         type: mongoose.Types.ObjectId,
-        ref: 'Servico',
+        ref: 'Cliente',
         required: true
     },
     status: {
@@ -26,4 +26,4 @@ const colaboradorServico = new Schema({
 });
 
 
-module.exports = mongoose.model('ColaboradorServico', colaboradorServico);
+module.exports = mongoose.model('SalaoCliente', salaoCliente);
