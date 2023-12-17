@@ -8,13 +8,13 @@
                 "AWS": "BUCKET-USER-ARN"
             },
             "Action": [
-                "s3: PutObject",
+                "s3:PutObject",
                 "s3:PutObjectAcl",
             ],
             "Resource": "arn:aws:s3:::[BUCKET-NAME]/*",
-            "Conditions": {
-                "StingEquals": {
-                    "s3:x-amx-acl": "public-read"
+            "Condition": {
+                "StringEquals": {
+                    "s3:x-amz-acl": "public-read"
                 }
             }
         }
