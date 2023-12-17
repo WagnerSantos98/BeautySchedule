@@ -1,10 +1,10 @@
 const AWS = require('aws-sdk');
 
 module.exports = {
-    IAM_USER_KEY: '',
-    IAM_USER_SECRET: '',
-    BUCKET_NAME: '',
-    AWS_REGION:'',
+    IAM_USER_KEY: 'AKIAXARWLHOPSCLDLO32',
+    IAM_USER_SECRET: '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',
+    BUCKET_NAME: 'us-east-1',
+    AWS_REGION:'beauty-schedule-dev',
 
     uploadToS3: function (file, filename, acl = 'public-read') {
         return new Promise((resolve, reject) => {
