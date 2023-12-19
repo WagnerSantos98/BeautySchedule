@@ -1,8 +1,8 @@
 const AWS = require('aws-sdk');
 
 module.exports = {
-    IAM_USER_KEY: 'AKIAXARWLHOPXTY66ZOJ',
-    IAM_USER_SECRET: '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',
+    IAM_USER_KEY: 'AKIAXARWLHOPYOGRO2MT',
+    IAM_USER_SECRET: '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',
     BUCKET_NAME: 'beauty-schedule-dev',
     AWS_REGION:'us-east-1',
 
