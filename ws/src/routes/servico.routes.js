@@ -14,9 +14,7 @@ router.post('/', async (req, res) => {
             let errors = [];
             let arquivos = [];
 
-            console.log(req.files);
-
-            /*if(req.files && Object.keys(req.files) > 0){
+            if(req.files && Object.keys(req.files).length > 0){
                 for(let key of Object.keys(req.files)){
                     const file = req.files[key];
 
@@ -34,7 +32,7 @@ router.post('/', async (req, res) => {
                         arquivos.push(path);
                     }
                 }
-            }*/
+            }
 
             if(errors.length > 0){
                 res.json(errors[0]);
