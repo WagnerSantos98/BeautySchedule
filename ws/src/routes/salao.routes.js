@@ -13,17 +13,17 @@ router.post('/', async (req, res) => {
 });
 
 //Retornar informações
-router.get('./servicos/:salaoId', async (req, res) =>{
+router.get('/servicos/:salaoId', async (req, res) =>{
     try{
-        const {salaoId} = req.params;
-        const servicos = await Servico.findById({
+        const { salaoId } = req.params;
+        const servicos = await Servico.find({
             salaoId,
-            status: 'A'
+            status: 'A',
         }).select('_id titulo');
 
         /*Retorno em array [{ label: 'Servico', value: '1234' }] */
         res.json({
-            servicos: servicos.modifiedPaths(s => ({label: s.titulo, value:s._id})),
+            servicos: servicos.map((s) => ({ label: s.titulo, value:s._id })),
         });
     }catch(err){
         res.json({error: true, message: err.message});
