@@ -8,9 +8,19 @@ const horario = new Schema({
         ref: 'Salao',
         required: true
     },
-    especialiodades: String,
-    colaboradores: String,
-    dias: Number,
+    especialiodades: [{
+        type: mongoose.Types.ObjectId,
+        ref: 'Servico',
+        required: true
+    }],
+    colaboradores: [{
+        type: mongoose.Types.ObjectId,
+        ref: 'Colaborador',
+        required: true
+    }],
+    dias: {
+        type: [Number]
+    },
     inicio: Date,
     fim: Date,
     dataCadastro: {
