@@ -128,5 +128,15 @@ router.post('/delete-arquivo', async (req, res) => {
     }
 });
 
+//Rota de exclusão - Mudança de Status
+router.delete('/:id', async (req, res) => {
+    try{
+        const { id } = req.params;
+        await Servico.findByIdAndUpdate(id, {status: 'E'});
+        res.json({error: false});
+    }catch (err) {
+        res.json({error: true, message: err.message});
+    }
+});
 
 module.exports = router;
