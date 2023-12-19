@@ -19,7 +19,6 @@ const colaborador = new Schema({
     foto: String,
     dataNascimento: {
         type: String, //YYYY-MM-DD
-        required: true
     },
     status: {
         type: String,
@@ -27,7 +26,7 @@ const colaborador = new Schema({
         enum: ['A', 'I'],
         default: 'A'
     },
-    contaBancaria:{
+    /*contaBancaria:{
         titular: String,
         cpfCnpj: String,
         banco: String,
@@ -39,7 +38,7 @@ const colaborador = new Schema({
     recipientId:{
         type: String,
         required: false,
-    },
+    },*/
     dataCadastro:{
         type: Date,
         default: Date.now(),

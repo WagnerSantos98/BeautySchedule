@@ -12,6 +12,7 @@
   "dependencies": {
     "@turf/turf": "^6.5.0",
     "aws-sdk": "^2.1520.0",
+    "axios": "^1.6.2",
     "busboy": "^1.6.0",
     "busboy-body-parser": "^0.3.2",
     "connect-busboy": "^1.0.0",

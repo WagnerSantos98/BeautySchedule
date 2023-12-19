@@ -1,5 +1,5 @@
 
-Pargame
+Pagarme
 MongoDB
 Busboy
 Turf.js
