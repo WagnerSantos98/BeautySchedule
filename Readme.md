@@ -1,10 +1,10 @@
-
+Back-end
 Pagarme
 MongoDB
 Busboy
 Turf.js
 
-Front end
+Front-end
 ReactJS
 Redux
 Redux-Saga
