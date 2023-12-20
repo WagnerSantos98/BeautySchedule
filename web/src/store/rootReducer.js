@@ -5,5 +5,3 @@ import agendamento from './modules/agendamento/reducer';
 export default combineReducers({
     agendamento,
 });
-
-
