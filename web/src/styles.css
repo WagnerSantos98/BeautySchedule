@@ -60,9 +60,10 @@ sidebar ul li a{
     width: 100%;
     color: #fff;
     opacity: 0.6;
+    text-decoration: none;
     display: flex;
     align-items: center;
-    padding: 5px 0;
+    padding: 10px 5px;
     margin: 2.5px 0;
     transition: 0.5s;
     border-radius: 5px;
@@ -71,4 +72,30 @@ sidebar ul li a{
 sidebar ul li a.active{
     opacity: 1;
     background-color: rgba(0, 0, 0, 0.6);
+    text-decoration: underline;
+    text-decoration-color: var(--primary);
+    text-decoration-thickness: 1.5px;
+}
+
+sidebar ul li a.active .mdi{
+    color: var(--primary);
+}
+
+sidebar ul li a.visited, 
+sidebar ul li a:focus{
+    color: #fff;
+}
+
+sidebar ul li a:hover{
+    opacity: 1;
+    background-color: rgba(0, 0, 0, 0.6);
+}
+
+sidebar ul li a span.mdi{
+    font-size: 25px;
+    margin: 0 15px;
+}
+
+sidebar ul li a text{
+    font-size: 14px;
 }
