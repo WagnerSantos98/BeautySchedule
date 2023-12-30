@@ -3,9 +3,11 @@ import { Calendar, momentLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
 import { useDispatch } from 'react-redux';
+import 'moment/locale/pt-br.js';
 
 
 const localizer = momentLocalizer(moment);
+
 
 const Agendamentos = () => {
 
@@ -33,6 +35,20 @@ const Agendamentos = () => {
                             end: moment().add(90, 'minutes').toDate(),
                             }
                         ]}
+                        messages = {{
+                            allDay: "Hoje",
+                            previous: "Voltar",
+                            next: "Próximo",
+                            today: "Hoje",
+                            month: "Mês",
+                            week: "Semana",
+                            day: "Dia",
+                            agenda: "Agenda",
+                            date: "Data",
+                            time: "Hora",
+                            event: "Evento",
+                        }}
+                        
                         defaultView="week"
                         selectable
                         popup
