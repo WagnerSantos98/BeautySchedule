@@ -1,3 +1,8 @@
+#Sistema de agendamento para salão de beleza
+
+##Beauty Schedule
+
+#Tecnologia
 Back-end
 Pagarme
 MongoDB
@@ -8,3 +13,6 @@ Front-end
 ReactJS
 Redux
 Redux-Saga
+
+Mobile
+React-Native
