@@ -1,0 +1,28 @@
+{
+    "colors":{
+        "primary": "#7b2cbf",
+        "light": "#fff",
+        "success": "#66d6a0",
+        "danger": "#d62828",
+        "dark": "#21232f",
+        "muted": "#5e6171"
+    },
+    "fonts":{
+        "regular":{
+            "fontFamily": "Ubuntu-Regular",
+            "fontWeight": "normal"
+        },
+        "medium":{
+            "fontFamily": "Ubuntu-Medium",
+            "fontWeight": "normal"
+        },
+        "light":{
+            "fontFamily": "Ubuntu-Light",
+            "fontWeight": "normal"
+        },
+        "bold":{
+            "fontFamily": "Ubuntu-Bold",
+            "fontWeight": "normal"
+        }
+    }
+}
