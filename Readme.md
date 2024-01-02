@@ -5,14 +5,14 @@ Sistema de agendamento para salão de beleza
 
 ## Índice
 
-- <a href="#funcionalidades">Funcionalidades do Projeto</a>
+- <a href="#funcionalidades-do-projeto">Funcionalidades do Projeto</a>
 - <a href="#layout">Layout</a>
-- <a href="#diagrama">Diagrama de Classe de Uso</a>
-- <a href="#demonstracao">Demonstração</a>
-- <a href="#rodar">Como rodar o projeto?</a>
-- <a href="#tecnologias">Tecnologias Utilizadas</a>
-- <a href="#autores">Pessoas Autoras</a>
-- <a href="#passos">Próximos Passos</a>
+- <a href="#diagrama-de-classe-de-uso">Diagrama de Classe de Uso</a>
+- <a href="#demonstração">Demonstração</a>
+- <a href="#como-rodar-o-projeto">Como rodar o projeto?</a>
+- <a href="#tecnologias-utilizadas">Tecnologias Utilizadas</a>
+- <a href="#pessoas-autoras">Pessoas Autoras</a>
+- <a href="#próximos-passos">Próximos Passos</a>
 
 ## Funcionalidades do Projeto
 
