@@ -22,3 +22,11 @@ const INITIAL_STATE ={
         agendamentoLoading: false,
     },
 };
+
+function salao(state = INITIAL_STATE, action){
+    switch(action.types){
+        default: return state;
+    }
+}
+
+export default salao;
