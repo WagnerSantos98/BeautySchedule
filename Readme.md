@@ -7,7 +7,7 @@ Sistema de agendamento para salão de beleza
 
 - <a href="#funcionalidades-do-projeto">Funcionalidades do Projeto</a>
 - <a href="#layout">Layout</a>
-- <a href="#diagrama-de-classe-de-uso">Diagrama de Classe de Uso</a>
+- <a href="#diagrama-de-classe">Diagrama de Classe</a>
 - <a href="#demonstração">Demonstração</a>
 - <a href="#como-rodar-o-projeto">Como rodar o projeto?</a>
 - <a href="#tecnologias-utilizadas">Tecnologias Utilizadas</a>
@@ -20,7 +20,8 @@ Sistema de agendamento para salão de beleza
 
 ## Layout
 
-## Diagrama de Classe de Uso
+## Diagrama de Classe
+<img src="./assets/Diagrama_Classe.png">
 
 ## Demonstração
 
