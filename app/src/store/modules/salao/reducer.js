@@ -1,5 +1,6 @@
 import types from './types';
 import produce from 'immer';
+import consts from '../../../consts';
 
 const INITIAL_STATE ={
     salao: {},
@@ -16,7 +17,7 @@ const INITIAL_STATE ={
     form:{
         inputFiltro: '',
         inputFiltroFoco: false,
-        modalEspecialistas: false,
+        modalEspecialista: false,
         modalAgendamento: 0,
         agendamentoLoading: false,
     },
