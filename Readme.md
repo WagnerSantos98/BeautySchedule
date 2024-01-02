@@ -16,9 +16,9 @@ Sistema de agendamento para salão de beleza
 
 ## Funcionalidades do Projeto
 
+- [x] Login
 - [x] Cadastro do estabelecimento
 - [x] Cadastro de cliente
-- [x] Login
 - [x] Agendamento de horário
 - [x] Serviços prestados
 - [x] Colaboradores de acordo com cada área de atuação
