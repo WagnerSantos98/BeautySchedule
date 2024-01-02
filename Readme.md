@@ -27,6 +27,13 @@ Sistema de agendamento para salão de beleza
 
 ## Como rodar o projeto?
 
+```bash
+
+
+
+```
+
+
 ## Tecnologias Utilizadas
 
 ### Web e Web Service
