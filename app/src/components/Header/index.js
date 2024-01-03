@@ -14,7 +14,7 @@ const Header = () => {
             >
                 <Badge color="success">ABERTO</Badge>
                 <Title color="light">Salão Teste</Title>
-                <Text>Bragança Paulista • 5.2Kms</Text>
+                <Text color="light">Bragança Paulista • 5.2Kms</Text>
             </GradientView>
             </Cover>
     );

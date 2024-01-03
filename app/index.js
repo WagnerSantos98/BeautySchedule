@@ -9,12 +9,12 @@ import { DefaultTheme, configureFonts, Proveider as PaperProveider} from 'react-
 import store from './src/store';
 
 const theme = {
-    ...DefaultTheme,
+    ... DefaultTheme,
     fonts: configureFonts({
         ios: fonts,
         android: fonts,
-    })
-}
+    }),
+};
 
 const App = () => {
     return (

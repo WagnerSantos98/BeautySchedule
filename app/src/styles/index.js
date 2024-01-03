@@ -55,7 +55,7 @@ export const Title = styled(TitlePaper)`
 export const Text = styled(TextPaper)`
     color: ${(props) => theme.colors[props.color || 'muted']};
     font-size: ${(props) => (props.small ? '13px' : '17px')};
-    font-family: ${(props) => (props.bold ? 'Ubuntu-Bold' : 'Ubuntu-Light')};
+    font-family: ${(props) => (props.bold ? 'Poppins-Bold' : 'Poppins-Light')};
     margin: ${(props) => props.spacing || 0};
     padding: ${(props) => (props.hasPadding ? '20px' : '0px')};
 `;
