@@ -1,5 +1,6 @@
 import styled from "styled-components/native";
 import theme from './theme.json';
+import util from '../util';
 
 import{
     Text as TextPaper,
@@ -11,6 +12,7 @@ import{
 
 import LinearGradient from "react-native-linear-gradient";
 
+//Container para inserção de botões de ações
 export const Box = styled.View`
     flex: 1;
     flex-wap: ${(props) => props.wrap || 'nowrap'};
@@ -19,12 +21,26 @@ export const Box = styled.View`
     align-items: ${(props) => props.align || 'flex-start'};
     width: ${(props) => props.width || '100%'};
     height: ${(props) => props.height || 'auto'};
+    max-height: ${(props) => props.height || 'auto'};
     padding: ${(props) => (props.hasPadding ? '20px' : '0px')};
     padding-bottom: ${(props) => props.removePaddingBottom ? '0' : props.hasPadding ? '20px' : '0px'};
     margin: ${(props) => props.spacing|| 0};
     border-radius: ${(props) => props.radius || 0};
     border: ${(props) => props.border || 'none'};
     background: ${(props) => theme.colors[props.background] || props.background || 'transparent'};
+`;
+
+export const Touchable = styled.TouchableOpacity`
+    flex-direction: ${(props) => props.direction || 'row'};
+    justify-content: ${(props) => props.justify || 'flex-start'};
+    align-items: ${(props) => props.align || 'flex-start'};
+    width: ${(props) => props.width || '100%'};
+    height: ${(props) => props.height || 'auto'};
+    padding: ${(props) => (props.hasPadding ? '20px' : '0px')};
+    margin: ${(props) => props.spacing || 0};
+    background: ${(props) => theme.colors[props.background] || props.background || 'transparent'};
+    border-radius: ${(props) => props.rounded || 0};
+    border: ${(props) => props.border || 'none'};
 `;
 
 export const Cover = styled.ImageBackground.attrs((props) => ({
@@ -74,4 +90,27 @@ export const Text = styled(TextPaper)`
     font-family: ${(props) => (props.bold ? 'Poppins-Bold' : 'Poppins-Light')};
     margin: ${(props) => props.spacing || 0};
     padding: ${(props) => (props.hasPadding ? '20px' : '0px')};
+`;
+
+export const Button = styled(ButtonPaper).attrs((props) => ({   
+    color: theme.colors[props.background] || props.background,
+    width: props.block ? '100%' : 'auto',
+    labelStyle: {
+        color: theme.colors[props.textColor || 'light'],
+        letterSpacing: 0,
+    },
+}))``;
+
+export const TextInput = styled(TextInputPaper).attrs({
+    mode: 'outlined',
+    theme:{
+        colors:{
+            placeholder: util.toAlpha(theme.colors.muted, 30),
+        },
+    },
+})`
+    height: 45px;
+    width: 100%;
+    font-size: 15px;
+    background: ${theme.colors.light};
 `;
