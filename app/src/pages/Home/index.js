@@ -8,7 +8,7 @@ const Home = () => {
     return(
         <FlatList
             style={{
-                backgroundColor: util.toAlpha(theme.colors.muted)
+                backgroundColor: util.toAlpha(theme.colors.muted, 10)
             }} 
             ListEmptyComponent={Header}
             data={[]}
