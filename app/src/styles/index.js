@@ -11,6 +11,22 @@ import{
 
 import LinearGradient from "react-native-linear-gradient";
 
+export const Box = styled.View`
+    flex: 1;
+    flex-wap: ${(props) => props.wrap || 'nowrap'};
+    flex-direction: ${(props) => props.direction || 'row'};
+    justify-content: ${(props) => props.justify || 'flex-start'};
+    align-items: ${(props) => props.align || 'flex-start'};
+    width: ${(props) => props.width || '100%'};
+    height: ${(props) => props.height || 'auto'};
+    padding: ${(props) => (props.hasPadding ? '20px' : '0px')};
+    padding-bottom: ${(props) => props.removePaddingBottom ? '0' : props.hasPadding ? '20px' : '0px'};
+    margin: ${(props) => props.spacing|| 0};
+    border-radius: ${(props) => props.radius || 0};
+    border: ${(props) => props.border || 'none'};
+    background: ${(props) => theme.colors[props.background] || props.background || 'transparent'};
+`;
+
 export const Cover = styled.ImageBackground.attrs((props) => ({
     source: {
         uri: props.image,
