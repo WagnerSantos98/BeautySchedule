@@ -5,18 +5,22 @@ import util from '../../util';
 
 import Header  from '../../components/Header';
 import Servico  from '../../components/Servico';
+import ModalAgendamento from '../../components/ModalAgendamento';
 
 const Home = () => {
     return(
-        <FlatList
-            style={{
-                backgroundColor: util.toAlpha(theme.colors.light)
-            }} 
-            ListHeaderComponent={Header}
-            data={['a', 'b', 'c', 'd', 'e']}
-            renderItem={({item}) => <Servico key={item}/>}
-            keyExtractor={(item) => item}
-        />
+        <>
+            <FlatList
+                style={{
+                    backgroundColor: util.toAlpha(theme.colors.light)
+                }} 
+                ListHeaderComponent={Header}
+                data={['a', 'b', 'c', 'd', 'e']}
+                renderItem={({item}) => <Servico key={item}/>}
+                keyExtractor={(item) => item}
+            />
+            <ModalAgendamento/>
+        </>
     );
 }
 
