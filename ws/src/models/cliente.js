@@ -25,7 +25,7 @@ const cliente = new Schema({
     },
     dataNascimento: {
         type: String, //YYYY-MM-DD
-        required: true
+        required: false
     },
     documento:{
         tipo:   {
