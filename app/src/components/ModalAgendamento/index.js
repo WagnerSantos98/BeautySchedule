@@ -9,8 +9,7 @@ const ModalAgendamento = () => {
         <GestureHandlerRootView>
             <BottomSheet
             initialSnap={1}
-            snapPoints={[2, 70, Dimensions.get('screen').height - 30]}
-            enablePanDownToClose={true}
+            snapPoints={[30, 70, Dimensions.get('window').height - 30]}
             renderContent={() => (
                 <ScrollView style={{backgroundColor: '#fff'}}>
                     <ModalHeader/>
