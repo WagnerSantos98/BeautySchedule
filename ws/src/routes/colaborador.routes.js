@@ -76,6 +76,10 @@ router.post('/', async (req, res) => {
 
 router.put('/:colaboradorId', async (req, res) => {
     try{
+        const { vinculo, vinculoId, especialidades } = req.body;
+        const { colaboradorId } = req.params;
+
+        //Vinculo
         
     }catch(err){
         res.json({ error: true, message: err.message })
