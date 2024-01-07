@@ -48,7 +48,7 @@ router.post('/', async (req, res) => {
 
         //Se já existir um vinculo colaborador/salão
         if(existentColaborador){
-            const existentRelatioship = await SalaoColaborador.findOneAndUpdate({
+            await SalaoColaborador.findOneAndUpdate({
                 salaoId,
                 colaboradorId,
             }, 
