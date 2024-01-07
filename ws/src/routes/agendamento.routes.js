@@ -1,6 +1,7 @@
 const express = require('express');
 const router = express.Router();
 const moment = require('moment');
+const _ = require('loadsh');
 
 const Cliente = require('../models/cliente');
 const Salao = require('../models/salao');
@@ -158,13 +159,23 @@ router.post('/dias-disponiveis', async (req, res) => {
                         final: moment(agendamento.data).add(util.hourToMinutes(moment(agendamento.servicoId.duracao).format('HH:mm'), 'minutes'))
                     }));
 
-                    //Recuperar todos os espações entre os agendamentos
+                    //Recuperar todos os slots entre os agendamentos
                     horariosOcupados = horariosOcupados.map((horario) => util.sliceMinutes(horario.inicio, horario.final, util.SLOT_DURATION)).flat();
 
-                    //Removendo todo os horarios/ espaços ocupados
-                    todosHorariosDia = util.splitByValue(todosHorariosDia[colaboradorId].map((horarioLivre) => {
+                    //Removendo todo os horarios/ slot ocupados
+                    let horariosLivres = util.splitByValue(todosHorariosDia[colaboradorId].map((horarioLivre) => {
                         return horariosOcupados.includes(horarioLivre) ? '-' : horarioLivre;
                     }), '-').filter(space => space.length > 0);
+
+                    //Verificando se existe espaço suficiente no slot
+                    horariosLivres = horariosLivres.filter((horarios) => horarios.length >= servicoSlots);
+
+                    //Verificando se os horários dentro do slot tem a continuidade necessária
+                    horariosLivres = horariosLivres.map((slot) => slot.filter((horario, index) => slot.length - index >= servicoSlots)).flat();
+
+                    horariosLivres = _.chunk(horariosLivres, 2);
+
+                    todosHorariosDia[colaboradorId] = horariosLivres;
 
                 }
 
