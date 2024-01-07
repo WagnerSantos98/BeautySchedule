@@ -4,6 +4,7 @@ const Colaborador = require('../models/colaborador');
 const SalaoColaborador = require('../models/relationship/salaoColaborador');
 const ColaboradorServico = require('../models/relationship/colaboradorServico');
 
+//Inserção de colaborador
 router.post('/', async (req, res) => {
     try{
 
@@ -74,16 +75,34 @@ router.post('/', async (req, res) => {
     }
 });
 
+//Atualização de colaborador
 router.put('/:colaboradorId', async (req, res) => {
     try{
         const { vinculo, vinculoId, especialidades } = req.body;
         const { colaboradorId } = req.params;
 
         //Vinculo
+        await SalaoColaborador.findByIdAndUpdate(vinculoId, { status: vinculo });
+
+        //Especialidades
+        await ColaboradorServico.deleteMany({
+            colaboradorId,
+        });
+
+        await ColaboradorServico.insertMany(
+            especialidades.map(servicoId => ({
+                servicoId,
+                colaboradorId,
+            }))
+        );
+
+        res.json({ error: false });
         
     }catch(err){
         res.json({ error: true, message: err.message })
     }
 });
+
+//
 
 module.exports = router;
