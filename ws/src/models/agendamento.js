@@ -29,11 +29,11 @@ const agendamento = new Schema({
     },
     comissao:{
         type: Number,
-        required: true
+        required: false
     },
     valor:{
         type: Number,
-        required: true
+        required: false
     },
     transactionId:{
         type: String,
