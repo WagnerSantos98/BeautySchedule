@@ -1,5 +1,6 @@
 const express = require('express');
 const router = express.Router();
+const moment = require('moment');
 
 const Cliente = require('../models/cliente');
 const Salao = require('../models/salao');
@@ -39,6 +40,23 @@ router.post('/', async (req, res) => {
 
         res.json({ error: false, agendamento });
     } catch (err) {
+        res.json({ error: true, message: err.message });
+    }
+});
+
+//Filtro de data dentro de um período determinado
+router.post('/filter', async (req, res) => {
+    try{
+        const { periodo, salaoId } = req.body;
+        const agendamentos = await Agendamento.find({
+            status: 'A',
+            salaoId,
+            data:{
+                $gte: moment(periodo.inicio).startOf('day'),
+            }
+        })
+
+    }catch(err){
         res.json({ error: true, message: err.message });
     }
 });
