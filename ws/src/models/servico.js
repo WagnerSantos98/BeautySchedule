@@ -10,7 +10,7 @@ const servico = new Schema({
     },
     titulo: String,
     preco: Number,
-    duracaio: Number, // Duração em minutos
+    duracao: Date, // Duração em minutos
     comissao: Number, //% de comissão sobre o preço
     recorrencia: Number, // Perído de rafação do serviço em dias
     descricao: String,
