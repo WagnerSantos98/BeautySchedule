@@ -113,4 +113,54 @@ router.delete('/vinculo/:id', async (req, res) => {
     }
 });
 
+//Rota de filtro
+router.post('/filter', async (req, res) => {
+    try{
+        const colaboradores = await Colaborador.find(req.body.filters);
+        res.json({ error: false, colaboradores});
+    }catch(err){
+        res.json({ error: true, message: err.message });
+    }
+});
+
+router.get('/salao/:salaoId', async (req, res) => {
+    try{
+        const { salaoId } = req.params;
+        const listaColaboradores = [];
+
+        //Recuperar vinculos
+        const salaoColaboradores = await SalaoColaborador.find({
+            salaoId,
+            status: { $ne: 'E' }
+        })
+        .populate('colaboradorId')
+        .select('colaboradorId dataCadastro status');
+
+        for(let vinculo of salaoColaboradores){
+            const especialidades = await ColaboradorServico.find({
+                colaboradorId: vinculo.colaboradorId._id
+            });
+
+            listaColaboradores.push({
+                ...vinculo._doc,
+                especialidades,
+            })
+        }
+
+        res.json({
+            error: false,
+            colaboradores: listaColaboradores.map((vinculo) => ({
+                ...vinculo.colaboradorId._doc,
+                vinculoId: vinculo._id,
+                vinculo: vinculo.status,
+                especialidades: vinculo.especialidades,
+                dataCadastro: vinculo.dataCadastro
+            })),
+        });
+
+    }catch(err){
+        res.json({ error: true, message: err.message });
+    }
+});
+
 module.exports = router;
