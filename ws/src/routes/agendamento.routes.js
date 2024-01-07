@@ -82,6 +82,7 @@ router.post('/dias-disponiveis', async (req, res) => {
         const servico = await Servico.findById(servicoId).select('duracao');
 
         let agenda = [];
+        let colaboradores = [];
         let lastDay = moment(data);
 
         //Duração do serviço
@@ -173,19 +174,44 @@ router.post('/dias-disponiveis', async (req, res) => {
                     //Verificando se os horários dentro do slot tem a continuidade necessária
                     horariosLivres = horariosLivres.map((slot) => slot.filter((horario, index) => slot.length - index >= servicoSlots)).flat();
 
+                    //Formatando horários de 2 em 2
                     horariosLivres = _.chunk(horariosLivres, 2);
 
-                    todosHorariosDia[colaboradorId] = horariosLivres;
+                    //Remover colaborador caso não tenha nenhum espaço
+                    if(horariosLivres.length === 0){
+                        todosHorariosDia = _.omit(todosHorariosDia, colaboradorId);
+                    }else{
+                        todosHorariosDia[colaboradorId] = horariosLivres;
+                    }
 
                 }
 
-                agenda.push({[lastDay.format('YYYY-MM-DD')]: todosHorariosDia});
+                //Verificar se tem especialista disponível naquele dia
+                const totalEspecialistyas = Object.keys(todosHorariosDia).length;
+
+                if(totalEspecialistyas > 0){
+                    colaboradores.push(Object.keys(todosHorariosDia));
+                    agenda.push({[lastDay.format('YYYY-MM-DD')]: todosHorariosDia});
+                }
+
             }
 
             lastDay = lastDay.add(1, 'day');
         }
 
-        res.json({ error: false, agenda});
+        //Recuperando dados dos colaboradores
+        colaboradores = _.uniq(colaboradores.flat());
+
+        colaboradores = await Colaborador.find({
+            _id: { $in: colaboradores },
+        }).select('nome foto');
+
+        colaboradores = colaboradores.map((c) => ({
+            ...c._doc,
+            nome: c.nome.split(' ')[0],
+        }))
+
+        res.json({ error: false, colaboradores, agenda});
 
     }catch(err){
         res.json({ error: true, message: err.message });
