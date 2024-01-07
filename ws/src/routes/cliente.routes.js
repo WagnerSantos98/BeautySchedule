@@ -1,7 +1,6 @@
 const express = require('express');
 const router = express.Router();
 const Cliente = require('../models/cliente');
-const Salao = require('../models/salao');
 const SalaoCliente = require('../models/relationship/salaoCliente');
 
 //Método de inserção de cliente
