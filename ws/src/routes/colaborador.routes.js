@@ -103,6 +103,14 @@ router.put('/:colaboradorId', async (req, res) => {
     }
 });
 
-//
+//Exclusão de colaborador
+router.delete('/vinculo/:id', async (req, res) => {
+    try{
+        await SalaoColaborador.findByIdAndUpdate(req.params.id, { status: 'E' });
+        res.json({ error: false });
+    }catch(err){
+        res.json({ error: true, message: err.message });
+    }
+});
 
 module.exports = router;
