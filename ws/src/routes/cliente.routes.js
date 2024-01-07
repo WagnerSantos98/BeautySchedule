@@ -11,7 +11,7 @@ router.post('/', async (req, res) => {
         const { cliente, salaoId } = req.body;
         let newCliente = null;
 
-        //Verificar se o colaborador existe
+        //Verificar se o cliente existe
         const existentCliente = await Cliente.findOne({
             $or: [
                 { email: cliente.email },
@@ -20,14 +20,14 @@ router.post('/', async (req, res) => {
             
         });
 
-        //Se não existir o colaborador
+        //Se não existir o cliente
         if(!existentCliente){
             newCliente = await Cliente({
                 ...cliente,
             }).save();
         }
 
-        //Relacionamento Colaborador/Salão
+        //Relacionamento cliente/Salão
         const clienteId = existentCliente ? existentCliente._id : newCliente._id;
 
         //Verificar se existe o relacionamento com salão
@@ -45,7 +45,7 @@ router.post('/', async (req, res) => {
             }).save();
         }
 
-        //Se já existir um vinculo colaborador/salão
+        //Se já existir um vinculo cliente/salão
         if(existentCliente){
             await SalaoCliente.findOneAndUpdate({
                 salaoId,
