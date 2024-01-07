@@ -8,6 +8,7 @@ const Servico = require('../models/servico');
 const Colaborador = require('../models/colaborador');
 const Agendamento = require('../models/agendamento');
 
+//Inserção de agendamento
 router.post('/', async (req, res) => {
     try {
         const { clienteId, salaoId, servicoId, colaboradorId, data, valor } = req.body;
@@ -49,16 +50,28 @@ router.post('/filter', async (req, res) => {
     try{
         const { periodo, salaoId } = req.body;
         const agendamentos = await Agendamento.find({
-            status: 'A',
             salaoId,
             data:{
                 $gte: moment(periodo.inicio).startOf('day'),
+                $lte: moment(periodo.final).endOf('day'),
             }
         })
+        .populate([
+            { path: 'servicoId', select: 'titulo duracao'},
+            { path: 'colaboradorId', select: 'nome'},
+            { path: 'clienteId', select: 'nome'}
+        ]);
+
+        res.json({ error: false, agendamentos});
 
     }catch(err){
         res.json({ error: true, message: err.message });
     }
 });
+
+//Rota de verificação de serviço disponível no dia e horário
+
+
+
 
 module.exports = router;
