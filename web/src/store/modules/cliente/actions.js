@@ -6,9 +6,9 @@ export function allClientes(){
     };
 }
 
-export function updateClientes(payload){
+export function updateCliente(payload){
     return {
-        type: types.UPDATE_CLIENTES,
+        type: types.UPDATE_CLIENTE,
         payload
     };
 }

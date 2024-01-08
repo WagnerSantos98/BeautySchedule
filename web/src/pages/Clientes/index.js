@@ -1,18 +1,23 @@
 import { useEffect } from 'react';
-import { Button } from 'rsuite';
+import { Button, Drawer } from 'rsuite';
 import Table from '../../components/Table';
 import moment from 'moment';
-import { mockUsers } from './mock'; //Dados fakes para simulação
 import 'rsuite/dist/rsuite.css';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { allClientes } from '../../store/modules/cliente/actions'
+import { allClientes, updateCliente } from '../../store/modules/cliente/actions'
 
 
 const Clientes = () => {
 
     const dispatch = useDispatch();
-    const { clientes } = useSelector((state) => state.clientes);
+    const { clientes, form, components } = useSelector((state) => state.cliente);
+
+    const setComponent = (component, state) => {
+        dispatch(updateCliente({
+            components: { ...components, [component]: state }
+        }));
+    } 
 
     useEffect(() => {
         dispatch(allClientes());
@@ -20,17 +25,40 @@ const Clientes = () => {
 
     return(
         <div className="col p-5 overflow-auto h-100">
+            <Drawer 
+            show={components.drawer} 
+            size="sm" 
+            onHide={() => { 
+                console.log('Teste');
+                setComponent('drawer', false)}}
+            >
+                <Drawer.Body>
+
+                </Drawer.Body>
+            </Drawer>
+
             <div className="row">
                 <div className="col-12">
                     <div className="w-100 d-flex justify-content-between">
                         <h2 className="mb-4 mt-0">Clientes</h2>
                         <div>
-                            <button className="btn btn-primary btn-lg">
+                            <button 
+                                className="btn btn-primary btn-lg"
+                                onClick={()=> {
+                                    console.log('Hiding drawer');
+                                    dispatch(updateCliente({
+                                        behavior: 'create',
+                                    }));
+
+                                    setComponent('drawer', true)
+                                }}
+                            >
                                 <span className="mdi mdi-plus">Novo Cliente</span>
                             </button>
                         </div>
                     </div>
-                    <Table 
+                    <Table
+                    loading={form.filtering}
                     data={clientes}
                     config={[
                         { label: 'Nome', key: 'nome', width: 200, fixed: true},
@@ -41,7 +69,7 @@ const Clientes = () => {
                     actions={(cliente) => (
                         <Button color="primary" size="xs">Exibir informações</Button>
                     )}
-                    onRowClick={(cliente) => {alert(cliente.firstName)}}
+                    onRowClick={(cliente) => {alert(cliente.nome)}}
                     />
                 </div>
             </div>
