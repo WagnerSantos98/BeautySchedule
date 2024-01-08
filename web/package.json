@@ -3,6 +3,7 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "@faker-js/faker": "^8.3.1",
     "@redux-devtools/core": "^4.0.0",
     "@redux-devtools/extension": "^3.3.0",
     "@testing-library/jest-dom": "^5.17.0",
@@ -23,6 +24,7 @@
     "react-scripts": "5.0.1",
     "redux": "^5.0.0",
     "redux-saga": "^1.2.3",
+    "rsuite": "^5.49.0",
     "stream-browserify": "^3.0.0",
     "url": "^0.11.3",
     "util": "^0.12.5",
