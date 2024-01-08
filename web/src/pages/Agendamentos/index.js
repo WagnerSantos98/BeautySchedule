@@ -23,6 +23,22 @@ const Agendamentos = () => {
             start: moment(agendamento.data).toDate(), 
             end: moment(agendamento.data).add(util.hourToMinutes(moment(agendamento.servicoId.duracao).format('HH:mm')), 'minutes').toDate(),
     }));
+    
+    const formatRange = (periodo) => {
+        let finalRange = {};
+        if(Array.isArray(periodo)) {
+            finalRange = {
+                start: moment(periodo[0]).format('YYYY-MM-DD'),
+                end: moment(periodo[periodo.length - 1]).format('YYYY-MM-DD'),
+            };
+        }else{
+            finalRange = {
+                start: moment(periodo.start).format('YYYY-MM-DD'),
+                end: moment(periodo.end).format('YYYY-MM-DD'),
+            };
+        }
+        return finalRange;
+    }
 
     useEffect(() =>{
         dispatch(filterAgendamentos(
@@ -38,6 +54,10 @@ const Agendamentos = () => {
                     <h2 className="mb-4 mt-0">Agendamentos</h2>
                     <Calendar
                         localizer={localizer}
+                        onRangeChange={(periodo) => {
+                            const { start, end } = formatRange(periodo)
+                            dispatch(filterAgendamentos(start, end));
+                        }}
                         events={formatEventos}
                         messages = {{
                             allDay: "Hoje",
