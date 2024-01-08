@@ -2,10 +2,12 @@ import { useEffect } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
-import { useDispatch} from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { filterAgendamentos } from '../../store/modules/agendamento/actions';
+import util from '../../util';
 
 import 'moment/locale/pt-br.js';
+
 
 
 const localizer = momentLocalizer(moment);
@@ -14,6 +16,13 @@ const localizer = momentLocalizer(moment);
 const Agendamentos = () => {
 
     const dispatch = useDispatch();
+    const { agendamentos } = useSelector((state) => state.agendamento)
+
+    const formatEventos = agendamentos.map((agendamento) => ({
+            title: `${agendamento.servicoId.titulo} - ${agendamento.clienteId.nome} - ${agendamento.colaboradorId.nome}`, 
+            start: moment(agendamento.data).toDate(), 
+            end: moment(agendamento.data).add(util.hourToMinutes(moment(agendamento.servicoId.duracao).format('HH:mm')), 'minutes').toDate(),
+    }));
 
     useEffect(() =>{
         dispatch(filterAgendamentos(
@@ -29,13 +38,7 @@ const Agendamentos = () => {
                     <h2 className="mb-4 mt-0">Agendamentos</h2>
                     <Calendar
                         localizer={localizer}
-                        events={[
-                            {
-                            title: "Evento Teste", 
-                            start: moment().toDate(), 
-                            end: moment().add(90, 'minutes').toDate(),
-                            }
-                        ]}
+                        events={formatEventos}
                         messages = {{
                             allDay: "Hoje",
                             previous: "Voltar",

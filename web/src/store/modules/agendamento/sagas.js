@@ -6,7 +6,7 @@ import consts from '../../../consts';
 
 export function* filterAgendamento({ start, end }){
     try{
-        const res = yield call(api.post, '/agendamento/filter', {
+        const {data: res} = yield call(api.post, '/agendamento/filter', {
             salaoId: consts.salaoId,
             periodo:{
                 inicio: start,
@@ -14,16 +14,15 @@ export function* filterAgendamento({ start, end }){
             },
         
         });
-        console.log(res.data);
-        /*if(res.error){
+        if(res.error){
             alert(res.message);
             return false;
         }
 
-        yield put(updateAgendamento(res.agendamentos));*/
+        yield put(updateAgendamento(res.agendamentos));
     }catch(err){
         alert(err.message);
     }
 }
 
-export default all([takeLatest('@agendamento/FILTER', filterAgendamento)]);
+export default all([takeLatest(types.FILTER_AGENDAMENTOS, filterAgendamento)]);
