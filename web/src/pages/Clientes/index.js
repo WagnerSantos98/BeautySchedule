@@ -1,11 +1,23 @@
-import { Table, Button } from 'rsuite';
+import { useEffect } from 'react';
+import { Button } from 'rsuite';
+import Table from '../../components/Table';
+import moment from 'moment';
 import { mockUsers } from './mock'; //Dados fakes para simulação
 import 'rsuite/dist/rsuite.css';
 
-const { HeaderCell , Column, Cell} = Table;
-const data = mockUsers(20);
+import { useDispatch, useSelector } from 'react-redux';
+import { allClientes } from '../../store/modules/cliente/actions'
+
 
 const Clientes = () => {
+
+    const dispatch = useDispatch();
+    const { clientes } = useSelector((state) => state.clientes);
+
+    useEffect(() => {
+        dispatch(allClientes());
+    },[]);
+
     return(
         <div className="col p-5 overflow-auto h-100">
             <div className="row">
@@ -18,58 +30,19 @@ const Clientes = () => {
                             </button>
                         </div>
                     </div>
-                    <Table
-                    height={400}
-                    data={data}
-                    onRowClick={data => {
-                        console.log(data);
-                    }}
-                    >
-                        <Column width={60} align="center" fixed>
-                            <HeaderCell>Id</HeaderCell>
-                            <Cell dataKey="id" />
-                        </Column>
-                        <Column width={150}>
-                            <HeaderCell>First Name</HeaderCell>
-                            <Cell dataKey="firstName" />
-                        </Column>
-
-                        <Column width={150}>
-                            <HeaderCell>Last Name</HeaderCell>
-                            <Cell dataKey="lastName" />
-                        </Column>
-
-                        <Column width={100}>
-                            <HeaderCell>Gender</HeaderCell>
-                            <Cell dataKey="gender" />
-                        </Column>
-
-                        <Column width={100}>
-                            <HeaderCell>Age</HeaderCell>
-                            <Cell dataKey="age" />
-                        </Column>
-
-                        <Column width={150}>
-                            <HeaderCell>Postcode</HeaderCell>
-                            <Cell dataKey="postcode" />
-                        </Column>
-
-                        <Column width={300}>
-                            <HeaderCell>Email</HeaderCell>
-                            <Cell dataKey="email" />
-                        </Column>
-                        <Column width={80} fixed="right">
-                            <HeaderCell>...</HeaderCell>
-
-                            <Cell style={{ padding: '6px' }}>
-                            {rowData => (
-                                <Button appearance="link" onClick={() => alert(`id:${rowData.id}`)}>
-                                Edit
-                                </Button>
-                            )}
-                            </Cell>
-                        </Column>
-                    </Table>
+                    <Table 
+                    data={clientes}
+                    config={[
+                        { label: 'Nome', key: 'nome', width: 200, fixed: true},
+                        { label: 'Email', key: 'email', width: 200},
+                        { label: 'Telefone', key: 'telefone', width: 200},
+                        { label: 'Data Cadastro', content: (cliente) => moment(cliente.dataCadastro).format('DD/MM/YYYY'), width: 200},
+                    ]}
+                    actions={(cliente) => (
+                        <Button color="primary" size="xs">Exibir informações</Button>
+                    )}
+                    onRowClick={(cliente) => {alert(cliente.firstName)}}
+                    />
                 </div>
             </div>
         </div>
