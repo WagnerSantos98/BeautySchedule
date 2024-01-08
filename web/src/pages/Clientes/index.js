@@ -28,7 +28,7 @@ const Clientes = () => {
             <Drawer 
             show={components.drawer} 
             size="sm" 
-            onHide={() => { 
+             onHide={() => { 
                 console.log('Teste');
                 setComponent('drawer', false)}}
             >

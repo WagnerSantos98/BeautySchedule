@@ -2,7 +2,7 @@ import { produce } from 'immer';
 import types from './types';    
 
 const INITIAL_STATE = {
-    behavior: "create", //Comportamento para criação ou Update 
+    behavior: 'create', //Comportamento para criação ou Update 
     components: {
         drawer: false,
         confirmDelete: false,
