@@ -2,7 +2,9 @@ import { useEffect } from 'react';
 import { Calendar, momentLocalizer } from 'react-big-calendar';
 import 'react-big-calendar/lib/css/react-big-calendar.css';
 import moment from 'moment';
-import { useDispatch } from 'react-redux';
+import { useDispatch} from 'react-redux';
+import { filterAgendamentos } from '../../store/modules/agendamento/actions';
+
 import 'moment/locale/pt-br.js';
 
 
@@ -14,11 +16,10 @@ const Agendamentos = () => {
     const dispatch = useDispatch();
 
     useEffect(() =>{
-        dispatch({
-            type: '@agendamento/FILTER',
-            start: moment().weekday(0).format('YYYY-MM-DD'),
-            end: moment().weekday(6).format('YYYY-MM-DD')
-        })
+        dispatch(filterAgendamentos(
+            moment().weekday(0).format('YYYY-MM-DD'),
+            moment().weekday(6).format('YYYY-MM-DD')
+        ));
     }, []);
 
     return (
