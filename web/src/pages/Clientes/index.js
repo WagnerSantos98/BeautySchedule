@@ -6,17 +6,24 @@ import moment from 'moment';
 import 'rsuite/dist/rsuite.css';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { allClientes, updateCliente } from '../../store/modules/cliente/actions'
+import { allClientes, updateCliente, filterClientes } from '../../store/modules/cliente/actions'
 
 const Clientes = () => {
 
     const dispatch = useDispatch();
-    const { clientes, form, components } = useSelector((state) => state.cliente);
+    const { clientes, cliente, form, components, behavior } = useSelector((state) => state.cliente);
 
     const setComponent = (component, state) => {
         dispatch(updateCliente({
             components: { ...components, [component]: state }, 
         }));
+    };
+
+    const setCliente = (key, value) => {
+        dispatch(
+            updateCliente({
+                cliente: { ...cliente, [key]: value },
+            }));
     }
 
     useEffect(() => {
@@ -37,7 +44,33 @@ const Clientes = () => {
             }}
             >
                 <Drawer.Body>
-
+                    <h3>{behavior === 'create' ? 'Criar novo' : 'Atulizar' } cliente</h3>
+                    <div className="form-group mb-3">
+                        <b>Email</b>
+                        <div className="input-group">
+                        <input 
+                            type="email" 
+                            className="form-control" 
+                            placeholder="Email do cliente" 
+                            value={cliente.email}
+                            onChange={(e) => {
+                                setCliente('email', e.target.value);
+                            }}
+                        />
+                        <div className="input-group-append">
+                            <Button 
+                                appearance="primary" 
+                                loading={form.filtering}
+                                disabled={form.filtering}
+                                onClick={() => {
+                                    dispatch(filterClientes())
+                                }} 
+                            >
+                                Pesquisar
+                            </Button>
+                        </div>
+                        </div>
+                    </div>
                 </Drawer.Body>
             </Drawer>
 
@@ -52,7 +85,7 @@ const Clientes = () => {
                                     console.log("Click");
                                     dispatch(
                                         updateCliente({
-                                            behavior: "create",
+                                            behavior: 'create',
                                         })
                                     );
                                     setComponent('drawer', true);

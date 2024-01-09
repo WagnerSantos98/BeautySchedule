@@ -12,3 +12,9 @@ export function updateCliente(payload){
         payload
     };
 }
+
+export function filterClientes(){
+    return {
+        type: types.FILTER_CLIENTES,
+    };
+}
