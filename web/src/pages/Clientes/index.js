@@ -45,30 +45,82 @@ const Clientes = () => {
             >
                 <Drawer.Body>
                     <h3>{behavior === 'create' ? 'Criar novo' : 'Atulizar' } cliente</h3>
-                    <div className="form-group mb-3">
-                        <b>Email</b>
-                        <div className="input-group">
-                        <input 
-                            type="email" 
-                            className="form-control" 
-                            placeholder="Email do cliente" 
-                            value={cliente.email}
-                            onChange={(e) => {
-                                setCliente('email', e.target.value);
-                            }}
-                        />
-                        <div className="input-group-append">
-                            <Button 
-                                appearance="primary" 
-                                loading={form.filtering}
-                                disabled={form.filtering}
-                                onClick={() => {
-                                    dispatch(filterClientes())
-                                }} 
-                            >
-                                Pesquisar
-                            </Button>
+                    <div className="row mt-3">
+                        <div className="form-group col-12 mb-3">
+                            <b>Email</b>
+                            <div className="input-group">
+                            <input 
+                                type="email" 
+                                className="form-control" 
+                                placeholder="Email do cliente" 
+                                value={cliente.email}
+                                onChange={(e) => {
+                                    setCliente('email', e.target.value);
+                                }}
+                            />
+                            <div className="input-group-append">
+                                <Button 
+                                    appearance="primary" 
+                                    loading={form.filtering}
+                                    disabled={form.filtering}
+                                    onClick={() => {
+                                        dispatch(filterClientes())
+                                    }} 
+                                >
+                                    Pesquisar
+                                </Button>
+                            </div>
+                            </div>
                         </div>
+                        <div className="form-group col-6">
+                            <b className="">Nome</b>
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Nome do cliente"
+                                disabled={form.disabled}
+                                value={cliente.nome}
+                                onChange={(e) => setCliente('nome', e.target.value)}
+                            />
+                        </div>
+                        <div className="form-group col-6">
+                            <b className="">Telefone | Whatshapp</b>
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Telefone do Cliente"
+                                disabled={form.disabled}
+                                value={cliente.telefone}
+                                onChange={(e) => setCliente('telefone', e.target.value)}
+                            />
+                        </div>
+                        <div className="form-group col-6">
+                            <b className="">Data de Nascimento</b>
+                            <input
+                                type="date"
+                                className="form-control"
+                                placeholder="Data de Nascimento"
+                                disabled={form.disabled}
+                                value={cliente.dataNascimento}
+                                onChange={(e) => setCliente('dataNacimento', e.target.value)}
+                            />
+                        </div>
+                        <div className="form-group col-6">
+                            <b>Tipo de Documento</b>
+                            <select
+                            disabled={form.disabled}
+                            className="form-control"
+                            value={cliente.documento}
+                            onChange={(e) =>
+                                setCliente('documento', {
+                                    ...cliente.documento,
+                                    tipo: e.target.value,
+                                })
+                            }
+                            >
+                                <option value="cpf">CPF</option>
+                                <option value="cnpj">CNPJ</option>
+                            </select>
                         </div>
                     </div>
                 </Drawer.Body>
