@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect } from 'react';
-import { Button, Drawer } from 'rsuite';
+import { Button, Drawer, Modal, Icon } from 'rsuite';
 import Table from '../../components/Table';
 import moment from 'moment';
 import 'rsuite/dist/rsuite.css';
@@ -8,18 +8,16 @@ import 'rsuite/dist/rsuite.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { allClientes, updateCliente } from '../../store/modules/cliente/actions'
 
-
 const Clientes = () => {
 
     const dispatch = useDispatch();
-    const [open, setOpen] = React.useState(false);
-    const { clientes, form } = useSelector((state) => state.cliente);
+    const { clientes, form, components } = useSelector((state) => state.cliente);
 
-    /*const setComponent = (component, state) => {
+    const setComponent = (component, state) => {
         dispatch(updateCliente({
-            components: { ...components, [component]: state }
+            components: { ...components, [component]: state }, 
         }));
-    } */
+    }
 
     useEffect(() => {
         dispatch(allClientes());
@@ -28,7 +26,15 @@ const Clientes = () => {
     return(
         <div className="col p-5 overflow-auto h-100">
             <Drawer 
-            open={open} onClose={() => setOpen(false)}
+            
+            open={components.drawer}
+            size="sm"
+            onHide={() => {
+                setComponent('drawer', false);
+            }}
+            onClose={() => {
+                setComponent('drawer', false);
+            }}
             >
                 <Drawer.Body>
 
@@ -42,15 +48,15 @@ const Clientes = () => {
                         <div>
                             <button 
                                 className="btn btn-primary btn-lg"
-                                onClick={() => setOpen(true)}
-                                /*onClick={()=> {
-                                    console.log('Hiding drawer');
-                                    dispatch(updateCliente({
-                                        behavior: 'create',
-                                    }));
-
-                                    setComponent('drawer', true)
-                                }}*/
+                                onClick={() => {
+                                    console.log("Click");
+                                    dispatch(
+                                        updateCliente({
+                                            behavior: "create",
+                                        })
+                                    );
+                                    setComponent('drawer', true);
+                                }}
                             >
                                 <span className="mdi mdi-plus">Novo Cliente</span>
                             </button>

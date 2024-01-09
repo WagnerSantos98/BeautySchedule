@@ -5,7 +5,9 @@ import api from '../../../services/api';
 import consts from '../../../consts';
 
 export function* allClientes(){
+
     const { form } = yield select((state) => state.cliente);
+
     try{
         yield put(updateCliente({form: {...form, filtering: true} }));
         const {data: res} = yield call(
@@ -18,6 +20,7 @@ export function* allClientes(){
             alert(res.message);
             return false;
         }
+
         yield put(updateCliente(({ clientes: res.clientes })));
     }catch(err){
         yield put(updateCliente({form: {...form, filtering: false} }));
