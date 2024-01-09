@@ -1,3 +1,4 @@
+import React from 'react';
 import { useEffect } from 'react';
 import { Button, Drawer } from 'rsuite';
 import Table from '../../components/Table';
@@ -11,13 +12,14 @@ import { allClientes, updateCliente } from '../../store/modules/cliente/actions'
 const Clientes = () => {
 
     const dispatch = useDispatch();
-    const { clientes, form, components } = useSelector((state) => state.cliente);
+    const [open, setOpen] = React.useState(false);
+    const { clientes, form } = useSelector((state) => state.cliente);
 
-    const setComponent = (component, state) => {
+    /*const setComponent = (component, state) => {
         dispatch(updateCliente({
             components: { ...components, [component]: state }
         }));
-    } 
+    } */
 
     useEffect(() => {
         dispatch(allClientes());
@@ -26,11 +28,7 @@ const Clientes = () => {
     return(
         <div className="col p-5 overflow-auto h-100">
             <Drawer 
-            show={components.drawer} 
-            size="sm" 
-             onHide={() => { 
-                console.log('Teste');
-                setComponent('drawer', false)}}
+            open={open} onClose={() => setOpen(false)}
             >
                 <Drawer.Body>
 
@@ -44,14 +42,15 @@ const Clientes = () => {
                         <div>
                             <button 
                                 className="btn btn-primary btn-lg"
-                                onClick={()=> {
+                                onClick={() => setOpen(true)}
+                                /*onClick={()=> {
                                     console.log('Hiding drawer');
                                     dispatch(updateCliente({
                                         behavior: 'create',
                                     }));
 
                                     setComponent('drawer', true)
-                                }}
+                                }}*/
                             >
                                 <span className="mdi mdi-plus">Novo Cliente</span>
                             </button>
