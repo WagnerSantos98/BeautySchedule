@@ -36,6 +36,7 @@ const cliente = new Schema({
     },
     endereco:{
         cidade: String,
+        bairro: String,
         uf: String,
         cep: String,
         logradouro: String,

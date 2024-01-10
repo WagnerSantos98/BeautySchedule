@@ -1,12 +1,12 @@
 import React from 'react';
-import { useEffect } from 'react';
+import { useEffect, useState } from 'react';
 import { Button, Drawer, Modal } from 'rsuite';
 import RemindFill from '@rsuite/icons/RemindFill';
 import Table from '../../components/Table';
 import moment from 'moment';
 import 'rsuite/dist/rsuite.css';
 
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch, useSelector} from 'react-redux';
 import { allClientes, updateCliente, filterClientes, addCliente, unlinkCliente } from '../../store/modules/cliente/actions'
 
 
@@ -14,6 +14,9 @@ const Clientes = () => {
 
     const dispatch = useDispatch();
     const { clientes, cliente, form, components, behavior } = useSelector((state) => state.cliente);
+    const [dadosCarregados, setDadosCarregados] = useState(false);
+
+    
 
     const setComponent = (component, state) => {
         dispatch(updateCliente({
@@ -36,9 +39,31 @@ const Clientes = () => {
         dispatch(unlinkCliente());
     };
 
+    const checkCEP = (e) => {   
+        const cep = e.target.value.replace(/\D/g, '');
+        console.log(cep);
+    
+        fetch(`https://viacep.com.br/ws/${cep}/json/`)
+            .then(res => res.json())
+            .then(data => {
+                console.log(data);
+                setCliente('endereco', {
+                    ...cliente.endereco,
+                    logradouro: data.logradouro,
+                    bairro: data.bairro,
+                    uf: data.uf,
+                    cidade: data.localidade
+                })
+            })
+            .catch(error => {
+                console.error('Erro na requisição:', error);
+            }); 
+            setDadosCarregados(true);
+    };
+
     useEffect(() => {
         dispatch(allClientes());
-    },[]);
+    },[dispatch]);
 
     return(
         <div className="col p-5 overflow-auto h-100">
@@ -152,7 +177,7 @@ const Clientes = () => {
                         </div>
 
                         <div className="row mt-4">
-                            <div className="form-group col-3">
+                            <div className="form-group col-4">
                                 <b className="">CEP</b>
                                 <input
                                     type="text"
@@ -165,15 +190,16 @@ const Clientes = () => {
                                         cep: e.target.value,
                                     })
                                 }
+                                    onBlur={checkCEP}
                                 />
                             </div>
-                            <div className="form-group col-6">
+                            <div className="form-group col-12 mt-3">
                                 <b className="">Rua | Logradouro</b>
                                 <input
                                     type="text"
                                     className="form-control"
                                     placeholder="Rua | Lougradouro"
-                                    disabled={form.disabled}
+                                    disabled={form.disabled || dadosCarregados}
                                     value={cliente.endereco ? cliente.endereco.logradouro : ''}
                                     onChange={(e) => setCliente('endereco', {
                                         ...cliente.endereco,
@@ -182,7 +208,22 @@ const Clientes = () => {
                                 }
                                 />
                             </div>
-                            <div className="form-group col-3">
+                            <div className="form-group col-6 mt-3">
+                                <b className="">Bairro</b>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Bairro"
+                                    disabled={form.disabled || dadosCarregados}
+                                    value={cliente.endereco ? cliente.endereco.bairro : ''}
+                                    onChange={(e) => setCliente('endereco', {
+                                        ...cliente.endereco,
+                                        bairro: e.target.value,
+                                    })
+                                }
+                                />
+                            </div>
+                            <div className="form-group col-6 mt-3">
                                 <b className="">Número</b>
                                 <input
                                     type="text"
@@ -203,7 +244,7 @@ const Clientes = () => {
                                     type="text"
                                     className="form-control"
                                     placeholder="UF"
-                                    disabled={form.disabled}
+                                    disabled={form.disabled || dadosCarregados}
                                     value={cliente.endereco ? cliente.endereco.uf : ''}
                                     onChange={(e) => setCliente('endereco', {
                                         ...cliente.endereco,
@@ -218,7 +259,7 @@ const Clientes = () => {
                                     type="text"
                                     className="form-control"
                                     placeholder="Cidade"
-                                    disabled={form.disabled}
+                                    disabled={form.disabled || dadosCarregados}
                                     value={cliente.endereco ? cliente.endereco.cidade : ''}
                                     onChange={(e) => setCliente('endereco', {
                                         ...cliente.endereco,

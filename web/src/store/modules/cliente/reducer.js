@@ -24,6 +24,7 @@ const INITIAL_STATE = {
         },
         endereco:{
             cidade: '',
+            bairro: '',
             uf: '',
             cep: '',
             logradouro: '',
