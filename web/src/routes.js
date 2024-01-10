@@ -7,6 +7,9 @@ import Sidebar from "./components/Sidebar";
 
 import Agendamentos from "./pages/Agendamentos";
 import Clientes from "./pages/Clientes";
+import Colaboradores from "./pages/Colaboradores"; 
+import Servicos from "./pages/Servicos";
+import Horarios from "./pages/Horarios";
 
 const App = () => {
     return (
@@ -19,6 +22,9 @@ const App = () => {
                         <Routes>
                             <Route path="/" excat element={<Agendamentos />}/>
                             <Route path="/clientes" excat element={<Clientes />}/>
+                            <Route path="/colaboradores" excat element={<Colaboradores />}/>
+                            <Route path="/servicos" excat element={<Servicos />}/>
+                            <Route path="/horarios" excat element={<Horarios />}/>
                         </Routes>
                     </Router>
                 </div>
