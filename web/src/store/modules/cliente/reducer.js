@@ -28,7 +28,6 @@ const INITIAL_STATE = {
             cep: '',
             logradouro: '',
             numero: '',
-            pais: '',
         },
     },
 };
@@ -38,6 +37,11 @@ function cliente(state = INITIAL_STATE, action){
         case types.UPDATE_CLIENTE:{
             return produce(state, (draft) => {
                 Object.assign(draft, action.payload);
+            });
+        }
+        case types.RESET_CLIENTE:{
+            return produce(state, (draft) => {
+                draft.cliente = INITIAL_STATE.cliente;
             });
         }
         default: return state;

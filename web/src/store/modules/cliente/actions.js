@@ -18,3 +18,21 @@ export function filterClientes(){
         type: types.FILTER_CLIENTES,
     };
 }
+
+export function addCliente(){
+    return {
+        type: types.ADD_CLIENTE,
+    };
+}
+
+export function resetCliente(){
+    return {
+        type: types.RESET_CLIENTE,
+    };
+}
+
+export function unlinkCliente(){
+    return {
+        type: types.UNLINK_CLIENTE,
+    };
+}

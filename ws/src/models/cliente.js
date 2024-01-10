@@ -30,7 +30,7 @@ const cliente = new Schema({
     documento:{
         tipo:   {
             type: String,
-            enum: ['individual', 'corporation']
+            enum: ['cpf', 'cnpj']
         },
         numero: String
     },
@@ -38,8 +38,8 @@ const cliente = new Schema({
         cidade: String,
         uf: String,
         cep: String,
+        logradouro: String,
         numero: String,
-        pais: String,
     },
     dataCadastro:{
         type: Date,

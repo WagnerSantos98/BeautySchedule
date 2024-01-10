@@ -1,12 +1,14 @@
 import React from 'react';
 import { useEffect } from 'react';
-import { Button, Drawer, Modal, Icon } from 'rsuite';
+import { Button, Drawer, Modal } from 'rsuite';
+import RemindFill from '@rsuite/icons/RemindFill';
 import Table from '../../components/Table';
 import moment from 'moment';
 import 'rsuite/dist/rsuite.css';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { allClientes, updateCliente, filterClientes } from '../../store/modules/cliente/actions'
+import { allClientes, updateCliente, filterClientes, addCliente, unlinkCliente } from '../../store/modules/cliente/actions'
+
 
 const Clientes = () => {
 
@@ -25,6 +27,14 @@ const Clientes = () => {
                 cliente: { ...cliente, [key]: value },
             }));
     }
+
+    const save = () => {
+        dispatch(addCliente());
+    };
+
+    const remove = () => {
+        dispatch(unlinkCliente());
+    };
 
     useEffect(() => {
         dispatch(allClientes());
@@ -45,7 +55,7 @@ const Clientes = () => {
             >
                 <Drawer.Body>
                     <h3>{behavior === 'create' ? 'Criar novo' : 'Atulizar' } cliente</h3>
-                    <div className="row mt-3">
+                    <div className="row mt-4">
                         <div className="form-group col-12 mb-3">
                             <b>Email</b>
                             <div className="input-group">
@@ -94,7 +104,7 @@ const Clientes = () => {
                                 onChange={(e) => setCliente('telefone', e.target.value)}
                             />
                         </div>
-                        <div className="form-group col-6">
+                        <div className="form-group col-6 mt-3">
                             <b className="">Data de Nascimento</b>
                             <input
                                 type="date"
@@ -102,30 +112,168 @@ const Clientes = () => {
                                 placeholder="Data de Nascimento"
                                 disabled={form.disabled}
                                 value={cliente.dataNascimento}
-                                onChange={(e) => setCliente('dataNacimento', e.target.value)}
+                                onChange={(e) => setCliente('dataNascimento', e.target.value)}
                             />
                         </div>
-                        <div className="form-group col-6">
-                            <b>Tipo de Documento</b>
-                            <select
-                            disabled={form.disabled}
-                            className="form-control"
-                            value={cliente.documento}
-                            onChange={(e) =>
-                                setCliente('documento', {
-                                    ...cliente.documento,
-                                    tipo: e.target.value,
-                                })
-                            }
-                            >
-                                <option value="cpf">CPF</option>
-                                <option value="cnpj">CNPJ</option>
-                            </select>
+
+                        <div className="row mt-4">
+                            <div className="form-group col-6">
+                                <b>Tipo de Documento</b>
+                                <select
+                                disabled={form.disabled}
+                                className="form-control"
+                                value={cliente.documento ? cliente.documento.tipo : ''}
+                                onChange={(e) =>
+                                    setCliente('documento', {
+                                        ...cliente.documento,
+                                        tipo: e.target.value,
+                                    })
+                                }
+                                >
+                                    <option value="cpf">CPF</option>
+                                    <option value="cnpj">CNPJ</option>
+                                </select>
+                            </div>
+                            <div className="form-group col-6">
+                                <b className="">Número do documento</b>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Número do documento"
+                                    disabled={form.disabled}
+                                    value={cliente.documento ? cliente.documento.numero : ''}
+                                    onChange={(e) => setCliente('documento', {
+                                        ...cliente.documento,
+                                        numero: e.target.value,
+                                    })
+                                }
+                                />
+                            </div>
                         </div>
+
+                        <div className="row mt-4">
+                            <div className="form-group col-3">
+                                <b className="">CEP</b>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="CEP"
+                                    disabled={form.disabled}
+                                    value={cliente.endereco ? cliente.endereco.cep : ''}
+                                    onChange={(e) => setCliente('endereco', {
+                                        ...cliente.endereco,
+                                        cep: e.target.value,
+                                    })
+                                }
+                                />
+                            </div>
+                            <div className="form-group col-6">
+                                <b className="">Rua | Logradouro</b>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Rua | Lougradouro"
+                                    disabled={form.disabled}
+                                    value={cliente.endereco ? cliente.endereco.logradouro : ''}
+                                    onChange={(e) => setCliente('endereco', {
+                                        ...cliente.endereco,
+                                        logradouro: e.target.value,
+                                    })
+                                }
+                                />
+                            </div>
+                            <div className="form-group col-3">
+                                <b className="">Número</b>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Número"
+                                    disabled={form.disabled}
+                                    value={cliente.endereco ? cliente.endereco.numero : ''}
+                                    onChange={(e) => setCliente('endereco', {
+                                        ...cliente.endereco,
+                                        numero: e.target.value,
+                                    })
+                                }
+                                />
+                            </div>
+                            <div className="form-group col-3 mt-3">
+                                <b className="">UF</b>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="UF"
+                                    disabled={form.disabled}
+                                    value={cliente.endereco ? cliente.endereco.uf : ''}
+                                    onChange={(e) => setCliente('endereco', {
+                                        ...cliente.endereco,
+                                        uf: e.target.value,
+                                    })
+                                }
+                                />
+                            </div>
+                            <div className="form-group col-9 mt-3">
+                                <b className="">Cidade</b>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Cidade"
+                                    disabled={form.disabled}
+                                    value={cliente.endereco ? cliente.endereco.cidade : ''}
+                                    onChange={(e) => setCliente('endereco', {
+                                        ...cliente.endereco,
+                                        cidade: e.target.value,
+                                    })
+                                }
+                                />
+                            </div>
+                        </div>
+                        
                     </div>
+                    <Button
+                        block
+                        className="mt-3"
+                        appearance="primary"
+                        color={behavior === 'create' ? 'green' : 'red'}
+                        size="lg"
+                        loading={form.saving}
+                        onClick={() => {
+                            if(behavior === 'create'){
+                                save();
+                            }else{
+                                setComponent('confirmDelete', true);
+                            }
+                        }}
+                    >
+                        {behavior === 'create' ? 'Salvar' : 'Remover'} Cliente
+                    </Button>
                 </Drawer.Body>
             </Drawer>
 
+            <Modal
+                open={components.confirmDelete}
+                onHide={() => setComponent('confirmDelete', false)}
+                size="xs"
+            >
+                <Modal.Body>
+                    <RemindFill
+                        style={{
+                            color:'#ffb300',
+                            fontSize: 24,
+                        }}
+                    />
+                    {' '} Tem certeza que deseja excluir? Essa ação será irreversível!
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button  loading={form.saving} onClick={() => remove()} color="red" appearance="primary">
+                        Sim, tenho certeza!
+                    </Button>
+                    <Button onClick={() => setComponent('confirmDelete', false)} appearance="subtle">
+                        Cancelar
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+            
             <div className="row">
                 <div className="col-12">
                     <div className="w-100 d-flex justify-content-between">
@@ -159,7 +307,19 @@ const Clientes = () => {
                     actions={(cliente) => (
                         <Button color="primary" size="xs">Exibir informações</Button>
                     )}
-                    onRowClick={(cliente) => {alert(cliente.nome)}}
+                    onRowClick={(cliente) => {
+                        dispatch(
+                            updateCliente({
+                                behavior: 'update',
+                            })
+                        );
+                        dispatch(
+                            updateCliente({
+                                cliente,
+                            })
+                        );
+                        setComponent('drawer', true);
+                    }}
                     />
                 </div>
             </div>
