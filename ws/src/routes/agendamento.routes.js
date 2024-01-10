@@ -10,8 +10,6 @@ const Colaborador = require('../models/colaborador');
 const Agendamento = require('../models/agendamento');
 const Horario = require('../models/horario');
 const util = require('../util');
-const agendamento = require('../models/agendamento');
-const horario = require('../models/horario');
 
 //Inserção de agendamento
 router.post('/', async (req, res) => {
