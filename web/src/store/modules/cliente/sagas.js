@@ -1,4 +1,4 @@
-import { takeLatest, all, call, put, select, take} from 'redux-saga/effects';
+import { takeLatest, all, call, put, select} from 'redux-saga/effects';
 import { updateCliente, allClientes as allClientesAction, resetCliente } from './actions';
 import types from './types';
 import api from '../../../services/api';
