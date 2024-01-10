@@ -21,7 +21,37 @@ const Sidebar = () => {
                         <text>Clientes</text>
                     </Link>
                 </li>
+                <li>
+                    <Link to="/colaboradores" className={location.pathname === '/colaboradores' ? 'active' : ''}>
+                        <span className="mdi mdi-card-account-details-outline"></span>
+                        <text>Colaboradores</text>
+                    </Link>
+                </li>
+                <li>
+                    <Link to="/servicos" className={location.pathname === '/servicos' ? 'active' : ''}>
+                        <span className="mdi mdi-room-service-outline"></span>
+                        <text>Serviços</text>
+                    </Link>
+                </li>
+                <li>
+                    <Link to="/horarios" className={location.pathname === '/horarios' ? 'active' : ''}>
+                        <span className="mdi mdi-clock-check-outline"></span>
+                        <text>Horários</text>
+                    </Link>
+                </li>
             </ul>
+
+            <div className="sidebar-footer" style={{padding: '180px 0px'}}>
+                <ul  className="p-0 m-0">
+                    <li>
+                    <Link to="/sair" className={location.pathname === '/sair' ? 'active' : ''}>
+                        <span className="mdi mdi-logout"></span>
+                        <text>Sair</text>
+                    </Link>
+                    </li>
+                </ul>
+            </div>
+           
         </sidebar>
     );
 };
