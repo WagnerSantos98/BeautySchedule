@@ -34,7 +34,7 @@ export function* filterColaboradores() {
     try {
         yield put(updateColaborador({ form: { ...form, filtering: true } }));
         const { data: res } = yield call(
-            api.post, `/colaboradores/filter/`,
+            api.post, `/colaborador/filter/`,
             {
                 filters: {
                     email: colaborador.email,

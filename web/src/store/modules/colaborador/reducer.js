@@ -18,17 +18,6 @@ const INITIAL_STATE = {
         nome: '',
         telefone: '',
         dataNascimento: '',
-        documento:{
-            tipo: 'cpf',
-            numero: '',
-        },
-        endereco:{
-            cidade: '',
-            uf: '',
-            cep: '',
-            logradouro: '',
-            numero: '',
-        },
     },
 };
 

@@ -26,19 +26,6 @@ const colaborador = new Schema({
         enum: ['A', 'I'],
         default: 'A'
     },
-    /*contaBancaria:{
-        titular: String,
-        cpfCnpj: String,
-        banco: String,
-        tipo: String,
-        agencia: String,
-        numero: String,
-        dv: String, //Digito verificador
-    },
-    recipientId:{
-        type: String,
-        required: false,
-    },*/
     dataCadastro:{
         type: Date,
         default: Date.now(),

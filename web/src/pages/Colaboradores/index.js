@@ -116,118 +116,7 @@ const Colaboradores = () => {
                             />
                         </div>
 
-                        <div className="row mt-4">
-                            <div className="form-group col-6">
-                                <b>Tipo de Documento</b>
-                                <select
-                                disabled={form.disabled}
-                                className="form-control"
-                                value={colaborador.documento ? colaborador.documento.tipo : ''}
-                                onChange={(e) =>
-                                    setColaborador('documento', {
-                                        ...colaborador.documento,
-                                        tipo: e.target.value,
-                                    })
-                                }
-                                >
-                                    <option value="cpf">CPF</option>
-                                    <option value="cnpj">CNPJ</option>
-                                </select>
-                            </div>
-                            <div className="form-group col-6">
-                                <b className="">Número do documento</b>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="Número do documento"
-                                    disabled={form.disabled}
-                                    value={colaborador.documento ? colaborador.documento.numero : ''}
-                                    onChange={(e) => setColaborador('documento', {
-                                        ...colaborador.documento,
-                                        numero: e.target.value,
-                                    })
-                                }
-                                />
-                            </div>
-                        </div>
-
-                        <div className="row mt-4">
-                            <div className="form-group col-3">
-                                <b className="">CEP</b>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="CEP"
-                                    disabled={form.disabled}
-                                    value={colaborador.endereco ? colaborador.endereco.cep : ''}
-                                    onChange={(e) => setColaborador('endereco', {
-                                        ...colaborador.endereco,
-                                        cep: e.target.value,
-                                    })
-                                }
-                                />
-                            </div>
-                            <div className="form-group col-6">
-                                <b className="">Rua | Logradouro</b>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="Rua | Lougradouro"
-                                    disabled={form.disabled}
-                                    value={colaborador.endereco ? colaborador.endereco.logradouro : ''}
-                                    onChange={(e) => setColaborador('endereco', {
-                                        ...colaborador.endereco,
-                                        logradouro: e.target.value,
-                                    })
-                                }
-                                />
-                            </div>
-                            <div className="form-group col-3">
-                                <b className="">Número</b>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="Número"
-                                    disabled={form.disabled}
-                                    value={colaborador.endereco ? colaborador.endereco.numero : ''}
-                                    onChange={(e) => setColaborador('endereco', {
-                                        ...colaborador.endereco,
-                                        numero: e.target.value,
-                                    })
-                                }
-                                />
-                            </div>
-                            <div className="form-group col-3 mt-3">
-                                <b className="">UF</b>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="UF"
-                                    disabled={form.disabled}
-                                    value={colaborador.endereco ? colaborador.endereco.uf : ''}
-                                    onChange={(e) => setColaborador('endereco', {
-                                        ...colaborador.endereco,
-                                        uf: e.target.value,
-                                    })
-                                }
-                                />
-                            </div>
-                            <div className="form-group col-9 mt-3">
-                                <b className="">Cidade</b>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="Cidade"
-                                    disabled={form.disabled}
-                                    value={colaborador.endereco ? colaborador.endereco.cidade : ''}
-                                    onChange={(e) => setColaborador('endereco', {
-                                        ...colaborador.endereco,
-                                        cidade: e.target.value,
-                                    })
-                                }
-                                />
-                            </div>
-                        </div>
+                        
                         
                     </div>
                     <Button
@@ -277,7 +166,7 @@ const Colaboradores = () => {
             <div className="row">
                 <div className="col-12">
                     <div className="w-100 d-flex justify-content-between">
-                        <h2 className="mb-4 mt-0">colaboradores</h2>
+                        <h2 className="mb-4 mt-0">Colaboradores</h2>
                         <div>
                             <button 
                                 className="btn btn-primary btn-lg"
