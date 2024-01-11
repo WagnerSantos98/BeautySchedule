@@ -140,7 +140,7 @@ const Colaboradores = () => {
                                 size="lg"
                                 block
                                 data={servicos}
-                                disabled={form.disabled && behavior === 'create'}
+                                disabled={form.disabled}
                                 value={colaborador.especialidades}
                                 onChange={(especialidade) => setColaborador('especialidade', especialidade)}
                             />

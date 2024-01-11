@@ -28,6 +28,7 @@
     "redux-saga": "^1.2.3",
     "rsuite": "^5.49.0",
     "stream-browserify": "^3.0.0",
+    "swal": "^0.1.0",
     "unorm": "^1.6.0",
     "url": "^0.11.3",
     "util": "^0.12.5",
