@@ -1,4 +1,4 @@
-const types ={
+const types = {
     ALL_COLABORADORES: '@colaborador/ALL',
     UPDATE_COLABORADOR: '@colaborador/UPDATE',
     FILTER_COLABORADORES: '@colaborador/FILTER',
