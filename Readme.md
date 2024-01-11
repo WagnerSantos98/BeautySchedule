@@ -18,7 +18,7 @@ Sistema de agendamento para salão de beleza
 
 - [x] Login
 - [x] Cadastro do estabelecimento
-- [x] Cadastro de cliente
+- [x] Cadastro de cliente, colaborador e serviços
 - [x] Agendamento de horário
 - [x] Serviços prestados
 - [x] Colaboradores de acordo com cada área de atuação
