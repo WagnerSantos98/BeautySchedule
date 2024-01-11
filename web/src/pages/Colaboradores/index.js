@@ -15,6 +15,8 @@ const Colaboradores = () => {
     const dispatch = useDispatch();
     const { colaboradores, colaborador, form, components, behavior, servicos } = useSelector((state) => state.colaborador);
 
+    
+
     const setComponent = (component, state) => {
         dispatch(updateColaborador({
             components: { ...components, [component]: state }, 
@@ -39,6 +41,7 @@ const Colaboradores = () => {
     useEffect(() => {
         dispatch(allColaboradores());
         dispatch(allServicos());
+        
     },[]);
 
     return(
@@ -134,35 +137,44 @@ const Colaboradores = () => {
                                 onChange={(e) => setColaborador('dataNascimento', e.target.value)}
                             />
                         </div>
-                        <div className="col-12">
+                        <div className="col-12 mt-3">
                             <b>Especialidades</b>
                             <TagPicker
                                 size="lg"
                                 block
+                                placeholder="Especialidades"
                                 data={servicos}
-                                disabled={form.disabled}
-                                value={colaborador.especialidades}
+                                disabled={form.disabled && behavior === 'create'}
+                                defaultValue={colaborador.especialidades}
                                 onChange={(especialidade) => setColaborador('especialidade', especialidade)}
                             />
                         </div>
+                        
                     </div>
-                    <Button
-                        block
-                        className="mt-3"
-                        appearance="primary"
-                        color={behavior === 'create' ? 'green' : 'red'}
-                        size="lg"
-                        loading={form.saving}
-                        onClick={() => {
-                            if(behavior === 'create'){
-                                save();
-                            }else{
-                                setComponent('confirmDelete', true);
-                            }
-                        }}
-                    >
-                        {behavior === 'create' ? 'Salvar' : 'Remover'} colaborador
-                    </Button>
+                <Button 
+                    block
+                    className="mt-3"
+                    appearance="primary"
+                    color={behavior === 'create' ? 'green' : 'primary'}
+                    size="lg"
+                    loading={form.saving}
+                    onClick={() => save()}
+                >
+                    {behavior === 'create' ? 'Salvar' : 'Atualizar'} colaborador
+                </Button>
+                {behavior === 'update' && (
+                <Button 
+                    block
+                    className="mt-3"
+                    appearance="primary"
+                    color="red"
+                    size="lg"
+                    loading={form.saving}
+                    onClick={() => setColaborador('confirmDelete', true)}
+                >
+                    Remover Colaborador
+                </Button>
+                )}                     
                 </Drawer.Body>
             </Drawer>
 

@@ -66,17 +66,32 @@ export function* filterColaboradores() {
 }
 
 export function* addColaborador() {
-    const { form, colaborador, components } = yield select((state) => state.colaborador);
+    const { form, colaborador, components, behavior } = yield select((state) => state.colaborador);
 
     try {
         yield put(updateColaborador({ form: { ...form, saving: true } }));
-        const { data: res } = yield call(
-            api.post, `/colaborador`,
-            {
-                salaoId: consts.salaoId,
-                colaborador
-            }
-        );
+        let res = {};
+
+        if(behavior === 'create'){
+            const response = yield call(
+                api.post, `/colaborador`,
+                {
+                    salaoId: consts.salaoId,
+                    colaborador
+                }
+            );
+            res = response.date;
+        }else{
+            const response = yield call(
+                api.put, `/colaborador/${colaborador._id}`,
+                {
+                    vinculo: colaborador.vinculo,
+                    vinculoId: colaborador.vinculoId,
+                    especialidades: colaborador.especialidades,
+                }
+            );
+            res = response.data;
+        }
 
         yield put(updateColaborador({ form: { ...form, saving: false } }));
 
