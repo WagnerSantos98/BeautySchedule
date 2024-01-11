@@ -121,9 +121,32 @@ export function* unlinkColaborador() {
     }
 }
 
+export function* allServicos() {
+    const { form } = yield select(
+        (state) => state.colaborador
+    );
+    try{
+        yield put(updateColaborador({ form: { ...form, filtering: true }}));
+        const { data: res } = yield call(
+            api.get, `/salao/servicos/${consts.salaoId}`
+        );
+        yield put(updateColaborador({ form: { ...form, filtering: false }}));
+        if(res.error){
+            alert(res.message);
+            return false;
+        }
+
+        yield put(updateColaborador({ servicos: res.servicos }));
+    }catch(err){
+        yield put(updateColaborador({ form: { ...form, filtering: false }}));
+        alert(err.message);
+    }
+}
+
 export default all([
     takeLatest(types.ALL_COLABORADORES, allColaboradores),
     takeLatest(types.FILTER_COLABORADORES, filterColaboradores),
     takeLatest(types.ADD_COLABORADOR, addColaborador),
     takeLatest(types.UNLINK_COLABORADOR, unlinkColaborador),
+    takeLatest(types.ALL_SERVICOS, allServicos)
 ]);

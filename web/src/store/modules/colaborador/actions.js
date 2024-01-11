@@ -15,7 +15,7 @@ export function updateColaborador(payload){
 
 export function filterColaboradores(){
     return {
-        type: types.FILTER_COLABORADORESS,
+        type: types.FILTER_COLABORADORES,
     };
 }
 
@@ -34,5 +34,11 @@ export function resetColaborador(){
 export function unlinkColaborador(){
     return {
         type: types.UNLINK_COLABORADOR,
+    };
+}
+
+export function allServicos(){
+    return {
+        type: types.ALL_SERVICOS,
     };
 }

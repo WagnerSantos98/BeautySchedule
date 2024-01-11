@@ -4,6 +4,7 @@ const types ={
     FILTER_COLABORADORES: '@colaborador/FILTER',
     ADD_COLABORADOR: '@colaborador/ADD',
     RESET_COLABORADOR: '@colaborador/RESET',
+    ALL_SERVICOS: "@colaborador/ALL_SERVICOS",
     UNLINK_COLABORADOR: '@colaborador/UNLINK',
 }
 

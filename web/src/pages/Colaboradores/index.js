@@ -1,19 +1,19 @@
 import React from 'react';
 import { useEffect } from 'react';
-import { Button, Drawer, Modal } from 'rsuite';
+import { Button, Drawer, Modal, TagPicker } from 'rsuite';
 import RemindFill from '@rsuite/icons/RemindFill';
 import Table from '../../components/Table';
 import moment from 'moment';
 import 'rsuite/dist/rsuite.css';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { allColaboradores, updateColaborador, filterColaboradores, addColaborador, unlinkColaborador } from '../../store/modules/colaborador/actions'
+import { allColaboradores, updateColaborador, filterColaboradores, addColaborador, unlinkColaborador, allServicos } from '../../store/modules/colaborador/actions'
 
 
 const Colaboradores = () => {
 
     const dispatch = useDispatch();
-    const { colaboradores, colaborador, form, components, behavior } = useSelector((state) => state.colaborador);
+    const { colaboradores, colaborador, form, components, behavior, servicos } = useSelector((state) => state.colaborador);
 
     const setComponent = (component, state) => {
         dispatch(updateColaborador({
@@ -38,6 +38,7 @@ const Colaboradores = () => {
 
     useEffect(() => {
         dispatch(allColaboradores());
+        dispatch(allServicos());
     },[]);
 
     return(
@@ -63,11 +64,13 @@ const Colaboradores = () => {
                                 type="email" 
                                 className="form-control" 
                                 placeholder="Email do colaborador" 
+                                disabled={behavior === 'update'}
                                 value={colaborador.email}
                                 onChange={(e) => {
                                     setColaborador('email', e.target.value);
                                 }}
                             />
+                            {behavior === 'create' && (
                             <div className="input-group-append">
                                 <Button 
                                     appearance="primary" 
@@ -80,6 +83,7 @@ const Colaboradores = () => {
                                     Pesquisar
                                 </Button>
                             </div>
+                            )}
                             </div>
                         </div>
                         <div className="form-group col-6">
@@ -93,7 +97,22 @@ const Colaboradores = () => {
                                 onChange={(e) => setColaborador('nome', e.target.value)}
                             />
                         </div>
-                        <div className="form-group col-6">
+                        
+                            <div className="form-group col-6">
+                                <b>Status</b>
+                                <select
+                                disabled={form.disabled && behavior === 'create'}
+                                className="form-control"
+                                value={colaborador.vinculo}
+                                onChange={(e) =>
+                                    setColaborador('vinculo', e.target.value)
+                                }
+                                >
+                                    <option value="A">Ativo</option>
+                                    <option value="I">Inativo</option>
+                                </select>
+                            </div>
+                        <div className="form-group col-6 mt-3">
                             <b className="">Telefone | Whatshapp</b>
                             <input
                                 type="text"
@@ -115,9 +134,17 @@ const Colaboradores = () => {
                                 onChange={(e) => setColaborador('dataNascimento', e.target.value)}
                             />
                         </div>
-
-                        
-                        
+                        <div className="col-12">
+                            <b>Especialidades</b>
+                            <TagPicker
+                                size="lg"
+                                block
+                                data={servicos}
+                                disabled={form.disabled && behavior === 'create'}
+                                value={colaborador.especialidades}
+                                onChange={(especialidade) => setColaborador('especialidade', especialidade)}
+                            />
+                        </div>
                     </div>
                     <Button
                         block

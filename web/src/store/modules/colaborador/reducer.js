@@ -13,11 +13,14 @@ const INITIAL_STATE = {
         saving: false,
     },
     colaboradores: [],
+    servicos: [],
     colaborador:{
         email: '',
         nome: '',
         telefone: '',
         dataNascimento: '',
+        vinculo: 'A',
+        especialidades: []
     },
 };
 

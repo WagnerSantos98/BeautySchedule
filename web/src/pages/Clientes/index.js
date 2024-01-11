@@ -88,11 +88,13 @@ const Clientes = () => {
                                 type="email" 
                                 className="form-control" 
                                 placeholder="Email do cliente" 
+                                disabled={behavior === 'update'}
                                 value={cliente.email}
                                 onChange={(e) => {
                                     setCliente('email', e.target.value);
                                 }}
                             />
+                            {behavior === 'create' && (
                             <div className="input-group-append">
                                 <Button 
                                     appearance="primary" 
@@ -105,6 +107,7 @@ const Clientes = () => {
                                     Pesquisar
                                 </Button>
                             </div>
+                            )}
                             </div>
                         </div>
                         <div className="form-group col-6">
