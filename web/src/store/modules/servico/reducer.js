@@ -1,5 +1,6 @@
 import { produce } from 'immer';
 import types from './types';    
+import moment from 'moment';
 
 const INITIAL_STATE = {
     behavior: 'create',
@@ -14,12 +15,14 @@ const INITIAL_STATE = {
     },
     servicos: [],
     servico:{
-        email: '',
-        nome: '',
-        telefone: '',
-        dataNascimento: '',
-        vinculo: 'A',
-        especialidades: []
+        titulo: '',
+        preco: '',
+        comissao: '',
+        duracao: moment('00:30', 'HH:mm').format(),
+        recorrencia: '',
+        descricao: '',
+        status: 'A',
+        arquivos: [],
     },
 };
 

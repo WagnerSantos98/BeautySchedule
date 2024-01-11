@@ -1,13 +1,15 @@
 import React from 'react';
 import { useEffect } from 'react';
-import { Button, Drawer, Modal, TagPicker } from 'rsuite';
+import { Button, Drawer, Modal, TagPicker, Tag, DatePicker, Uploader } from 'rsuite';
 import RemindFill from '@rsuite/icons/RemindFill';
+import CameraRetroIcon from '@rsuite/icons/legacy/CameraRetro';
 import Table from '../../components/Table';
 import moment from 'moment';
 import 'rsuite/dist/rsuite.css';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { allServicos, updateServico, filterServicos, addServico, unlinkServico } from '../../store/modules/servico/actions'
+import { allServicos, updateServico, addServico, removeServico } from '../../store/modules/servico/actions';
+import consts from '../../consts';
 
 
 const Servicos = () => {
@@ -35,13 +37,11 @@ const Servicos = () => {
     };
 
     const remove = () => {
-        dispatch(unlinkServico());
+        dispatch(removeServico());
     };
 
     useEffect(() => {
-        dispatch(allServicos());
-        dispatch(allServicos());
-        
+        dispatch(allServicos());        
     },[]);
 
     return(
@@ -58,123 +58,113 @@ const Servicos = () => {
             }}
             >
                 <Drawer.Body>
-                    <h3>{behavior === 'create' ? 'Criar novo' : 'Atulizar' } servico</h3>
-                    <div className="row mt-4">
-                        <div className="form-group col-12 mb-3">
-                            <b>Email</b>
-                            <div className="input-group">
-                            <input 
-                                type="email" 
-                                className="form-control" 
-                                placeholder="Email do servico" 
-                                disabled={behavior === 'update'}
-                                value={servico.email}
+                    <h3>{behavior === 'create' ? 'Criar novo' : 'Atulizar' } serviço</h3>
+                    <div className="row mt-3">
+                        <div className="form-group col-6">
+                            <b>Título</b>
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Título do serviço"
+                                value={servico.titulo}
                                 onChange={(e) => {
-                                    setServico('email', e.target.value);
+                                    setServico('titulo', e.target.value);
                                 }}
                             />
-                            {behavior === 'create' && (
-                            <div className="input-group-append">
-                                <Button 
-                                    appearance="primary" 
-                                    loading={form.filtering}
-                                    disabled={form.filtering}
-                                    onClick={() => {
-                                        dispatch(filterServicos())
-                                    }} 
-                                >
-                                    Pesquisar
-                                </Button>
-                            </div>
-                            )}
-                            </div>
                         </div>
-                        <div className="form-group col-6">
-                            <b className="">Nome</b>
+                        <div className="form-group col-3">
+                            <b>Preço R$</b>
+                            <input
+                                type="number"
+                                className="form-control"
+                                placeholder="Preço do serviço"
+                                value={servico.preco}
+                                onChange={(e) => {
+                                    setServico('preco', e.target.value);
+                                }}
+                            />
+                        </div>
+                        <div className="form-group col-3">
+                            <b>Comissão %</b>
+                            <input
+                                type="number"
+                                className="form-control"
+                                placeholder="Comissão do serviço"
+                                value={servico.comissao}
+                                onChange={(e) => {
+                                    setServico('comissao', e.target.value);
+                                }}
+                            />
+                        </div>
+                        <div className="form-group col-4">
+                            <b>Recorrência</b>
                             <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Nome do servico"
-                                disabled={form.disabled}
-                                value={servico.nome}
-                                onChange={(e) => setServico('nome', e.target.value)}
+                                placeholder="Recorrência do serviço"
+                                value={servico.recorrencia}
+                                onChange={(e) => {
+                                    setServico('recorrencia', e.target.value);
+                                }}
                             />
                         </div>
-                        
-                            <div className="form-group col-6">
-                                <b>Status</b>
-                                <select
-                                disabled={form.disabled && behavior === 'create'}
-                                className="form-control"
-                                value={servico.vinculo}
-                                onChange={(e) =>
-                                    setServico('vinculo', e.target.value)
-                                }
-                                >
-                                    <option value="A">Ativo</option>
-                                    <option value="I">Inativo</option>
-                                </select>
-                            </div>
-                        <div className="form-group col-6 mt-3">
-                            <b className="">Telefone | Whatshapp</b>
-                            <input
-                                type="text"
-                                className="form-control"
-                                placeholder="Telefone do servico"
-                                disabled={form.disabled}
-                                value={servico.telefone}
-                                onChange={(e) => setServico('telefone', e.target.value)}
-                            />
-                        </div>
-                        <div className="form-group col-6 mt-3">
-                            <b className="">Data de Nascimento</b>
-                            <input
-                                type="date"
-                                className="form-control"
-                                placeholder="Data de Nascimento"
-                                disabled={form.disabled}
-                                value={servico.dataNascimento}
-                                onChange={(e) => setServico('dataNascimento', e.target.value)}
-                            />
-                        </div>
-                        <div className="col-12 mt-3">
-                            <b>Especialidades</b>
-                            <TagPicker
-                                size="lg"
+                        <div className="form-group col-4">
+                            <b className="">Duração</b>
+                            <DatePicker
                                 block
-                                placeholder="Especialidades"
-                                data={servicos}
-                                disabled={form.disabled && behavior === 'create'}
-                                defaultValue={servico.especialidades}
-                                onChange={(especialidade) => setServico('especialidade', especialidade)}
+                                format="HH:mm"
+                                value={servico.duracao}
+                                hideMinutes={(min) => ![0, 30].includes(min)}
+                                onChange={(e) => {
+                                    setServico('duracao', e);
+                                }}
                             />
                         </div>
-                        
-                    </div>
-                <Button 
-                    block
-                    className="mt-3"
-                    appearance="primary"
-                    color={behavior === 'create' ? 'green' : 'primary'}
-                    size="lg"
-                    loading={form.saving}
-                    onClick={() => save()}
-                >
-                    {behavior === 'create' ? 'Salvar' : 'Atualizar'} servico
-                </Button>
-                {behavior === 'update' && (
-                <Button 
-                    block
-                    className="mt-3"
-                    appearance="primary"
-                    color="red"
-                    size="lg"
-                    loading={form.saving}
-                    onClick={() => setComponent('confirmDelete', true)}
-                >
-                    Remover servico
-                </Button>
-                )}                     
+                        <div className="form-group col-4">
+                            <b>Status</b>
+                            <select 
+                                className="form-control"
+                                value={servico.status}
+                                onChange={(e) => setServico('status', e.target.value)}
+                            >
+                                <option value="A">Ativo</option>
+                                <option value="I">Inativo</option>
+                            </select>
+                        </div>
+                        <div className="form-group col-12">
+                            <b>Descrição</b>
+                            <textarea 
+                                className="form-control"
+                                rows="5"
+                                placeholder="Descrição do servico..."
+                                value={servico.descricao}
+                                onChange={(e) => setServico('descricao', e.target.value)}
+                            >
+                                <option value="A">Ativo</option>
+                                <option value="I">Inativo</option>
+                            </textarea>
+                        </div>
+                        <div className="form-group col-12">
+                            <b className="d-block">Imagens do serviço</b>
+                            <Uploader 
+                                multiple 
+                                listType="picture" 
+                                autoUpload={false}
+                                defaultFileList={servico.arquivos.map((servico, index) => ({
+                                    name: servico?.caminho,
+                                    fileKey: index,
+                                    url: `${consts.bucketUrl}/${servico?.caminho}`,
+                                }))}
+                                onChange={(files) => {
+                                    console.log(files);
+                                }}
+                            >
+                                <button>
+                                    <CameraRetroIcon/>
+                                </button>
+                            </Uploader>
+                        </div>
+                    </div>                  
                 </Drawer.Body>
             </Drawer>
 
@@ -219,7 +209,7 @@ const Servicos = () => {
                                     setComponent('drawer', true);
                                 }}
                             >
-                                <span className="mdi mdi-plus">Novo servico</span>
+                                <span className="mdi mdi-plus">Novo Serviço</span>
                             </button>
                         </div>
                     </div>
@@ -227,9 +217,12 @@ const Servicos = () => {
                     loading={form.filtering}
                     data={servicos}
                     config={[
-                        { label: 'Título', key: 'titulo', width: 200, fixed: true},
-                        { label: 'Email', key: 'email', width: 200},
-                        { label: 'Telefone', key: 'telefone', width: 200},
+                        { label: 'Título', key: 'titulo', width: 200, fixed: true },
+                        { label: 'Preço R$', content: (servico) => `R$ ${servico.preco.toFixed(2)}` },
+                        { label: 'Comissão %', content: (servico) => `${servico.comissao}%` },
+                        { label: 'Recorrência (Dias)', key: 'recorrencia', content: (servico) => `${servico.recorrencia} dias` },
+                        { label: 'Duração', key: 'duracao', content: (servico) => moment(servico.duracao).format('HH:mm')},
+                        { label: 'Status', key: 'status', content: (servico) => (<Tag color={servico.status === 'A' ? 'green' : 'red'}>{servico.status === 'A' ? 'Ativo' : 'Inativo'} </Tag>)},
                         { label: 'Data Cadastro', content: (servico) => moment(servico.dataCadastro).format('DD/MM/YYYY'), width: 200},
                     ]}
                     actions={(servico) => (

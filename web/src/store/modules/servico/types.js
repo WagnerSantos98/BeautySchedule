@@ -1,10 +1,10 @@
 const types = {
-    ALL_SERVICOS: '@servico/ALL',
     UPDATE_SERVICO: '@servico/UPDATE',
-    FILTER_SERVICOS: '@servico/FILTER',
     ADD_SERVICO: '@servico/ADD',
     RESET_SERVICO: '@servico/RESET',
-    UNLINK_SERVICO: '@servico/UNLINK',
+    ALL_SERVICOS: '@servico/ALL',
+    REMOVE_ARQUIVO: '@servico/REMOVE_ARQUIVO',
+    REMOVE_SERVICO: '@servico/REMOVE',
 }
 
 export default types;

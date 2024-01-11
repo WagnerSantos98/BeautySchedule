@@ -28,42 +28,6 @@ export function* allServicos() {
     }
 }
 
-export function* filterServicos() {
-    const { form, servico } = yield select((state) => state.servico);
-
-    try {
-        yield put(updateServico({ form: { ...form, filtering: true } }));
-        const { data: res } = yield call(
-            api.post, `/servico/filter/`,
-            {
-                filters: {
-                    email: servico.email,
-                    status: 'A'
-                }
-            }
-        );
-
-        yield put(updateServico({ form: { ...form, filtering: false } }));
-
-        if (res.error) {
-            alert(res.message);
-            return false;
-        }
-
-        if (res.servicos.length > 0) {
-            yield put(updateServico({
-                servico: res.servicos[0], 
-                form: { ...form, filtering: false, disabled: true } 
-            }));
-        } else {
-            yield put(updateServico({ form: { ...form, disabled: false } }));
-        }
-
-    } catch (err) {
-        yield put(updateServico({ form: { ...form, filtering: false } }));
-        alert(err.message);
-    }
-}
 
 export function* addServico() {
     const { form, servico, components, behavior } = yield select((state) => state.servico);
@@ -110,7 +74,7 @@ export function* addServico() {
     }
 }
 
-export function* unlinkServico() {
+export function* removeServico() {
     const { form, servico, components } = yield select((state) => state.servico);
 
     try {
@@ -136,11 +100,13 @@ export function* unlinkServico() {
     }
 }
 
+export function* removeArquivo(){
 
+}
 
 export default all([
     takeLatest(types.ALL_SERVICOS, allServicos),
-    takeLatest(types.FILTER_SERVICOS, filterServicos),
     takeLatest(types.ADD_SERVICO, addServico),
-    takeLatest(types.UNLINK_SERVICO, unlinkServico)
-])
+    takeLatest(types.REMOVE_SERVICO, removeServico),
+    takeLatest(types.REMOVE_ARQUIVO, removeArquivo)
+]);

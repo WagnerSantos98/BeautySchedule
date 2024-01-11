@@ -13,17 +13,12 @@ export function updateServico(payload){
     };
 }
 
-export function filterServicos(){
-    return {
-        type: types.FILTER_SERVICOS,
-    };
-}
-
 export function addServico(){
     return {
         type: types.ADD_SERVICO
     };
 }
+
 
 export function resetServico(){
     return {
@@ -31,8 +26,16 @@ export function resetServico(){
     };
 }
 
-export function unlinkServico(){
+export function removeArquivo(){
     return {
-        type: types.UNLINK_SERVICO,
+        type: types.REMOVE_ARQUIVO,
     };
 }
+
+export function removeServico(){
+    return {
+        type: types.REMOVE_SERVICO,
+    };
+}
+
+
