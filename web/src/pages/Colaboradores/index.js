@@ -170,7 +170,7 @@ const Colaboradores = () => {
                     color="red"
                     size="lg"
                     loading={form.saving}
-                    onClick={() => setColaborador('confirmDelete', true)}
+                    onClick={() => setComponent('confirmDelete', true)}
                 >
                     Remover Colaborador
                 </Button>
