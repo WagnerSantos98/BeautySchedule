@@ -73,7 +73,7 @@ export function* removeServico() {
     try {
         yield put(updateServico({ form: { ...form, saving: true } }));
         const { data: res } = yield call(
-            api.delete, `/servico/vinculo/${servico.vinculoId}`
+            api.delete, `/servico/${servico._id}`
         );
 
         yield put(updateServico({ form: { ...form, saving: false } }));
