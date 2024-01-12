@@ -137,13 +137,13 @@ router.get('/salao/:salaoId', async (req, res) => {
 //Rota de exclusão - DELETE (DELETE)
 router.post('/delete-arquivo', async (req, res) => {
     try{
-        const { id } = req.body;
+        const { key } = req.body;
 
         //Excluir AWS
-        await aws.deleteFileS3(id);
+        await aws.deleteFileS3(key);
 
         await Arquivo.findOneAndDelete({
-            caminho: id,
+            caminho: key,
         });
         res.json({error: false});
     }catch (err) {

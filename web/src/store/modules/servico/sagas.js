@@ -34,28 +34,15 @@ export function* addServico() {
 
     try {
         yield put(updateServico({ form: { ...form, saving: true } }));
-        let res = {};
 
-        if(behavior === 'create'){
-            const response = yield call(
-                api.post, `/servico`,
-                {
-                    salaoId: consts.salaoId,
-                    servico
-                }
-            );
-            res = response.date;
-        }else{
-            const response = yield call(
-                api.put, `/servico/${servico._id}`,
-                {
-                    vinculo: servico.vinculo,
-                    vinculoId: servico.vinculoId,
-                    especialidades: servico.especialidades,
-                }
-            );
-            res = response.data;
-        }
+        const formData = new FormData();
+        formData.append('servico', JSON.stringify(servico));
+        formData.append('salaooId', consts.salaoId);
+        servico.arquivos.map((a, i) => {
+            formData.append(`arquivo_${i}`, a);
+        });
+
+        const { data: res } = yield call(api[behavior === 'create' ? 'post' : 'put'], behavior === 'create' ? `/servico` : `/servico/${servico._id}`, formData);
 
         yield put(updateServico({ form: { ...form, saving: false } }));
 
@@ -100,8 +87,26 @@ export function* removeServico() {
     }
 }
 
-export function* removeArquivo(){
+export function* removeArquivo({ key }){
+    const { form } = yield select((state) => state.servico);
+    try {
+        yield put(updateServico({ form: { ...form, saving: true } }));
+        const { data: res } = yield call(
+            api.post, `/servico/delete-arquivo/`, {
+                key
+        });
 
+        yield put(updateServico({ form: { ...form, saving: false } }));
+
+        if (res.error) {
+            alert(res.message);
+            return false;
+        }
+
+    } catch (err) {
+        yield put(updateServico({ form: { ...form, saving: false } }));
+        alert(err.message);
+    }
 }
 
 export default all([

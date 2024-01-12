@@ -8,7 +8,7 @@ import moment from 'moment';
 import 'rsuite/dist/rsuite.css';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { allServicos, updateServico, addServico, removeServico } from '../../store/modules/servico/actions';
+import { allServicos, updateServico, addServico, removeServico, removeArquivo } from '../../store/modules/servico/actions';
 import consts from '../../consts';
 
 
@@ -96,7 +96,7 @@ const Servicos = () => {
                                 }}
                             />
                         </div>
-                        <div className="form-group col-4">
+                        <div className="form-group col-4 mt-3">
                             <b>Recorrência</b>
                             <input
                                 type="text"
@@ -108,7 +108,7 @@ const Servicos = () => {
                                 }}
                             />
                         </div>
-                        <div className="form-group col-4">
+                        <div className="form-group col-4 mt-3">
                             <b className="">Duração</b>
                             <DatePicker
                                 block
@@ -120,7 +120,7 @@ const Servicos = () => {
                                 }}
                             />
                         </div>
-                        <div className="form-group col-4">
+                        <div className="form-group col-4 mt-3">
                             <b>Status</b>
                             <select 
                                 className="form-control"
@@ -131,7 +131,7 @@ const Servicos = () => {
                                 <option value="I">Inativo</option>
                             </select>
                         </div>
-                        <div className="form-group col-12">
+                        <div className="form-group col-12 mt-3">
                             <b>Descrição</b>
                             <textarea 
                                 className="form-control"
@@ -144,7 +144,7 @@ const Servicos = () => {
                                 <option value="I">Inativo</option>
                             </textarea>
                         </div>
-                        <div className="form-group col-12">
+                        <div className="form-group col-12 mt-3">
                             <b className="d-block">Imagens do serviço</b>
                             <Uploader 
                                 multiple 
@@ -156,7 +156,14 @@ const Servicos = () => {
                                     url: `${consts.bucketUrl}/${servico?.caminho}`,
                                 }))}
                                 onChange={(files) => {
-                                    console.log(files);
+                                    const arquivos = files.filter((f) => f.blobFile).map((f) => f.blobFile);
+
+                                    setServico('arquivos', arquivos);
+                                }}
+                                onRemove={(file) => {
+                                    if(behavior === 'update' && file.url){
+                                        dispatch(removeArquivo(file.name));
+                                    }
                                 }}
                             >
                                 <button>
@@ -164,7 +171,31 @@ const Servicos = () => {
                                 </button>
                             </Uploader>
                         </div>
-                    </div>                  
+                    </div>
+                    <Button 
+                        block
+                        className="mt-3"
+                        appearance="primary"
+                        color={behavior === 'create' ? 'green' : 'primary'}
+                        size="lg"
+                        loading={form.saving}
+                        onClick={() => save()}
+                    >
+                       {behavior === 'create' ? 'Salvar' : 'Atualizar'} serviço
+                    </Button>
+                    {behavior === 'update' && (
+                    <Button 
+                        block
+                        className="mt-3"
+                        appearance="primary"
+                        color="red"
+                        size="lg"
+                        loading={form.saving}
+                        onClick={() => setComponent('confirmDelete', true)}
+                    >
+                        Remover serviço
+                    </Button>
+                    )}                    
                 </Drawer.Body>
             </Drawer>
 
