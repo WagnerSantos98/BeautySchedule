@@ -35,14 +35,18 @@ export function* addServico() {
     try {
         yield put(updateServico({ form: { ...form, saving: true } }));
 
+        // Criar um novo objeto com todas as propriedades existentes de servico e adicionar salaoId
+        const updatedServico = { ...servico, salaoId: consts.salaoId };
+
         const formData = new FormData();
-        formData.append('servico', JSON.stringify(servico));
-        formData.append('salaooId', consts.salaoId);
-        servico.arquivos.map((a, i) => {
+        formData.append('servico', JSON.stringify(updatedServico));
+
+        // Adicionar arquivos ao FormData
+        updatedServico.arquivos.forEach((a, i) => {
             formData.append(`arquivo_${i}`, a);
         });
 
-        const { data: res } = yield call(api[behavior === 'create' ? 'post' : 'put'], behavior === 'create' ? `/servico` : `/servico/${servico._id}`, formData);
+        const { data: res } = yield call(api[behavior === 'create' ? 'post' : 'put'], behavior === 'create' ? `/servico` : `/servico/${updatedServico._id}`, formData);
 
         yield put(updateServico({ form: { ...form, saving: false } }));
 
@@ -60,6 +64,8 @@ export function* addServico() {
         alert(err.message);
     }
 }
+
+
 
 export function* removeServico() {
     const { form, servico, components } = yield select((state) => state.servico);

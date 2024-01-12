@@ -1,6 +1,6 @@
 import React from 'react';
 import { useEffect } from 'react';
-import { Button, Drawer, Modal, TagPicker, Tag, DatePicker, Uploader } from 'rsuite';
+import { Button, Drawer, Modal, Tag, DatePicker, Uploader } from 'rsuite';
 import RemindFill from '@rsuite/icons/RemindFill';
 import CameraRetroIcon from '@rsuite/icons/legacy/CameraRetro';
 import Table from '../../components/Table';
@@ -8,8 +8,9 @@ import moment from 'moment';
 import 'rsuite/dist/rsuite.css';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { allServicos, updateServico, addServico, removeServico, removeArquivo } from '../../store/modules/servico/actions';
+import { allServicos, updateServico, addServico, removeServico, removeArquivo, resetServico } from '../../store/modules/servico/actions';
 import consts from '../../consts';
+
 
 
 const Servicos = () => {
@@ -42,7 +43,7 @@ const Servicos = () => {
 
     useEffect(() => {
         dispatch(allServicos());        
-    },[]);
+    },[dispatch]);
 
     return(
         <div className="col p-5 overflow-auto h-100">
@@ -231,7 +232,7 @@ const Servicos = () => {
                             <button 
                                 className="btn btn-primary btn-lg"
                                 onClick={() => {
-                                    console.log("Click");
+                                    dispatch(resetServico());
                                     dispatch(
                                         updateServico({
                                             behavior: 'create',
