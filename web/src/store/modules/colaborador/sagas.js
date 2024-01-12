@@ -80,7 +80,7 @@ export function* addColaborador() {
                     colaborador
                 }
             );
-            res = response.date;
+            res = response.data;
         }else{
             const response = yield call(
                 api.put, `/colaborador/${colaborador._id}`,

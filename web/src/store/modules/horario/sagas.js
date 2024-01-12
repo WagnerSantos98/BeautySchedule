@@ -50,8 +50,48 @@ export function* allServicos() {
     }
 }
 
+export function* addHorario() {
+    const { form, horario, components, behavior } = yield select((state) => state.horario);
+
+    try {
+        yield put(updateHorario({ form: { ...form, saving: true } }));
+        let res = {};
+
+        if(behavior === 'create'){
+            const response = yield call(
+                api.post, `/horario`,{
+                    ...horario,
+                    salaoId: consts.salaoId
+            });
+            res = response.data;
+        }else{
+            const response = yield call(
+                api.put, `/horario/${horario._id}`, horario);
+            res = response.data;
+        }
+
+        yield put(updateHorario({ form: { ...form, saving: false } }));
+
+        if (res.error) {
+            alert(res.message);
+            return false;
+        }
+
+        yield put(allHorariosAction());
+        yield put(updateHorario({ components: { ...components, drawer: false } }));
+        yield put(resetHorario());
+
+    } catch (err) {
+        yield put(updateHorario({ form: { ...form, saving: false } }));
+        alert(err.message);
+    }
+}
+
+
+
 export default all([
     takeLatest(types.ALL_HORARIOS, allHorarios),
     takeLatest(types.ALL_SERVICOS, allServicos),
+    takeLatest(types.ADD_HORARIO, addHorario),
     
 ]);

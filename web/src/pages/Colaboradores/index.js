@@ -142,11 +142,11 @@ const Colaboradores = () => {
                             <TagPicker
                                 size="lg"
                                 block
-                                placeholder="Especialidades"
+                                value={colaborador.especialidades}
                                 data={servicos}
-                                disabled={form.disabled && behavior === 'create'}
-                                defaultValue={colaborador.especialidades}
-                                onChange={(especialidade) => setColaborador('especialidade', especialidade)}
+                                onChange={(e) => {
+                                    setColaborador('especialidades', e);
+                                }}
                             />
                         </div>
                         
