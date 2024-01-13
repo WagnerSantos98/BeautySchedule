@@ -45,7 +45,7 @@ const Agendamentos = () => {
             moment().weekday(0).format('YYYY-MM-DD'),
             moment().weekday(6).format('YYYY-MM-DD')
         ));
-    }, []);
+    }, [dispatch]);
 
     return (
         <div className="col p-5 overflow-auto h-100">
