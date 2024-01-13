@@ -21,7 +21,7 @@ const INITIAL_STATE = {
         inicio: '',
         fim: '',
         especialidades: [],
-        colaboradores: []
+        colaboradores: [],
     },
 };
 

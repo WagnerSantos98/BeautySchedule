@@ -26,7 +26,7 @@
     "react-scripts": "5.0.1",
     "redux": "^5.0.0",
     "redux-saga": "^1.2.3",
-    "rsuite": "^5.49.0",
+    "rsuite": "^5.50.0",
     "stream-browserify": "^3.0.0",
     "swal": "^0.1.0",
     "unorm": "^1.6.0",

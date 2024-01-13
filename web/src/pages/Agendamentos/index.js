@@ -9,7 +9,7 @@ import util from '../../util';
 import 'moment/locale/pt-br.js';
 
 
-moment.locale('pt-br');
+
 const localizer = momentLocalizer(moment);
 
 
