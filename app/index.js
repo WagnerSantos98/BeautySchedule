@@ -6,7 +6,7 @@ import { Provider as StoreProvider} from 'react-redux';
 import { DefaultTheme, configureFonts, Provider as PaperProvider} from 'react-native-paper';
 import store from './src/store';
 
-//Css
+//Fonts
 import { fonts } from './src/styles/theme.json';
 
 const theme = {
