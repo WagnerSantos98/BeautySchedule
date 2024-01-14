@@ -2,30 +2,31 @@ import types from './types';
 import produce from 'immer';
 import consts from '../../../consts';
 
-const INITIAL_STATE ={
+const INITIAL_STATE = {
     salao: {},
     servicos: [],
     agenda: [],
     colaboradores: [],
-    agendamento:{
+    agendamento: {
         clienteId: consts.clienteId,
         salaoId: consts.salaoId,
-        servicoID: null,
-        colaboradorId: null,
+        servicosId: null,
+        colaboradoresId: null,
         data: null,
     },
-    form:{
+    form: {
         inputFiltro: '',
         inputFiltroFoco: false,
         modalEspecialista: false,
         modalAgendamento: 0,
         agendamentoLoading: false,
-    },
+    }
 };
 
 function salao(state = INITIAL_STATE, action){
-    switch(action.types){
-        default: return state;
+    switch(action.type){
+        default:
+            return state;
     }
 }
 

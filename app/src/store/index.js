@@ -8,7 +8,7 @@ import Reactotron from '../config/reactotron';
 const sagaMiddleware = createSagaMiddleware();
 
 const store = createStore(
-    rootReducer,
+    rootReducer, 
     compose(applyMiddleware(sagaMiddleware), Reactotron.createEnhancer()),
 );
 

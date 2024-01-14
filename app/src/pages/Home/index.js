@@ -1,27 +1,8 @@
 import React from 'react';
-import { FlatList } from 'react-native';
-import theme from '../../styles/theme.json';
-import util from '../../util';
-
-import Header  from '../../components/Header';
-import Servico  from '../../components/Servico';
-import ModalAgendamento from '../../components/ModalAgendamento';
+import { Text } from 'react-native';
 
 const Home = () => {
-    return(
-        <>
-            <FlatList
-                style={{
-                    backgroundColor: util.toAlpha(theme.colors.light)
-                }} 
-                ListHeaderComponent={Header}
-                data={['a', 'b', 'c', 'd', 'e']}
-                renderItem={({item}) => <Servico key={item}/>}
-                keyExtractor={(item) => item}
-            />
-            <ModalAgendamento/>
-        </>
-    );
+    return <Text>Home</Text>
 }
 
 export default Home;
