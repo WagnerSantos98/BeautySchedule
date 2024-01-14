@@ -11,6 +11,37 @@ import {
 
 import LinearGradient from 'react-native-linear-gradient';
 
+
+export const Box = styled.View`
+    flex: 1;
+    flex-wrap: ${(props) => props.wrap || 'nowrap'};
+    flex-direction: ${(props) => props.direction || 'row'};
+    justify-content: ${(props) => props.justify || 'flex-start'};
+    align-items: ${(props) => props.align || 'flex-start'};
+    width: ${(props) => props.width || '100%'};
+    height: ${(props) => props.height || 'auto'};
+    max-height: ${(props) => props.height || 'auto'};
+    padding: ${(props) => (props.hasPadding ? '20px' : '0px')};
+    padding-bottom: ${(props) => props.removePaddingBottom ? '0' : props.hasPadding ? '20px' : '0px'};
+    margin: ${(props) => props.spacing || 0};
+    border-radius: ${(props) => props.radius || 0};
+    border: ${(props) => props.border || 'none'};
+    background: ${(props) => theme.colors[props.background] || props.background || 'transparent'};
+`;
+
+export const Touchable = styled.TouchableOpacity`
+    flex-direction: ${(props) => props.direction || 'row'};
+    justify-content: ${(props) => props.justify || 'flex-start'};
+    align-items: ${(props) => props.align || 'flex-start'};
+    width: ${(props) => props.width || '100%'};
+    height: ${(props) => props.height || 'auto'};
+    padding: ${(props) => (props.hasPadding ? '20px' : '0px')};
+    margin: ${(props) => props.spacing || 0};
+    background: ${(props) => theme.colors[props.background] || props.background || 'transparent'};
+    border-radius: ${(props) => props.rounded || 0};
+    border: ${(props) => props.border || 'none'};
+`;
+
 export const Cover = styled.ImageBackground.attrs((props) => ({
     source: {
         uri: props.image,
@@ -58,4 +89,14 @@ export const Text = styled(TextPaper)`
     font-family: ${(props) => (props.bold ? 'Ubuntu-Bold' : 'Ubuntu-Light')};
     margin: ${(props) => props.spacing || 0};
     padding: ${(props) => (props.hasPadding ? '20px' : '0px')};
+`;
+
+export const Button = styled(ButtonPaper)`
+  background-color: ${(props) => theme.colors[props.background] || props.background};
+  width: ${(props) => (props.block ? '100%' : 'auto')};
+  border-radius: 5px;
+  labelStyle: {
+    color: ${(props) => theme.colors[props.textColor || 'light']};
+    letter-spacing: 0;
+  }
 `;
