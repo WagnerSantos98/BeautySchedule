@@ -1,5 +1,6 @@
 import styled from 'styled-components/native';
 import theme from './theme.json';
+import util from '../util';
 
 import {
     Text as TextPaper,
@@ -99,4 +100,18 @@ export const Button = styled(ButtonPaper)`
     color: ${(props) => theme.colors[props.textColor || 'light']};
     letter-spacing: 0;
   }
+`;
+
+export const TextInput = styled(TextInputPaper).attrs({
+    mode: 'outlined',
+    theme: {
+        colors: {
+            placeholder: util.toAlpha(theme.colors.muted, 30),
+        }
+    }
+})`
+    height: 45px;
+    width: 100%;
+    font-size: 15px;
+    background: ${theme.colors.light};
 `;

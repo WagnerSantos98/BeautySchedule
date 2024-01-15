@@ -1,5 +1,5 @@
 import React from 'react';
-import { Cover, GradientView, Title, Text, Badge, Box, Touchable, Button } from '../../styles';
+import { Cover, GradientView, Title, Text, Badge, Box, Touchable, Button, TextInput } from '../../styles';
 
 //Icons
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -22,9 +22,9 @@ const Header = () => {
                 <Text color="light">Bragança Paulista • 5.2Kms</Text>
             </GradientView>
         </Cover>
-        <Box background="light" align="center" hasPadding>
-            <Box justify="space-between">
-                <Touchable width="50px" direction="column" align="center">
+        <Box background="light" align="center">
+            <Box justify="space-between" hasPadding>
+                <Touchable width="40px" direction="column" align="center" spacing="0px 10px 0 0">
                     <Icon name="phone" size={24} color={theme.colors.muted}/>
                     <Text small spacing="10px 0 0">Ligar</Text>
                 </Touchable>
@@ -37,10 +37,15 @@ const Header = () => {
                     <Text small spacing="10px 0 0">Enviar</Text>
                 </Touchable>
             </Box>
-            <Box hasPadding direction="column" width="100%" align="center" justify="center">
-            <Button icon="clock-check-outline" background="success" mode="contained">Agendar Agora</Button>
+            <Box hasPadding direction="column" align="center" justify="center">
+            <Button icon="clock-check-outline" background="success" mode="contained" uppercase={false}>Agendar Agora</Button>
                 <Text small spacing="10px 0 0">Horários disponíveis</Text>
             </Box>
+        </Box>
+
+        <Box hasPadding direction="column" background="light" spacing="10px 0 0">
+            <Title small>Serviços (2)</Title>
+            <TextInput placeholder="Digite o nome do serviço..."/>
         </Box>
     </>
     );
