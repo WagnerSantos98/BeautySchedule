@@ -1,6 +1,7 @@
 import styled from 'styled-components/native';
 import theme from './theme.json';
 import util from '../util';
+import { StyleSheet, Dimensions } from 'react-native';
 
 import {
     Text as TextPaper,
@@ -115,3 +116,17 @@ export const TextInput = styled(TextInputPaper).attrs({
     font-size: 15px;
     background: ${theme.colors.light};
 `;
+
+export const Spacer = styled.View`
+    width: 100%;
+    height: ${(props) => props.size || '10px'}
+`;
+
+const DIMENSIONS = Dimensions.get('window')
+
+export const styles = StyleSheet.create({
+    container: {
+        height: DIMENSIONS.height - 30,
+        backgroundColor: "#fff",
+    }
+})
