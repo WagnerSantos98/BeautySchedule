@@ -1,7 +1,9 @@
 import { View, Text,  Dimensions} from 'react-native';
-import ModalHeader from './header';
 import { ScrollView } from 'react-native';
 import { styles } from '../../styles';
+
+import ModalHeader from './header';
+import Resume from './resume';
 
 
 const ModalAgendamento = () => {
@@ -10,6 +12,7 @@ const ModalAgendamento = () => {
     <View style={styles.container}>
       <ScrollView>
         <ModalHeader/>
+        <Resume/>
       </ScrollView>
     </View>
   );

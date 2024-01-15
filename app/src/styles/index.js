@@ -122,6 +122,8 @@ export const Spacer = styled.View`
     height: ${(props) => props.size || '10px'}
 `;
 
+
+//Bottom theme personalizado
 const DIMENSIONS = Dimensions.get('window')
 
 export const styles = StyleSheet.create({
