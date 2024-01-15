@@ -4,6 +4,7 @@ import { styles } from '../../styles';
 
 import ModalHeader from './header';
 import Resume from './resume';
+import DateTime from './dateTime';
 
 
 const ModalAgendamento = () => {
@@ -13,6 +14,7 @@ const ModalAgendamento = () => {
       <ScrollView>
         <ModalHeader/>
         <Resume/>
+        <DateTime/>
       </ScrollView>
     </View>
   );
