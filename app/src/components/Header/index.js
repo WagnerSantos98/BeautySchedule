@@ -1,11 +1,16 @@
 import React from 'react';
 import { Cover, GradientView, Title, Text, Badge, Box, Touchable, Button, TextInput } from '../../styles';
 
+import { useSelector } from 'react-redux';
+
 //Icons
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import theme from '../../styles/theme.json';
 
 const Header = () => {
+
+    const { salao } = useSelector((state) => state.salao);
+    
     return (
     <>
         <Cover 
@@ -18,7 +23,7 @@ const Header = () => {
                 justify="flex-end"
             >
                 <Badge color="success">ABERTO</Badge>
-                <Title color="light">Salão Teste</Title>
+                <Title color="light">{salao.nome}</Title>
                 <Text color="light">Bragança Paulista • 5.2Kms</Text>
             </GradientView>
         </Cover>
