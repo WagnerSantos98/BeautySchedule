@@ -10,7 +10,7 @@ import { Box, Text, Touchable } from '../../styles';
 const PaymentPicker = () => {
     return(
         <>
-            <Text bold hasPadding color="dark">Como você gostaria de pagar?</Text>
+            <Text bold hasPadding color="dark">Método de pagamento</Text>
             <View style={{ paddingHorizontal: 20}}>
                 <Touchable 
                     height="40px"

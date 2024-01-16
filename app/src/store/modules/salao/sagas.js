@@ -1,3 +1,26 @@
-import { takeLatest, all } from 'redux-saga/effects';
+import { takeLatest, all, take } from 'redux-saga/effects';
+import api from '../../../services/api';
+import consts from '../../../consts';
 
-export default all([]);
+import types from './types';
+import { updateSalao } from './actions';
+
+export function* getSalao(){
+    try{
+
+        const { data: res } = yield call(api.get, `/salao/${consts.salaoId}`);
+
+        if(res.error){
+            alert(res.message);
+            return false;
+        }
+
+        yield put(updateSalao(res.salao));
+    }catch(err){
+        alert(err.message);
+    }
+}
+
+export default all([
+    takeLatest(types.GET_SALAO, getSalao),
+]);

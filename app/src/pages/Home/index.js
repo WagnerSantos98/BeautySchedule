@@ -1,13 +1,23 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { FlatList } from 'react-native';
 import theme from '../../styles/theme.json';
 import util from '../../util';
 
+import { useDispatch, useSelect } from 'react-redux';
+import { getSalao } from '../../store/modules/salao/actions'
+
 import Header from '../../components/Header';
 import Servico from '../../components/Servico';
-import ModalAgendamento from '../../components/ModalAgendamento';
+//import ModalAgendamento from '../../components/ModalAgendamento';
 
 const Home = () => {
+
+    const dispatch = useDispatch();
+
+    useEffect(() => {
+        dispatch(getSalao());
+    },[]);
+    
     return (
         <>
             <FlatList
@@ -19,7 +29,7 @@ const Home = () => {
                 renderItem={({ item }) => <Servico key={item} />}
                 keyExtractor={(item) => item}
             />
-            <ModalAgendamento/>
+            
         </>
     );
 };

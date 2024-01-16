@@ -1,6 +1,6 @@
-import { View, Text,  Dimensions} from 'react-native';
+import { View } from 'react-native';
 import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler';
-import { styles } from '../../styles';
+import { styles, Box, Button } from '../../styles';
 
 import ModalHeader from './header';
 import Resume from './resume';
@@ -22,6 +22,15 @@ const ModalAgendamento = () => {
               <DateTimePicker/>
               <EspecialistaPicker/>
               <PaymentPicker/>
+              <Box hasPadding>
+                <Button
+                  icon="check"
+                  background="primary"
+                  mode="contained"
+                  block
+                  uppercase={false}
+                >Confirmar agendamento</Button>
+              </Box>
             </ScrollView>  
             <EspecialistasModal/>
         </>
