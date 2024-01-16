@@ -4,9 +4,8 @@ import { FlatList } from 'react-native-gesture-handler';
 import { Box, Text, Title, Touchable } from '../../styles';
 import theme from '../../styles/theme.json';
 import util from '../../util';
-import { select } from 'redux-saga/effects';
 
-const dateTime = () => {
+const dateTimePicker = () => {
     return (
         <>
             <Text bold color="dark" hasPadding>Para quando você gostaria de agendar?</Text>
@@ -76,4 +75,4 @@ const dateTime = () => {
     );
 };
 
-export default dateTime;
+export default dateTimePicker;
