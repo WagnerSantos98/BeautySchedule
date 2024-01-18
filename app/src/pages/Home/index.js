@@ -8,6 +8,7 @@ import { getSalao } from '../../store/modules/salao/actions';
 
 import Header from '../../components/Header';
 import Servico from '../../components/Servico';
+import types from '../../store/modules/salao/types';
 //import ModalAgendamento from '../../components/ModalAgendamento';
 
 const Home = () => {
@@ -15,7 +16,7 @@ const Home = () => {
     const dispatch = useDispatch();
 
     useEffect(() => {
-        dispatch(getSalao());
+        dispatch({type: types.GET_SALAO});
     },[]);
     
     return (

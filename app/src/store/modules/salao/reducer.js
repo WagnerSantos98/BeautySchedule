@@ -26,7 +26,7 @@ const INITIAL_STATE = {
 function salao(state = INITIAL_STATE, action){
     switch(action.type){
 
-        case types.UPDATE_SALO:{
+        case types.UPDATE_SALAO: {
             return produce(state, (draft) => {
                 draft.salao = { ...draft.salao, ...action.salao};
             })
