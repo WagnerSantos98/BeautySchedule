@@ -17,6 +17,7 @@ export function* getSalao(){
         yield put(updateSalao({
             ...res.salao, 
             distancia: res.distance,
+            isOpened: res.isOpened,
         }));
     }catch(err){
         alert(err.message);

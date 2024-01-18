@@ -1,6 +1,6 @@
 import React from 'react';
 import { Cover, GradientView, Title, Text, Badge, Box, Touchable, Button, TextInput } from '../../styles';
-import { Linking } from 'react-native';
+import { Linking, Share } from 'react-native';
 
 //Icons
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -23,7 +23,7 @@ const Header = () => {
                 hasPadding
                 justify="flex-end"
             >
-                <Badge color="success">ABERTO</Badge>
+                <Badge color={salao.isOpened ? 'success' : 'danger'}>{salao.isOpened ? 'ABERTO' : 'FECHADO'}</Badge>
                 <Title color="light">{salao.nome}</Title>
                 <Text color="light">{salao?.endereco?.cidade} • {salao?.distancia?.toFixed(2)}Kms</Text>
             </GradientView>
@@ -40,7 +40,7 @@ const Header = () => {
                     <Icon name="map-marker" size={24} color={theme.colors.muted}/>
                     <Text small spacing="10px 0 0">Visitar</Text>
                 </Touchable>
-                <Touchable width="60px" direction="column" align="center">
+                <Touchable width="60px" direction="column" align="center" onPress={() => {Share.share({message: `${salao.nome} - Olá`})}}>
                     <Icon name="share" size={24} color={theme.colors.muted}/>
                     <Text small spacing="10px 0 0">Enviar</Text>
                 </Touchable>
