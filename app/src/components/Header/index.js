@@ -1,5 +1,6 @@
 import React from 'react';
 import { Cover, GradientView, Title, Text, Badge, Box, Touchable, Button, TextInput } from '../../styles';
+import { Linking } from 'react-native';
 
 //Icons
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
@@ -14,7 +15,7 @@ const Header = () => {
     return (
     <>
         <Cover 
-            image="https://s2.glbimg.com/Ha2q-YYa3pCWtwM4E51zi_p-POI=/940x523/e.glbimg.com/og/ed/f/original/2019/02/20/blow-dry-bar-del-mar-chairs-counter-853427.jpg"
+            image={salao?.capa}
             width="100%"
             height="300px">
             <GradientView 
@@ -24,16 +25,18 @@ const Header = () => {
             >
                 <Badge color="success">ABERTO</Badge>
                 <Title color="light">{salao.nome}</Title>
-                <Text color="light">Bragança Paulista • 5.2Kms</Text>
+                <Text color="light">{salao?.endereco?.cidade} • {salao?.distancia?.toFixed(2)}Kms</Text>
             </GradientView>
         </Cover>
         <Box background="light" align="center">
             <Box justify="space-between" hasPadding>
-                <Touchable width="40px" direction="column" align="center" spacing="0px 10px 0 0">
+                <Touchable width="40px" direction="column" align="center" spacing="0px 10px 0 0" onPress={() => Linking.openURL(`tel:${salao.telefone}`)}>
                     <Icon name="phone" size={24} color={theme.colors.muted}/>
                     <Text small spacing="10px 0 0">Ligar</Text>
                 </Touchable>
-                <Touchable width="60px" direction="column" align="center">
+                <Touchable width="60px" direction="column" align="center" onPress={() => {
+                    Linking.openURL(`https://www.google.com/maps/dir/?api=1&travelmode=driving&dir_action=mnavigate&destination=${salao.geo.coordinates[0]},${salao.geo.coordinates[1]}`);
+                }}>
                     <Icon name="map-marker" size={24} color={theme.colors.muted}/>
                     <Text small spacing="10px 0 0">Visitar</Text>
                 </Touchable>

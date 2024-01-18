@@ -14,7 +14,10 @@ export function* getSalao(){
             alert(err.message);
             return false;
         }
-        yield put(updateSalao(res.salao));
+        yield put(updateSalao({
+            ...res.salao, 
+            distancia: res.distance,
+        }));
     }catch(err){
         alert(err.message);
     }
