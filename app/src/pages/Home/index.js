@@ -3,8 +3,8 @@ import { FlatList } from 'react-native';
 import theme from '../../styles/theme.json';
 import util from '../../util';
 
-import { useDispatch, useSelect } from 'react-redux';
-import { getSalao } from '../../store/modules/salao/actions'
+import { useDispatch, useSelector } from 'react-redux';
+import { getSalao } from '../../store/modules/salao/actions';
 
 import Header from '../../components/Header';
 import Servico from '../../components/Servico';

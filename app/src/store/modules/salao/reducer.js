@@ -1,5 +1,5 @@
 import types from './types';
-import produce from 'immer';
+import { produce } from 'immer';
 import consts from '../../../consts';
 
 const INITIAL_STATE = {

@@ -1,4 +1,4 @@
-import { takeLatest, all, take } from 'redux-saga/effects';
+import { takeLatest, all, call, put } from 'redux-saga/effects';
 import api from '../../../services/api';
 import consts from '../../../consts';
 
