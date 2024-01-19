@@ -38,7 +38,7 @@ const Home = () => {
                 renderItem={({ item }) => <Servico servico={item} key={item} />}
                 keyExtractor={(item) => item}
             />
-            
+            <ModalAgendamento/>
         </>
     );
 };
