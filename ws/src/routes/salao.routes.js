@@ -40,7 +40,7 @@ router.get('/:id' ,async (req, res) =>{
         //Distância
         const distance = turf.distance(
             turf.point(salao.geo.coordinates),
-            turf.point([-22.9582103, -46.5478778])
+            turf.point([-22.955548, -46.5760525])
         );
         
         //Aberto
