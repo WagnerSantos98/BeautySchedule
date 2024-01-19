@@ -13,3 +13,23 @@ export function updateSalao(salao){
         salao
     }
 }
+
+export function allServicos(){
+    return{
+        type: types.ALL_SERVICOS,
+    }
+}
+
+export function updateServicos(servicos){
+    return{
+        type: types.UPDATE_SERVICOS,
+        servicos
+    }
+}
+
+export function updateForm(payload){
+    return{
+        type: types.UPDATE_FORM,
+        payload
+    }
+}

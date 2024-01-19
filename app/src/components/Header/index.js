@@ -6,11 +6,12 @@ import { Linking, Share } from 'react-native';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 import theme from '../../styles/theme.json';
 
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateForm } from '../../store/modules/salao/actions';
 
 const Header = () => {
-
-    const { salao } = useSelector((state) => state.salao);
+    const dispatch = useDispatch();
+    const { salao, servicos } = useSelector((state) => state.salao);
     
     return (
     <>
@@ -52,8 +53,13 @@ const Header = () => {
         </Box>
 
         <Box hasPadding direction="column" background="light" spacing="10px 0 0">
-            <Title small>Serviços (2)</Title>
-            <TextInput placeholder="Digite o nome do serviço..."/>
+            <Title small>Serviços ({servicos.length})</Title>
+            <TextInput 
+            placeholder="Digite o nome do serviço..." 
+            onChangeText={(value) => dispatch(updateForm({ inputFiltro: value }))}
+            onFocus={() => dispatch(updateForm({ inputFiltroFoco: true }))}   
+            onBlur={() => dispatch(updateForm({ inputFiltroFoco: false }))}            
+            />
         </Box>
     </>
     );

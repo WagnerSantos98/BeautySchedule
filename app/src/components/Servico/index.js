@@ -1,7 +1,9 @@
 import React from 'react';
-import { Text, Box, Touchable, Cover, Title, Button } from '../../styles';
+import { Text, Box, Touchable, Cover, Button } from '../../styles';
+import moment from 'moment';
+import consts from '../../consts';
 
-const servico = () => {
+const servico = ({ servico }) => {
     return (
         <Touchable 
             height="100px" 
@@ -9,10 +11,10 @@ const servico = () => {
             align="center" 
             background="light"
         >
-            <Cover image="https://moda20.com.br/wp-content/uploads/2022/03/Protetor-Solar-Biore-AquaRich-Watery-Essence-e-bom_.jpg"/>
+            <Cover image={`${ consts.bucketUrl }/${servico?.arquivos[0]?.caminho}`}/>
             <Box direction="column">
-                <Text bold color="dark">Corte de cabelo feminino</Text>
-                <Text small>R$ 45,00 • 30mins</Text>
+                <Text bold color="dark">{servico.titulo}</Text>
+                <Text small>R$ {servico?.preco?.toFixed(2)} • {moment(servico.duracao).format('HH:mm')} mins</Text>
             </Box>
             <Box>
                 <Button icon="clock-check-outline" background="success" mode="contained">Agendar</Button>
