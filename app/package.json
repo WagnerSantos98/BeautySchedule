@@ -10,10 +10,11 @@
     "test": "jest"
   },
   "dependencies": {
+    "@babel/plugin-transform-arrow-functions": "^7.23.3",
     "@fortawesome/fontawesome-svg-core": "^6.5.1",
     "@fortawesome/free-solid-svg-icons": "^6.5.1",
     "@fortawesome/react-fontawesome": "^0.2.0",
-    "@gorhom/bottom-sheet": "^4",
+    "@gorhom/bottom-sheet": "^2",
     "@mdi/js": "^7.4.47",
     "@mdi/react": "^1.6.1",
     "@react-native-async-storage/async-storage": "^1.21.0",
@@ -27,7 +28,7 @@
     "react-native-gesture-handler": "^2.14.1",
     "react-native-linear-gradient": "^2.8.3",
     "react-native-paper": "^5.12.1",
-    "react-native-reanimated": "^3.7.0-nightly-20240114-7be0f7908",
+    "react-native-reanimated": "^1",
     "react-native-safe-area-context": "^4.8.2",
     "react-native-simple-modal": "^9.0.1",
     "react-native-vector-icons": "^10.0.3",
