@@ -126,7 +126,6 @@ export const Spacer = styled.View`
 
 //Bottom theme personalizado
 export const DIMENSIONS = Dimensions.get('window')
-export const SHEET_OVER_DRAG = 20
 
 export const styles = StyleSheet.create({
     container: {

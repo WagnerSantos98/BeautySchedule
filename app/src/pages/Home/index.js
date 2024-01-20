@@ -1,7 +1,11 @@
-import React, { useEffect } from 'react';
-import { FlatList } from 'react-native';
+import React, { useEffect, useRef, useMemo, useCallback } from 'react';
+import { FlatList, Dimensions } from 'react-native';
 import theme from '../../styles/theme.json';
+import { styles, Box, Button } from '../../styles';
 import util from '../../util';
+
+import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler';
+import BottomSheet from '@gorhom/bottom-sheet';
 
 import { useDispatch, useSelector } from 'react-redux';
 import { getSalao, allServicos } from '../../store/modules/salao/actions';
@@ -9,9 +13,20 @@ import { getSalao, allServicos } from '../../store/modules/salao/actions';
 import Header from '../../components/Header';
 import Servico from '../../components/Servico';
 import types from '../../store/modules/salao/types';
-//import ModalAgendamento from '../../components/ModalAgendamento';
+
+import ModalHeader from '../../components/ModalAgendamento/header';
+import Resume from '../../components/ModalAgendamento/resume';
+import DateTimePicker from '../../components/ModalAgendamento/dateTime';
+import EspecialistaPicker from '../../components/ModalAgendamento/Especialistas';
+import EspecialistasModal from '../../components/ModalAgendamento/Especialistas/modal';
+import PaymentPicker from '../../components/ModalAgendamento/payment';
 
 const Home = () => {
+    const bottomSheetref = useRef(null);
+    const snapPoints= useMemo(() => [1, 70, Dimensions.get('window').height - 30], [])
+
+    const handleCloseAction = () => bottomSheetref.current?.close()
+    const handleOpenPress = () => bottomSheetref.current?.expand();
 
     const dispatch = useDispatch();
     const { servicos, form } = useSelector((state) => state.salao);
@@ -28,7 +43,8 @@ const Home = () => {
     },[]);
     
     return (
-        <>
+        <GestureHandlerRootView style={{flex: 1}}>
+            <Button onPress={handleOpenPress}>Abrir</Button>
             <FlatList
                 style={{
                     backgroundColor: util.toAlpha(theme.colors.muted, 5),
@@ -38,8 +54,34 @@ const Home = () => {
                 renderItem={({ item }) => <Servico servico={item} key={item} />}
                 keyExtractor={(item) => item}
             />
-           
-        </>
+            <BottomSheet
+                ref={bottomSheetref}
+                index={0}
+                snapPoints={snapPoints}
+                backgroundStyle={{backgroundColor: '#fff'}}
+                enablePanDownToClose={true}
+            >
+                <ScrollView stickyHeaderIndices={[0]}>
+                    <ModalHeader/>
+                    <Resume/>
+                    <DateTimePicker/>
+                    <EspecialistaPicker/>
+                    <PaymentPicker/>
+                    <Box hasPadding>
+                        <Button
+                        icon="check"
+                        background="primary"
+                        mode="contained"
+                        block
+                        uppercase={false}
+                        >Confirmar agendamento</Button>
+                    </Box>
+                </ScrollView>  
+                <EspecialistasModal/>                
+            </BottomSheet>
+            
+        </GestureHandlerRootView>   
+
     );
 };
 
