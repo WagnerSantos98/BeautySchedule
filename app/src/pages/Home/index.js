@@ -25,7 +25,7 @@ const Home = () => {
     const bottomSheetref = useRef(null);
     const snapPoints= useMemo(() => [1, 70, Dimensions.get('window').height - 30], [])
 
-    const handleCloseAction = () => bottomSheetref.current?.close()
+    //const handleCloseAction = () => bottomSheetref.current?.close()
     const handleOpenPress = () => bottomSheetref.current?.expand();
 
     const dispatch = useDispatch();
