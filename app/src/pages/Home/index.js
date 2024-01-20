@@ -9,7 +9,7 @@ import { getSalao, allServicos } from '../../store/modules/salao/actions';
 import Header from '../../components/Header';
 import Servico from '../../components/Servico';
 import types from '../../store/modules/salao/types';
-import ModalAgendamento from '../../components/ModalAgendamento';
+//import ModalAgendamento from '../../components/ModalAgendamento';
 
 const Home = () => {
 
@@ -38,7 +38,7 @@ const Home = () => {
                 renderItem={({ item }) => <Servico servico={item} key={item} />}
                 keyExtractor={(item) => item}
             />
-            <ModalAgendamento/>
+           
         </>
     );
 };
