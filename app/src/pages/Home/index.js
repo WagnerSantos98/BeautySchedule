@@ -31,7 +31,7 @@ const Home = () => {
     //const handleOpenPress = () => bottomSheetref.current?.expand();
 
     const dispatch = useDispatch();
-    const { servicos, form, agendamento, agenda } = useSelector((state) => state.salao);
+    const { servicos, form, agendamento, agenda, colaboradores } = useSelector((state) => state.salao);
 
     const dataSelecionada = moment(agendamento.data).format('YYYY-MM-DD');
     const horaSelecionada = moment(agendamento.data).format('HH:mm');
@@ -90,7 +90,10 @@ const Home = () => {
                         horaSelecionada={horaSelecionada}
                         horariosDisponiveis={horariosDisponiveis}
                     />
-                    <EspecialistaPicker/>
+                    <EspecialistaPicker
+                        colaboradores={colaboradores}
+                        agendamento={agendamento}
+                    />
                     <PaymentPicker/>
                     <Box hasPadding>
                         <Button
@@ -102,7 +105,14 @@ const Home = () => {
                         >Confirmar agendamento</Button>
                     </Box>
                 </ScrollView>  
-                <EspecialistasModal/>                
+                <EspecialistasModal
+                    form={form}
+                    colaboradores={colaboradores}
+                    agendamento={agendamento}
+                    servicos={servicos}
+                    horaSelecionada={horaSelecionada}
+                    colaboradoresDia={colaboradoresDia}
+                />                
             </BottomSheet>
             
         </GestureHandlerRootView>   

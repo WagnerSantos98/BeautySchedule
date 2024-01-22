@@ -1,25 +1,33 @@
 import React from 'react';
-import { Box, Text, Cover, Button } from '../../../styles';
+import { Box, Text, Cover, Button, Touchable } from '../../../styles';
 import theme from '../../../styles/theme.json';
-import util from '../../../util';
 
-const EspecialistaPicker = () => {
+import { useDispatch } from 'react-redux';
+import { updateForm } from '../../../store/modules/salao/actions';
+
+const EspecialistaPicker = ({ colaboradores, agendamento }) => {
+    const dispatch = useDispatch();
+    const colaborador = colaboradores.filter((c) => c._id === agendamento.colaboradorId)?.[0];
+
     return(
         <>
             <Text bold color="dark" hasPadding removePaddingBottom>Gostaria de trocar o(a) especialista?</Text>
             <Box  hasPadding removePaddingBottom>
                 <Box align="center">
-                    <Cover width="45px" height="45px" circle image="https://img.freepik.com/fotos-premium/cabeleireiro-profissional-fica-em-um-salao-de-beleza-com-um-secador-de-cabelo-na-mao_2221-4638.jpg"/>
-                    <Text small>Juliana</Text> 
+                    <Cover width="45px" height="45px" circle image={colaborador?.foto}/>
+                    <Text small>{colaborador?.nome}</Text> 
                 </Box>
                 <Box>
-                    <Button
+                    <Touchable onPress={() => dispatch(updateForm({modalEspecialista: true}))}>
+                        <Button
                         uppercase={false}
                         textColor={theme.colors.muted}
                         background={theme.colors.light}
                         mode="contained"
                         block
                     >Trocar especialista</Button>
+                    </Touchable>
+                    
                 </Box>
             </Box>
             

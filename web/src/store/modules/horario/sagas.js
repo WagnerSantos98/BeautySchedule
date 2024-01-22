@@ -103,7 +103,7 @@ export function* filterColaboradores() {
             return false;
         }
 
-        yield put(updateHorario({ colaboradores: res.colaboradores }));
+        yield put(updateHorario({ colaboradores: res.listaColaboradores }));
     } catch (err) {
         yield put(updateHorario({ form: { ...form, filtering: false } }));
         alert(err.message);
