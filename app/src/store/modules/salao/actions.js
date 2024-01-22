@@ -60,3 +60,9 @@ export function updateColaboradores(colaboradores){
         colaboradores
     }
 }
+
+export function saveAgendamento(){
+    return{
+        type: types.SAVE_AGENDAMENTO,
+    }
+}

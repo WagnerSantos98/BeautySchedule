@@ -1,14 +1,14 @@
 import React, { useEffect, useRef, useMemo, useCallback } from 'react';
 import { FlatList, Dimensions } from 'react-native';
 import theme from '../../styles/theme.json';
-import { styles, Box, Button } from '../../styles';
+import { styles, Box, Button, Touchable } from '../../styles';
 import util from '../../util';
 
 import { GestureHandlerRootView, ScrollView } from 'react-native-gesture-handler';
 import BottomSheet from '@gorhom/bottom-sheet';
 
 import { useDispatch, useSelector } from 'react-redux';
-import { getSalao, allServicos } from '../../store/modules/salao/actions';
+import { getSalao, allServicos, saveAgendamento } from '../../store/modules/salao/actions';
 
 import Header from '../../components/Header';
 import Servico from '../../components/Servico';
@@ -96,13 +96,18 @@ const Home = () => {
                     />
                     <PaymentPicker/>
                     <Box hasPadding>
-                        <Button
-                        icon="check"
-                        background="primary"
-                        mode="contained"
-                        block
-                        uppercase={false}
+                        <Touchable onPress={() => dispatch(saveAgendamento())}>
+                            <Button
+                                loading={form.agendamentoLoading}
+                                disabled={form.agendamentoLoading}
+                                icon="check"
+                                background="primary"
+                                mode="contained"
+                                block
+                                uppercase={false}
                         >Confirmar agendamento</Button>
+                        </Touchable>
+                        
                     </Box>
                 </ScrollView>  
                 <EspecialistasModal

@@ -5,7 +5,7 @@ import moment from 'moment';
 import util from '../../../util';
 import types from './types';
 
-import { updateAgenda, updateAgendamento, updateColaboradores, updateSalao, updateServicos } from './actions';
+import { updateAgenda, updateAgendamento, updateColaboradores, updateSalao, updateServicos, updateForm } from './actions';
 
 
 
@@ -22,7 +22,6 @@ export function* getSalao(){
         alert(err.message);
     }
 }
-
 
 export function* allServicos(){
     try{
@@ -64,8 +63,27 @@ export function* filterAgenda(){
     }
 }
 
+export function* saveAgendamento(){
+    try{
+        const { agendamento } = yield select((state) => state.salao);
+        const { data: res } = yield call(api.post, `/agendamento`, agendamento);
+
+        if(res.error){
+            alert(res.message);
+            return false;
+        }
+        yield put(updateForm({agendamentoLoading: false}));
+        alert('Agndado com sucesso')
+    }catch(err){
+        alert(err.message);
+    }
+}
+
+
+
 export default all([
     takeLatest(types.GET_SALAO, getSalao),
     takeLatest(types.ALL_SERVICOS, allServicos),
     takeLatest(types.FILTER_AGENDA, filterAgenda),
+    takeLatest(types.SAVE_AGENDAMENTO, saveAgendamento),
 ]);

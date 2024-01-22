@@ -19,6 +19,7 @@ const INITIAL_STATE = {
         inputFiltro: '',
         inputFiltroFoco: false,
         modalEspecialista: false,
+        modalPagamento: false,
         modalAgendamento: 0,
         agendamentoLoading: false,
     }
