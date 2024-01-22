@@ -30,7 +30,7 @@ const Home = () => {
     //const handleOpenPress = () => bottomSheetref.current?.expand();
 
     const dispatch = useDispatch();
-    const { servicos, form } = useSelector((state) => state.salao);
+    const { servicos, form, agendamento } = useSelector((state) => state.salao);
 
     const finalServicos = form.inputFiltro.length > 0 ? servicos.filter((s) => { 
         const titulo = s.titulo.toLowerCase().trim();
@@ -75,7 +75,7 @@ const Home = () => {
             >
                 <ScrollView stickyHeaderIndices={[0]}>
                     <ModalHeader/>
-                    <Resume/>
+                    <Resume agendamento={agendamento} servicos={servicos}/>
                     <DateTimePicker/>
                     <EspecialistaPicker/>
                     <PaymentPicker/>
