@@ -4,6 +4,7 @@ import { View, StyleSheet } from 'react-native';
 import theme from '../../styles/theme.json';
 import Icon from 'react-native-vector-icons/MaterialCommunityIcons';
 
+
 const ModalHeader = () => {
    
     return(
