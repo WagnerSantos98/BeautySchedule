@@ -20,6 +20,7 @@ import DateTimePicker from '../../components/ModalAgendamento/dateTime';
 import EspecialistaPicker from '../../components/ModalAgendamento/Especialistas';
 import EspecialistasModal from '../../components/ModalAgendamento/Especialistas/modal';
 import PaymentPicker from '../../components/ModalAgendamento/payment';
+import moment from 'moment';
 
 
 
@@ -30,7 +31,13 @@ const Home = () => {
     //const handleOpenPress = () => bottomSheetref.current?.expand();
 
     const dispatch = useDispatch();
-    const { servicos, form, agendamento } = useSelector((state) => state.salao);
+    const { servicos, form, agendamento, agenda } = useSelector((state) => state.salao);
+
+    const dataSelecionada = moment(agendamento.data).format('YYYY-MM-DD');
+    const horaSelecionada = moment(agendamento.data).format('HH:mm');
+    const { horariosDisponiveis, colaboradoresDia } = util.selectAgendamento(agenda, dataSelecionada, agendamento.colaboradorId)
+
+    const servico = servicos.filter((s) => s._id === agendamento.servicoId)[0];
 
     const finalServicos = form.inputFiltro.length > 0 ? servicos.filter((s) => { 
         const titulo = s.titulo.toLowerCase().trim();
@@ -75,8 +82,14 @@ const Home = () => {
             >
                 <ScrollView stickyHeaderIndices={[0]}>
                     <ModalHeader/>
-                    <Resume agendamento={agendamento} servicos={servicos}/>
-                    <DateTimePicker/>
+                    <Resume servico={servico}/>
+                    <DateTimePicker
+                        servico={servico}
+                        agenda={agenda}
+                        dataSelecionada ={dataSelecionada}
+                        horaSelecionada={horaSelecionada}
+                        horariosDisponiveis={horariosDisponiveis}
+                    />
                     <EspecialistaPicker/>
                     <PaymentPicker/>
                     <Box hasPadding>

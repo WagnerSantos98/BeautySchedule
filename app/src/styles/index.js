@@ -11,6 +11,7 @@ import {
     TextInput as TextInputPaper,
 } from 'react-native-paper';
 
+import { TouchableOpacity } from 'react-native-gesture-handler'
 import LinearGradient from 'react-native-linear-gradient';
 
 
@@ -31,7 +32,7 @@ export const Box = styled.View`
     background: ${(props) => theme.colors[props.background] || props.background || 'transparent'};
 `;
 
-export const Touchable = styled.TouchableOpacity`
+export const Touchable = styled(TouchableOpacity)`
     flex-direction: ${(props) => props.direction || 'row'};
     justify-content: ${(props) => props.justify || 'flex-start'};
     align-items: ${(props) => props.align || 'flex-start'};

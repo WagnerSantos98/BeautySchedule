@@ -47,3 +47,16 @@ export function updateAgenda(agenda){
         agenda
     }
 }
+
+export function filterAgenda(){
+    return{
+        type: types.FILTER_AGENDA
+    }
+}
+
+export function updateColaboradores(colaboradores){
+    return{
+        type: types.UPDATE_COLABORADORES,
+        colaboradores
+    }
+}

@@ -1,9 +1,12 @@
-import { takeLatest, all, call, put  } from 'redux-saga/effects';
+import { takeLatest, all, call, put, select  } from 'redux-saga/effects';
 import api from '../../../services/api';
 import consts from '../../../consts';
-
-import { updateSalao, updateServicos } from './actions';
+import moment from 'moment';
+import util from '../../../util';
 import types from './types';
+
+import { updateAgenda, updateAgendamento, updateColaboradores, updateSalao, updateServicos } from './actions';
+
 
 
 export function* getSalao(){
@@ -35,7 +38,34 @@ export function* allServicos(){
     }
 }
 
+export function* filterAgenda(){
+    try{
+        const { agendamento } = yield select((state) => state.salao);
+        const { data: res } = yield call(api.post, `agendamento/dias-disponiveis`, {
+            ...agendamento,
+            data: moment().format('YYYY-MM-DD')
+        });
+
+        if(res.error){
+            alert(res.error.message);
+            return false;
+        }
+
+        yield put(updateAgenda(res.agenda));
+        yield put(updateColaboradores(res.colaboradores));
+
+        const {horariosDisponiveis, data, colaboradorId} = yield call(util.selectAgendamento, res.agenda);
+        yield put(updateAgendamento({
+            data: moment(`${data}T${horariosDisponiveis[0][0]}`).format(),
+            colaboradorId,
+        }))
+    }catch(err){
+        alert(err.message);
+    }
+}
+
 export default all([
     takeLatest(types.GET_SALAO, getSalao),
     takeLatest(types.ALL_SERVICOS, allServicos),
+    takeLatest(types.FILTER_AGENDA, filterAgenda),
 ]);

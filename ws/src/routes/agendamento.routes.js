@@ -84,7 +84,7 @@ router.post('/dias-disponiveis', async (req, res) => {
         let lastDay = moment(data);
 
         //Duração do serviço
-        const servicoMinutos = util.hourToMinutes(moment(servico.duracao).format('HH:mm'));
+        const servicoMinutos = util.hourToMinutes(moment(servico.duracao).format('HH:mm'))
 
         const servicoSlots = util.sliceMinutes(
             servico.duracao, //1:30

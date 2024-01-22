@@ -4,8 +4,8 @@ import theme from '../../styles/theme.json';
 import util from '../../util';
 import consts from '../../consts';
 
-const Resume = ({ agendamento, servicos }) => {
-    const servico = servicos.filter((s) => s._id === agendamento.servicoId)[0];
+const Resume = ({ servico }) => {
+    
     return (
         <Box align="center" hasPadding background={util.toAlpha(theme.colors.muted, 5)}>
             <Cover image={`${ consts.bucketUrl }/${servico?.arquivos[0]?.caminho}`} width="80px" height="80px"/>

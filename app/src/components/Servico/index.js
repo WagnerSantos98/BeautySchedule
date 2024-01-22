@@ -4,7 +4,7 @@ import moment from 'moment';
 import consts from '../../consts';
 
 import { useDispatch } from 'react-redux';
-import { updateAgendamento } from '../../store/modules/salao/actions';
+import { filterAgenda, updateAgendamento } from '../../store/modules/salao/actions';
 //import {}
 
 const Servico = ({ servico }) => {
@@ -15,8 +15,10 @@ const Servico = ({ servico }) => {
             hasPadding
             align="center" 
             background="light"
-            onPress={() => dispatch(updateAgendamento({ servicoId: servico._id}))}
-        >
+            onPress={() => {
+                dispatch(updateAgendamento({ servicoId: servico._id}));
+                dispatch(filterAgenda());
+            }}>
             <Cover image={`${ consts.bucketUrl }/${servico?.arquivos[0]?.caminho}`}/>
             <Box direction="column">
                 <Text bold color="dark">{servico.titulo}</Text>

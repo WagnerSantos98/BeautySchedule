@@ -1,26 +1,43 @@
 import { GestureHandlerRootView } from 'react-native-gesture-handler';
 import React from 'react';
+import { useDispatch } from 'react-redux';
 import { FlatList } from 'react-native-gesture-handler';
 import { Box, Text, Title, Touchable } from '../../styles';
 import theme from '../../styles/theme.json';
 import util from '../../util';
+import { updateAgendamento } from '../../store/modules/salao/actions'
+import moment from 'moment/min/moment-with-locales';
+moment.locale('pt-br');
 
-const dateTimePicker = () => {
+
+const dateTimePicker = ({ servico, agenda, dataSelecionada, horaSelecionada, horariosDisponiveis }) => {
+    const dispatch = useDispatch();
+
+    const setAgendamento = (value, isTime = false) => {
+        const { horariosDisponiveis } = util.selectAgendamento(agenda, isTime ? dataSelecionada : value);
+        let data = !isTime ? `${value}T${horariosDisponiveis[0][0]}` : `${dataSelecionada}T${value}`;
+        dispatch(updateAgendamento({ data }))
+    }
+
     return (
         <>
             <Text bold color="dark" hasPadding>Para quando você gostaria de agendar?</Text>
             <GestureHandlerRootView>
             <FlatList
-                data={['a', 'b', 'c', 'd', 'e', 'f']}
+                data={agenda}
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 keyExtractor={(item) => item}
                 contentContainerStyle={{
                     paddingLeft: 20,      
                 }}
-                renderItem={({ item }) => (
+                renderItem={({ item }) => {
+                    const date = moment(Object.keys(item)[0]);
+                    const dateISO = moment(date).format('YYYY-MM-DD');
+                    const selected = dateISO === dataSelecionada;
+                return(
                     <Touchable 
-                        key={item}
+                        key={dateISO}
                         width="70px"
                         height="80px"
                         spacing="0 10px 0 0"
@@ -28,23 +45,19 @@ const dateTimePicker = () => {
                         direction="column"
                         justify="center"
                         align="center"
-                        border={`1px solid ${item === 'a' ? theme.colors.primary : util.toAlpha(theme.colors.muted, 50)}`}
-                        background={item === 'a' ? 'primary' : 'light'}
+                        border={`1px solid ${selected ? theme.colors.primary : util.toAlpha(theme.colors.muted, 50)}`}
+                        background={selected ? 'primary' : 'light'}
+                        onPress={() => setAgendamento(dateISO)}
                     >
-                        <Text small color={item === 'a' ? 'light' : undefined}>Dom</Text>
-                        <Title small color={item === 'a' ? 'light' : undefined}>14</Title>
-                        <Text small color={item === 'a' ? 'light' : undefined}>Janeiro</Text>
+                        <Text small color={selected ? 'light' : undefined}>{util.diasSemana[date.day()]}</Text>
+                        <Title small color={selected ? 'light' : undefined}>{date.format('DD')}</Title>
+                        <Text small color={selected ? 'light' : undefined}>{date.format('MMMM')}</Text>
                     </Touchable>
-                )}
+                )}}
             />
             <Text bold color="dark" hasPadding>Que horas?</Text>
             <FlatList
-                data={[
-                    ['14:30', '15:00'],
-                    ['15:30', '16:00'],
-                    ['16:30', '17:00'],
-                    ['17:30'],
-                ]}
+                data={horariosDisponiveis}
                 horizontal
                 showsHorizontalScrollIndicator={false}
                 contentContainerStyle={{
@@ -52,7 +65,9 @@ const dateTimePicker = () => {
                 }}
                 renderItem={({ item }) => (
                     <Box direction="column" spacing="0 10px 0 0">
-                    {item.map(horario => (
+                    {item.map(horario => {
+                        const selected = horario === horaSelecionada;
+                    return(
                         <Touchable
                             key={horario}
                             width="100px"
@@ -61,12 +76,13 @@ const dateTimePicker = () => {
                             rounded="7px"
                             justify="center"
                             align="center"
-                            border={`1px solid ${horario === '14:30' ? theme.colors.primary : util.toAlpha(theme.colors.muted, 50)}`}
-                            background={horario === '14:30' ? 'primary' : 'light'}
+                            border={`1px solid ${selected ? theme.colors.primary : util.toAlpha(theme.colors.muted, 50)}`}
+                            background={selected ? 'primary' : 'light'}
+                            onPress={() => setAgendamento(horario, true)}
                         >
-                            <Text color={horario === '14:30' ? 'light' : undefined}>{horario}</Text>
+                            <Text color={selected ? 'light' : undefined}>{horario}</Text>
                         </Touchable>
-                    ))}
+                    )})}
                     </Box>
     )}
             />

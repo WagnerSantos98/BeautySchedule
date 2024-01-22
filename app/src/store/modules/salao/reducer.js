@@ -1,6 +1,7 @@
 import types from './types';
 import { produce } from 'immer';
 import consts from '../../../consts';
+import * as _ from 'lodash';
 
 const INITIAL_STATE = {
     salao: {},
@@ -43,7 +44,7 @@ function salao(state = INITIAL_STATE, action){
         }
         case types.UPDATE_AGENDA: {
             return produce(state, (draft) => {
-                draft.agenda = [...state.agenda, action.agenda];
+                draft.agenda = [...state.agenda, ...action.agenda];
             })
         }
         case types.UPDATE_AGENDAMENTO: {
@@ -52,6 +53,14 @@ function salao(state = INITIAL_STATE, action){
                     draft.form.modalAgendamento = 2;
                 }
                 draft.agendamento = {...state.agendamento, ...action.agendamento}; 
+            })
+        }
+        case types.UPDATE_COLABORADORES: {
+            return produce(state, (draft) => {
+                draft.colaboradores = _.uniq([
+                    ...state.colaboradores,
+                    ...action.colaboradores
+                ]);
             })
         }
         default:
