@@ -1,71 +1,62 @@
 const express = require('express');
 const router = express.Router();
-const Colaborador = require('../models/colaborador');
-const SalaoColaborador = require('../models/relationship/salaoColaborador');
-const ColaboradorServico = require('../models/relationship/colaboradorServico');
+const Usuario = require('../models/usuario');
+const SalaoUsuario = require('../models/relationship/salaoUsuario');
 
-//Inserção de colaborador
+//Método de inserção de usuário
 router.post('/', async (req, res) => {
     try{
 
-        const { colaborador, salaoId } = req.body;
-        let newColaborador = null;
+        const { usuario, salaoId } = req.body;
+        let newUsuario = null;
 
-        //Verificar se o colaborador existe
-        const existentColaborador = await Colaborador.findOne({
+        //Verificar se o usuário existe
+        const existentUsuario = await Usuario.findOne({
             $or: [
-                { email: colaborador.email },
-                { telefone: colaborador.telefone },
+                { email: usuario.email },
+                { telefone: usuario.telefone },
             ]
             
         });
 
-        //Se não existir o colaborador
-        if(!existentColaborador){
-            newColaborador = await Colaborador({
-                ...colaborador,
+        //Se não existir o usuário
+        if(!existentUsuario){
+            newUsuario = await Usuario({
+                ...usuario,
             }).save();
         }
 
-        //Relacionamento Colaborador/Salão
-        const colaboradorId = existentColaborador ? existentColaborador._id : newColaborador._id;
+        //Relacionamento usuário/Salão
+        const usuarioId = existentUsuario ? existentUsuario._id : newUsuario._id;
 
         //Verificar se existe o relacionamento com salão
-        const existentRelatioship = await SalaoColaborador.findOne({
+        const existentRelatioship = await SalaoUsuario.findOne({
             salaoId,
-            colaboradorId,
+            usuarioId,
             status: { $ne: 'E' },
         });
 
         //Se não está vinvulado
         if(!existentRelatioship){
-            await new SalaoColaborador({
+            await new SalaoUsuario({
                 salaoId,
-                colaboradorId,
-                status: colaborador.vinculo,
+                usuarioId,
             }).save();
         }
 
-        //Se já existir um vinculo colaborador/salão
-        if(existentColaborador){
-            await SalaoColaborador.findOneAndUpdate({
+        //Se já existir um vinculo usuário/salão
+        if(existentUsuario){
+            await SalaoUsuario.findOneAndUpdate({
                 salaoId,
-                colaboradorId,
+                usuarioId,
             }, 
-            { status: colaborador.vinculo }
+            { status: 'A' }
             );
         }
         
-        //Relação com as especialidades
-        await ColaboradorServico.insertMany(
-            colaborador.especialidades.map(servicoId => ({
-                servicoId,
-                colaboradorId,
-            }))
-        )
 
-        if(existentColaborador && existentRelatioship){
-            res.json({ error: true, message: 'Colaborador já cadastrado'});
+        if(existentUsuario && existentRelatioship){
+            res.json({ error: true, message: 'Usuario já cadastrado'});
         }else{
             res.json({ error: false });
         }
@@ -75,49 +66,20 @@ router.post('/', async (req, res) => {
     }
 });
 
-//Atualização de colaborador
-router.put('/:colaboradorId', async (req, res) => {
+//Rota de filtro
+router.post('/filter', async (req, res) => {
     try{
-        const { vinculo, vinculoId, especialidades } = req.body;
-        const { colaboradorId } = req.params;
-
-        //Vinculo
-        await SalaoColaborador.findByIdAndUpdate(vinculoId, { status: vinculo });
-
-        //Especialidades
-        await ColaboradorServico.deleteMany({
-            colaboradorId,
-        });
-
-        await ColaboradorServico.insertMany(
-            especialidades.map(servicoId => ({
-                servicoId,
-                colaboradorId,
-            }))
-        );
-
-        res.json({ error: false });
-        
-    }catch(err){
-        res.json({ error: true, message: err.message })
-    }
-});
-
-//Exclusão de colaborador
-router.delete('/vinculo/:id', async (req, res) => {
-    try{
-        await SalaoColaborador.findByIdAndUpdate(req.params.id, { status: 'E' });
-        res.json({ error: false });
+        const usuarios = await Usuario.find(req.body.filters);
+        res.json({ error: false, usuarios});
     }catch(err){
         res.json({ error: true, message: err.message });
     }
 });
 
-//Rota de filtro
-router.post('/filter', async (req, res) => {
+router.delete('/vinculo/:id', async (req, res) => {
     try{
-        const colaboradores = await Colaborador.find(req.body.filters);
-        res.json({ error: false, colaboradores});
+        await SalaoUsuario.findByIdAndUpdate(req.params.id, { status: 'E' });
+        res.json({ error: false });
     }catch(err){
         res.json({ error: true, message: err.message });
     }
@@ -126,34 +88,20 @@ router.post('/filter', async (req, res) => {
 router.get('/salao/:salaoId', async (req, res) => {
     try{
         const { salaoId } = req.params;
-        const listaColaboradores = [];
 
         //Recuperar vinculos
-        const salaoColaboradores = await SalaoColaborador.find({
+        const usuarios = await SalaoUsuario.find({
             salaoId,
             status: { $ne: 'E' }
         })
-        .populate('colaboradorId')
-        .select('colaboradorId dataCadastro status');
-
-        for(let vinculo of salaoColaboradores){
-            const especialidades = await ColaboradorServico.find({
-                colaboradorId: vinculo.colaboradorId._id
-            });
-
-            listaColaboradores.push({
-                ...vinculo._doc,
-                especialidades:  especialidades.map((especialidade) => especialidade.servicoId),
-            })
-        }
+        .populate('usuarioId')
+        .select('usuarioId dataCadastro');
 
         res.json({
             error: false,
-            colaboradores: listaColaboradores.map((vinculo) => ({
-                ...vinculo.colaboradorId._doc,
+            usuarios: usuarios.map((vinculo) => ({
+                ...vinculo.usuarioId._doc,
                 vinculoId: vinculo._id,
-                vinculo: vinculo.status,
-                especialidades: vinculo.especialidades,
                 dataCadastro: vinculo.dataCadastro
             })),
         });

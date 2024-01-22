@@ -19,6 +19,12 @@ const salaoUsuario = new Schema({
         enum: ['A', 'I', 'E'],
         default: 'A'
     },
+    nivelAcesso: {
+        type: String,
+        required: true,
+        enum: ['A', 'P'],
+        default: 'P'
+    },
     dataCadastro: {
         type: Date,
         default: Date.now(),

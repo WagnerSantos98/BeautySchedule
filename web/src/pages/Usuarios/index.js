@@ -1,48 +1,45 @@
 import React from 'react';
-import { useEffect } from 'react';
-import { Button, Drawer, Modal, TagPicker } from 'rsuite';
+import { useEffect, useState } from 'react';
+import { Button, Drawer, Modal } from 'rsuite';
 import RemindFill from '@rsuite/icons/RemindFill';
 import Table from '../../components/Table';
 import moment from 'moment';
 import 'rsuite/dist/rsuite.css';
 
-import { useDispatch, useSelector } from 'react-redux';
-import { allColaboradores, updateColaborador, filterColaboradores, addColaborador, unlinkColaborador, allServicos } from '../../store/modules/colaborador/actions'
+import { useDispatch, useSelector} from 'react-redux';
+import { allUsuarios, updateUsuario, filterUsuarios, addUsuario, unlinkUsuario } from '../../store/modules/usuario/actions'
 
 
-const Colaboradores = () => {
+const Usuarios = () => {
 
     const dispatch = useDispatch();
-    const { colaboradores, colaborador, form, components, behavior, servicos } = useSelector((state) => state.colaborador);
-
-    
+    const { usuarios, usuario, form, components, behavior } = useSelector((state) => state.usuario);
 
     const setComponent = (component, state) => {
-        dispatch(updateColaborador({
+        dispatch(updateUsuario({
             components: { ...components, [component]: state }, 
         }));
     };
 
-    const setColaborador = (key, value) => {
+    const setUsuario = (key, value) => {
         dispatch(
-            updateColaborador({
-                colaborador: { ...colaborador, [key]: value },
+            updateUsuario({
+                usuario: { ...usuario, [key]: value },
             }));
     }
 
     const save = () => {
-        dispatch(addColaborador());
+        dispatch(addUsuario());
     };
 
     const remove = () => {
-        dispatch(unlinkColaborador());
+        dispatch(unlinkUsuario());
     };
 
+    
     useEffect(() => {
-        dispatch(allColaboradores());
-        dispatch(allServicos());
-        
-    },[]);
+        dispatch(allUsuarios());
+    },[dispatch]);
 
     return(
         <div className="col p-5 overflow-auto h-100">
@@ -58,7 +55,7 @@ const Colaboradores = () => {
             }}
             >
                 <Drawer.Body>
-                    <h3>{behavior === 'create' ? 'Criar novo' : 'Atulizar' } colaborador</h3>
+                    <h3>{behavior === 'create' ? 'Criar novo' : 'Atulizar' } cliente</h3>
                     <div className="row mt-4">
                         <div className="form-group col-12 mb-3">
                             <b>Email</b>
@@ -66,11 +63,11 @@ const Colaboradores = () => {
                             <input 
                                 type="email" 
                                 className="form-control" 
-                                placeholder="Email do colaborador" 
+                                placeholder="Email do cliente" 
                                 disabled={behavior === 'update'}
-                                value={colaborador.email}
+                                value={usuario.email}
                                 onChange={(e) => {
-                                    setColaborador('email', e.target.value);
+                                    setUsuario('email', e.target.value);
                                 }}
                             />
                             {behavior === 'create' && (
@@ -80,7 +77,7 @@ const Colaboradores = () => {
                                     loading={form.filtering}
                                     disabled={form.filtering}
                                     onClick={() => {
-                                        dispatch(filterColaboradores())
+                                        dispatch(filterUsuarios())
                                     }} 
                                 >
                                     Pesquisar
@@ -94,36 +91,21 @@ const Colaboradores = () => {
                             <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Nome do colaborador"
+                                placeholder="Nome do cliente"
                                 disabled={form.disabled}
-                                value={colaborador.nome}
-                                onChange={(e) => setColaborador('nome', e.target.value)}
+                                value={usuario.nome}
+                                onChange={(e) => setUsuario('nome', e.target.value)}
                             />
                         </div>
-                        
-                            <div className="form-group col-6">
-                                <b>Status</b>
-                                <select
-                                disabled={form.disabled && behavior === 'create'}
-                                className="form-control"
-                                value={colaborador.vinculo}
-                                onChange={(e) =>
-                                    setColaborador('vinculo', e.target.value)
-                                }
-                                >
-                                    <option value="A">Ativo</option>
-                                    <option value="I">Inativo</option>
-                                </select>
-                            </div>
-                        <div className="form-group col-6 mt-3">
+                        <div className="form-group col-6">
                             <b className="">Telefone | Whatshapp</b>
                             <input
                                 type="text"
                                 className="form-control"
-                                placeholder="Telefone do colaborador"
+                                placeholder="Telefone do Cliente"
                                 disabled={form.disabled}
-                                value={colaborador.telefone}
-                                onChange={(e) => setColaborador('telefone', e.target.value)}
+                                value={usuario.telefone}
+                                onChange={(e) => setUsuario('telefone', e.target.value)}
                             />
                         </div>
                         <div className="form-group col-6 mt-3">
@@ -133,48 +115,117 @@ const Colaboradores = () => {
                                 className="form-control"
                                 placeholder="Data de Nascimento"
                                 disabled={form.disabled}
-                                value={colaborador.dataNascimento}
-                                onChange={(e) => setColaborador('dataNascimento', e.target.value)}
+                                value={usuario.dataNascimento}
+                                onChange={(e) => setUsuario('dataNascimento', e.target.value)}
                             />
                         </div>
-                        <div className="col-12 mt-3">
-                            <b>Especialidades</b>
-                            <TagPicker
-                                size="lg"
-                                block
-                                value={colaborador.especialidades}
-                                data={servicos}
-                                onChange={(e) => {
-                                    setColaborador('especialidades', e);
-                                }}
-                            />
+
+                        <div className="row mt-4">
+                            <div className="form-group col-6">
+                                <b>Tipo de Documento</b>
+                                <select
+                                disabled={form.disabled}
+                                className="form-control"
+                                
+                                >
+                                    <option value="cpf">CPF</option>
+                                    <option value="cnpj">CNPJ</option>
+                                </select>
+                            </div>
+                            <div className="form-group col-6">
+                                <b className="">Número do documento</b>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Número do documento"
+                                    disabled={form.disabled}
+                                    
+                                />
+                            </div>
+                        </div>
+
+                        <div className="row mt-4">
+                            <div className="form-group col-4">
+                                <b className="">CEP</b>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="CEP"
+                                    disabled={form.disabled}
+                                    
+                                    
+                                />
+                            </div>
+                            <div className="form-group col-12 mt-3">
+                                <b className="">Rua | Logradouro</b>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Rua | Lougradouro"
+                                    
+                                    
+                                />
+                            </div>
+                            <div className="form-group col-6 mt-3">
+                                <b className="">Bairro</b>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Bairro"
+                                    
+                                    
+                                />
+                            </div>
+                            <div className="form-group col-6 mt-3">
+                                <b className="">Número</b>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Número"
+                                    disabled={form.disabled}
+                                   
+                                />
+                            </div>
+                            <div className="form-group col-3 mt-3">
+                                <b className="">UF</b>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="UF"
+                                    
+                                    
+                                />
+                            </div>
+                            <div className="form-group col-9 mt-3">
+                                <b className="">Cidade</b>
+                                <input
+                                    type="text"
+                                    className="form-control"
+                                    placeholder="Cidade"
+                                    
+                                   
+                                />
+                            </div>
                         </div>
                         
                     </div>
-                <Button 
-                    block
-                    className="mt-3"
-                    appearance="primary"
-                    color={behavior === 'create' ? 'green' : 'primary'}
-                    size="lg"
-                    loading={form.saving}
-                    onClick={() => save()}
-                >
-                    {behavior === 'create' ? 'Salvar' : 'Atualizar'} colaborador
-                </Button>
-                {behavior === 'update' && (
-                <Button 
-                    block
-                    className="mt-3"
-                    appearance="primary"
-                    color="red"
-                    size="lg"
-                    loading={form.saving}
-                    onClick={() => setComponent('confirmDelete', true)}
-                >
-                    Remover Colaborador
-                </Button>
-                )}                     
+                    <Button
+                        block
+                        className="mt-3"
+                        appearance="primary"
+                        color={behavior === 'create' ? 'green' : 'red'}
+                        size="lg"
+                        loading={form.saving}
+                        onClick={() => {
+                            if(behavior === 'create'){
+                                save();
+                            }else{
+                                setComponent('confirmDelete', true);
+                            }
+                        }}
+                    >
+                        {behavior === 'create' ? 'Salvar' : 'Remover'} Cliente
+                    </Button>
                 </Drawer.Body>
             </Drawer>
 
@@ -205,45 +256,45 @@ const Colaboradores = () => {
             <div className="row">
                 <div className="col-12">
                     <div className="w-100 d-flex justify-content-between">
-                        <h2 className="mb-4 mt-0">Colaboradores</h2>
+                        <h2 className="mb-4 mt-0">Usuários</h2>
                         <div>
                             <button 
                                 className="btn btn-primary btn-lg"
                                 onClick={() => {
                                     console.log("Click");
                                     dispatch(
-                                        updateColaborador({
+                                        updateUsuario({
                                             behavior: 'create',
                                         })
                                     );
                                     setComponent('drawer', true);
                                 }}
                             >
-                                <span className="mdi mdi-plus">Novo colaborador</span>
+                                <span className="mdi mdi-plus">Novo Cliente</span>
                             </button>
                         </div>
                     </div>
                     <Table
                     loading={form.filtering}
-                    data={colaboradores}
+                    data={usuarios}
                     config={[
                         { label: 'Nome', key: 'nome', width: 200, fixed: true},
                         { label: 'Email', key: 'email', width: 200},
                         { label: 'Telefone', key: 'telefone', width: 200},
-                        { label: 'Data Cadastro', content: (colaborador) => moment(colaborador.dataCadastro).format('DD/MM/YYYY'), width: 200},
+                        { label: 'Data Cadastro', content: (cliente) => moment(cliente.dataCadastro).format('DD/MM/YYYY'), width: 200},
                     ]}
-                    actions={(colaborador) => (
+                    actions={(cliente) => (
                         <Button color="primary" size="xs">Exibir informações</Button>
                     )}
-                    onRowClick={(colaborador) => {
+                    onRowClick={(cliente) => {
                         dispatch(
-                            updateColaborador({
+                            updateUsuario({
                                 behavior: 'update',
                             })
                         );
                         dispatch(
-                            updateColaborador({
-                                colaborador,
+                            updateUsuario({
+                                cliente,
                             })
                         );
                         setComponent('drawer', true);
@@ -255,4 +306,4 @@ const Colaboradores = () => {
     );
 };
 
-export default Colaboradores;
+export default Usuarios;

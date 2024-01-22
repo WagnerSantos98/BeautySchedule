@@ -25,6 +25,7 @@ app.use('/horario', require('./src/routes/horario.routes'));
 app.use('/colaborador', require('./src/routes/colaborador.routes'));
 app.use('/cliente', require('./src/routes/cliente.routes'));
 app.use('/agendamento', require('./src/routes/agendamento.routes'));
+app.use('/usuario', require('./src/routes/usuario.routes'));
 
 // Lidar com erros de CORS
 app.use((req, res, next) => {
