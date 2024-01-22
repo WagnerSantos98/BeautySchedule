@@ -10,7 +10,7 @@ const INITIAL_STATE = {
     agendamento: {
         clienteId: consts.clienteId,
         salaoId: consts.salaoId,
-        servicosId: null,
+        servicoId: null,
         colaboradoresId: null,
         data: null,
     },
@@ -38,7 +38,20 @@ function salao(state = INITIAL_STATE, action){
         }
         case types.UPDATE_FORM: {
             return produce(state, (draft) => {
-                draft.form = { ...state.form, ...action.payload};
+                draft.form = { ...state.form, ...action.form};
+            })
+        }
+        case types.UPDATE_AGENDA: {
+            return produce(state, (draft) => {
+                draft.agenda = [...state.agenda, action.agenda];
+            })
+        }
+        case types.UPDATE_AGENDAMENTO: {
+            return produce(state, (draft) => {
+                if(action.agendamento.servicoId){
+                    draft.form.modalAgendamento = 2;
+                }
+                draft.agendamento = {...state.agendamento, ...action.agendamento}; 
             })
         }
         default:

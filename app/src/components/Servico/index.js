@@ -3,13 +3,19 @@ import { Text, Box, Touchable, Cover, Button } from '../../styles';
 import moment from 'moment';
 import consts from '../../consts';
 
-const servico = ({ servico }) => {
+import { useDispatch } from 'react-redux';
+import { updateAgendamento } from '../../store/modules/salao/actions';
+//import {}
+
+const Servico = ({ servico }) => {
+    const dispatch = useDispatch();
     return (
         <Touchable 
             height="100px" 
             hasPadding
             align="center" 
             background="light"
+            onPress={() => dispatch(updateAgendamento({ servicoId: servico._id}))}
         >
             <Cover image={`${ consts.bucketUrl }/${servico?.arquivos[0]?.caminho}`}/>
             <Box direction="column">
@@ -23,4 +29,4 @@ const servico = ({ servico }) => {
     )
 }
 
-export default servico;
+export default Servico;

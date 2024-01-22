@@ -50,7 +50,7 @@ router.get('/:id' ,async (req, res) =>{
 
         const isOpened = util.isOpened(horarios);
 
-            res.json({ error: false, salao, distance, isOpened});
+            res.json({ error: false, salao: { ...salao._doc, distance, isOpened}});
     }catch(err){
         res.json({ error: true, message: err.message});
     }

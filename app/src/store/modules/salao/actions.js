@@ -27,9 +27,23 @@ export function updateServicos(servicos){
     }
 }
 
-export function updateForm(payload){
+export function updateForm(form){
     return{
         type: types.UPDATE_FORM,
-        payload
+        form
+    }
+}
+
+export function updateAgendamento(agendamento){
+    return{
+        type: types.UPDATE_AGENDAMENTO,
+        agendamento
+    }
+}
+
+export function updateAgenda(agenda){
+    return{
+        type: types.UPDATE_AGENDA,
+        agenda
     }
 }

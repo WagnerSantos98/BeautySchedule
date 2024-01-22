@@ -14,11 +14,7 @@ export function* getSalao(){
             alert(err.message);
             return false;
         }
-        yield put(updateSalao({
-            ...res.salao, 
-            distancia: res.distance,
-            isOpened: res.isOpened,
-        }));
+        yield put(updateSalao(res.salao));
     }catch(err){
         alert(err.message);
     }

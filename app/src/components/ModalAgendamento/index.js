@@ -8,10 +8,12 @@ import DateTimePicker from './dateTime';
 import EspecialistaPicker from './Especialistas/';
 import EspecialistasModal from './Especialistas/modal';
 import PaymentPicker from './payment';
+import { useEffect} from 'react';
+import { useSelector } from 'react-redux';
 
 
 const ModalAgendamento = () => {
-  
+   
   return (
     <GestureHandlerRootView>
       <View style={styles.container}>

@@ -21,12 +21,13 @@ import EspecialistaPicker from '../../components/ModalAgendamento/Especialistas'
 import EspecialistasModal from '../../components/ModalAgendamento/Especialistas/modal';
 import PaymentPicker from '../../components/ModalAgendamento/payment';
 
-const Home = () => {
-    const bottomSheetref = useRef(null);
-    const snapPoints= useMemo(() => [1, 70, Dimensions.get('window').height - 30], [])
 
-    //const handleCloseAction = () => bottomSheetref.current?.close()
-    const handleOpenPress = () => bottomSheetref.current?.expand();
+
+
+const Home = () => {      
+
+    //const handleCloseAction = () => bottomSheetref.current?.close() 
+    //const handleOpenPress = () => bottomSheetref.current?.expand();
 
     const dispatch = useDispatch();
     const { servicos, form } = useSelector((state) => state.salao);
@@ -37,14 +38,25 @@ const Home = () => {
         return arrSearch.every((w) => titulo.search(w) != -1);
     }) : servicos
 
-    useEffect(() => {
+    const bottomSheetref = useRef(null);
+    const snapPoints= useMemo(() => [1, 70, Dimensions.get('window').height - 30], []);
+    const setSnap = useCallback(() => {
+        if (bottomSheetref.current && bottomSheetref.current.expand) {
+        bottomSheetref.current?.expand();
+        }
+      }, [bottomSheetref]);
+      
+      useEffect(() => {
         dispatch(getSalao());
         dispatch(allServicos());
-    },[]);
+        if (form.modalAgendamento) {
+          setSnap();
+        }
+      }, [dispatch,form.modalAgendamento, setSnap]);
     
     return (
         <GestureHandlerRootView style={{flex: 1}}>
-            <Button onPress={handleOpenPress}>Abrir</Button>
+            
             <FlatList
                 style={{
                     backgroundColor: util.toAlpha(theme.colors.muted, 5),
