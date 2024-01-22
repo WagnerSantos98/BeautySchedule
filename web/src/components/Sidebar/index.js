@@ -39,6 +39,12 @@ const Sidebar = () => {
                         <text>Horários</text>
                     </Link>
                 </li>
+                <li>
+                    <Link to="/usuarios" className={location.pathname === '/usuarios' ? 'active' : ''}>
+                        <span className="mdi mdi-account-group"></span>
+                        <text>Usuários</text>
+                    </Link>
+                </li>
             </ul>
 
             <div className="sidebar-footer" style={{padding: '180px 0px'}}>

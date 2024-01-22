@@ -10,6 +10,7 @@ import Clientes from "./pages/Clientes";
 import Colaboradores from "./pages/Colaboradores"; 
 import Servicos from "./pages/Servicos";
 import Horarios from "./pages/Horarios";
+import Usuarios from "./pages/Usuarios";
 
 const App = () => {
     return (
@@ -25,6 +26,7 @@ const App = () => {
                             <Route path="/colaboradores" excat element={<Colaboradores />}/>
                             <Route path="/servicos" excat element={<Servicos />}/>
                             <Route path="/horarios" excat element={<Horarios />}/>
+                            <Route path="/usuarios" excat element={<Usuarios />}/>
                         </Routes>
                     </Router>
                 </div>
