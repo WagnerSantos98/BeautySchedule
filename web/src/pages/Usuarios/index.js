@@ -55,7 +55,7 @@ const Usuarios = () => {
             }}
             >
                 <Drawer.Body>
-                    <h3>{behavior === 'create' ? 'Criar novo' : 'Atulizar' } cliente</h3>
+                    <h3>{behavior === 'create' ? 'Criar novo' : 'Atulizar' } usuário</h3>
                     <div className="row mt-4">
                         <div className="form-group col-12 mb-3">
                             <b>Email</b>
@@ -63,7 +63,7 @@ const Usuarios = () => {
                             <input 
                                 type="email" 
                                 className="form-control" 
-                                placeholder="Email do cliente" 
+                                placeholder="Email do usuário" 
                                 disabled={behavior === 'update'}
                                 value={usuario.email}
                                 onChange={(e) => {
