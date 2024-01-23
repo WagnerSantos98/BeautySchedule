@@ -1,23 +1,31 @@
 import React, { useState } from 'react';
-import { Link, useNavigate } from 'react-router-dom';
+import { Link } from 'react-router-dom';
+import { useDispatch, useSelector } from 'react-redux';
+import { loginUsuario } from '../../store/modules/usuario/actions';
 
 const Login = () => {
     const [email, setEmail] = useState('');
-    const [password, setPassword] = useState('');
-    const navigate = useNavigate();
+    const [senha, setSenha] = useState('');
+    const dispatch = useDispatch();
+    const { usuario } = useSelector((state) => state.usuario);
 
     const handleLogin = (e) => {
         e.preventDefault();
-        // Adicione aqui a lógica de autenticação
 
-        navigate('/');
+        // Certifique-se de verificar se 'usuario' é definido antes de acessar suas propriedades
+        if (usuario && usuario.email) {
+            dispatch(loginUsuario({ email, senha })); // Passando as credenciais corretamente
+        } else {
+            // Lógica apropriada para lidar com 'usuario' sendo undefined
+            console.error("Usuário não está definido ou não possui um e-mail.");
+        }
     };
 
     return (
         <div className="container mt-5">
             <div className="row justify-content-center">
                 <div className="col-md-6 d-flex align-items-center justify-content-center">
-                    <div className="card w-75 mt-5"> {/* Adicionando classes w-75 e mt-5 */}
+                    <div className="card w-75 mt-5">
                         <div className="card-header">
                             <h4 className="card-title">Login</h4>
                         </div>
@@ -39,13 +47,13 @@ const Login = () => {
                                     <input
                                         type="password"
                                         className="form-control"
-                                        id="password"
-                                        value={password}
-                                        onChange={(e) => setPassword(e.target.value)}
+                                        id="senha"
+                                        value={senha}
+                                        onChange={(e) => setSenha(e.target.value)}
                                         required
                                     />
                                 </div>
-                                <button type="submit" className="btn btn-primary">Login</button>
+                                <button type="submit" className="btn btn-primary" onClick={() => dispatch(loginUsuario())}>Login</button>
                             </form>
                         </div>
                         <div className="card-footer">

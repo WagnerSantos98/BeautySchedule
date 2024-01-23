@@ -3,6 +3,7 @@ import types from './types';
 
 const INITIAL_STATE = {
     behavior: 'create',
+    isAuthenticated: false,
     components: {
         drawer: false,
         confirmDelete: false,
@@ -33,6 +34,12 @@ function usuario(state = INITIAL_STATE, action){
         case types.RESET_USUARIO:{
             return produce(state, (draft) => {
                 draft.usuario = INITIAL_STATE.usuario;
+            });
+        }
+        case types.LOGIN_USUARIO: {
+            return produce(state, (draft) => {
+                Object.assign(draft, action.payload);;
+                
             });
         }
         default: return state;

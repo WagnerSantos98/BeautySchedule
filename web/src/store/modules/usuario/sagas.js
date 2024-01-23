@@ -1,5 +1,5 @@
 import { takeLatest, all, call, put, select} from 'redux-saga/effects';
-import { updateUsuario, allUsuarios as allUsuariosAction, resetUsuario } from './actions';
+import { updateUsuario, allUsuarios as allUsuariosAction, resetUsuario, loginUsuario } from './actions';
 import types from './types';
 import api from '../../../services/api';
 import consts from '../../../consts';
@@ -122,9 +122,26 @@ export function* unlinkUsuario() {
     }
 }
 
+export function* loginUser(action){
+    try{
+        const { data: res } = yield call(api.post, '/login', {
+            email: action.usuario.email,
+            senha: action.usuario.senha,
+        });
+        if(res.error){
+            alert(res.message);
+            return false;
+        }
+        yield put(loginUsuario(action.usuario))
+    }catch(err){
+        alert(err.message);
+    }
+}
+
 export default all([
     takeLatest(types.ALL_USUARIOS, allUsuarios),
     takeLatest(types.FILTER_USUARIOS, filterUsuarios),
     takeLatest(types.ADD_USUARIO, addUsuario),
     takeLatest(types.UNLINK_USUARIO, unlinkUsuario),
+    takeLatest(types.LOGIN_USUARIO, loginUser)
 ]);

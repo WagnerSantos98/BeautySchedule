@@ -36,3 +36,10 @@ export function unlinkUsuario(){
         type: types.UNLINK_USUARIO,
     };
 }
+
+export function loginUsuario(usuario){
+    return {
+        type: types.LOGIN_USUARIO,
+        usuario
+    }
+}
