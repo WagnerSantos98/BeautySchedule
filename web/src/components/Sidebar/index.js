@@ -47,7 +47,7 @@ const Sidebar = () => {
                 </li>
             </ul>
 
-            <div className="sidebar-footer" style={{padding: '180px 0px'}}>
+            <div className="sidebar-footer" style={{padding: '120px 0px'}}>
                 <ul  className="p-0 m-0">
                     <li>
                     <Link to="/sair" className={location.pathname === '/sair' ? 'active' : ''}>

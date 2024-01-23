@@ -1,13 +1,13 @@
 import React from 'react';
-import { useEffect, useState } from 'react';
-import { Button, Drawer, Modal } from 'rsuite';
+import { useEffect } from 'react';
+import { Button, Drawer, Modal, Tag } from 'rsuite';
 import RemindFill from '@rsuite/icons/RemindFill';
 import Table from '../../components/Table';
 import moment from 'moment';
 import 'rsuite/dist/rsuite.css';
 
 import { useDispatch, useSelector} from 'react-redux';
-import { allUsuarios, updateUsuario, filterUsuarios, addUsuario, unlinkUsuario } from '../../store/modules/usuario/actions'
+import { allUsuarios, updateUsuario, filterUsuarios, addUsuario, unlinkUsuario } from '../../store/modules/usuario/actions';
 
 
 const Usuarios = () => {
@@ -119,96 +119,37 @@ const Usuarios = () => {
                                 onChange={(e) => setUsuario('dataNascimento', e.target.value)}
                             />
                         </div>
-
-                        <div className="row mt-4">
-                            <div className="form-group col-6">
-                                <b>Tipo de Documento</b>
+                       
+                            <div className="form-group col-6 mt-3">
+                                <b>Nível de Acesso</b>
                                 <select
                                 disabled={form.disabled}
                                 className="form-control"
-                                
+                                value={usuario.nivelAcesso}
+                                onChange={(e) =>
+                                    setUsuario('nivelAcesso', {
+                                        ...usuario.nivelAcesso,
+                                        tipo: e.target.value,
+                                    })
+                                }
                                 >
-                                    <option value="cpf">CPF</option>
-                                    <option value="cnpj">CNPJ</option>
+                                    <option value="A">Administrador</option>
+                                    <option value="P">Padrão</option>
                                 </select>
                             </div>
-                            <div className="form-group col-6">
-                                <b className="">Número do documento</b>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="Número do documento"
-                                    disabled={form.disabled}
-                                    
-                                />
-                            </div>
-                        </div>
-
-                        <div className="row mt-4">
-                            <div className="form-group col-4">
-                                <b className="">CEP</b>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="CEP"
-                                    disabled={form.disabled}
-                                    
-                                    
-                                />
-                            </div>
-                            <div className="form-group col-12 mt-3">
-                                <b className="">Rua | Logradouro</b>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="Rua | Lougradouro"
-                                    
-                                    
-                                />
-                            </div>
-                            <div className="form-group col-6 mt-3">
-                                <b className="">Bairro</b>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="Bairro"
-                                    
-                                    
-                                />
-                            </div>
-                            <div className="form-group col-6 mt-3">
-                                <b className="">Número</b>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="Número"
-                                    disabled={form.disabled}
-                                   
-                                />
-                            </div>
-                            <div className="form-group col-3 mt-3">
-                                <b className="">UF</b>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="UF"
-                                    
-                                    
-                                />
-                            </div>
-                            <div className="form-group col-9 mt-3">
-                                <b className="">Cidade</b>
-                                <input
-                                    type="text"
-                                    className="form-control"
-                                    placeholder="Cidade"
-                                    
-                                   
-                                />
-                            </div>
-                        </div>
-                        
+                            
                     </div>
+                    <Button 
+                    block
+                    className="mt-3"
+                    appearance="primary"
+                    color={behavior === 'create' ? 'green' : 'primary'}
+                    size="lg"
+                    loading={form.saving}
+                    onClick={() => save()}
+                >
+                    {behavior === 'create' ? 'Salvar' : 'Atualizar'} usuário
+                </Button>
                     <Button
                         block
                         className="mt-3"
@@ -224,7 +165,7 @@ const Usuarios = () => {
                             }
                         }}
                     >
-                        {behavior === 'create' ? 'Salvar' : 'Remover'} Cliente
+                        {behavior === 'create' ? 'Salvar' : 'Remover'} Usuário
                     </Button>
                 </Drawer.Body>
             </Drawer>
@@ -270,7 +211,7 @@ const Usuarios = () => {
                                     setComponent('drawer', true);
                                 }}
                             >
-                                <span className="mdi mdi-plus">Novo Cliente</span>
+                                <span className="mdi mdi-plus">Novo Usuário</span>
                             </button>
                         </div>
                     </div>
@@ -281,12 +222,13 @@ const Usuarios = () => {
                         { label: 'Nome', key: 'nome', width: 200, fixed: true},
                         { label: 'Email', key: 'email', width: 200},
                         { label: 'Telefone', key: 'telefone', width: 200},
-                        { label: 'Data Cadastro', content: (cliente) => moment(cliente.dataCadastro).format('DD/MM/YYYY'), width: 200},
+                        { label: 'Status', key: 'status', content: (usuario) => (<Tag color={usuario.status === 'A' ? 'green' : 'red'}>{usuario.status === 'A' ? 'Ativo' : 'Inativo'} </Tag>), width: 200},
+                        { label: 'Data Cadastro', content: (usuario) => moment(usuario.dataCadastro).format('DD/MM/YYYY'), width: 200},
                     ]}
-                    actions={(cliente) => (
+                    actions={(usuario) => (
                         <Button color="primary" size="xs">Exibir informações</Button>
                     )}
-                    onRowClick={(cliente) => {
+                    onRowClick={(usuario) => {
                         dispatch(
                             updateUsuario({
                                 behavior: 'update',
@@ -294,7 +236,7 @@ const Usuarios = () => {
                         );
                         dispatch(
                             updateUsuario({
-                                cliente,
+                                usuario,
                             })
                         );
                         setComponent('drawer', true);
