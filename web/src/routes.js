@@ -19,11 +19,15 @@ const App = () => {
 
     return (
         <>
-            <Header/>
             <div className="container-fluid h-100">
                 <div className="row h-100">
                     <Router>
-                        {isAuthenticated && <Sidebar/>} 
+                    {isAuthenticated && (
+                    <>
+                        <Header />
+                        <Sidebar />
+                    </>
+                    )} 
                         <Routes>
                             {isAuthenticated ? (
                                 <>

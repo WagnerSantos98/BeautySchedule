@@ -1,23 +1,23 @@
 import React, { useState } from 'react';
 import { Link, useNavigate } from 'react-router-dom';
-import { allUsuarios } from '../../store/modules/usuario/actions';
 
 const Login = () => {
     const [email, setEmail] = useState('');
     const [password, setPassword] = useState('');
-    const navigate = useNavigate(); 
+    const navigate = useNavigate();
+
     const handleLogin = (e) => {
         e.preventDefault();
-        
-        
-        navigate('/');  
+        // Adicione aqui a lógica de autenticação
+
+        navigate('/');
     };
 
     return (
         <div className="container mt-5">
             <div className="row justify-content-center">
-                <div className="col-md-6">
-                    <div className="card">
+                <div className="col-md-6 d-flex align-items-center justify-content-center">
+                    <div className="card w-75 mt-5"> {/* Adicionando classes w-75 e mt-5 */}
                         <div className="card-header">
                             <h4 className="card-title">Login</h4>
                         </div>
