@@ -1,5 +1,6 @@
 import React from 'react';
 import { BrowserRouter as Router, Route, Routes, Navigate } from 'react-router-dom';
+import { useSelector } from 'react-redux';  // Importe o hook `useSelector` do react-redux
 
 import './styles.css';
 
@@ -15,7 +16,7 @@ import Usuarios from "./pages/Usuarios";
 import Login from "./pages/Login";
 
 const App = () => {
-    const isAuthenticated = true;
+    const isAuthenticated = useSelector((state) => state.usuario.isAuthenticated);
 
     return (
         <>

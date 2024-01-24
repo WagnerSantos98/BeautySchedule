@@ -124,7 +124,7 @@ export function* unlinkUsuario() {
 
 export function* loginUser(action){
     try{
-        const { data: res } = yield call(api.post, '/login', {
+        const { data: res } = yield call(api.post, '/usuario/login', {
             email: action.usuario.email,
             senha: action.usuario.senha,
         });
@@ -132,7 +132,7 @@ export function* loginUser(action){
             alert(res.message);
             return false;
         }
-        yield put(loginUsuario(action.usuario))
+        yield put(loginUsuario({ email: action.usuario.email, senha: action.usuario.senha }));
     }catch(err){
         alert(err.message);
     }

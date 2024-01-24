@@ -11,16 +11,16 @@ const Login = () => {
 
     const handleLogin = (e) => {
         e.preventDefault();
-
-        // Certifique-se de verificar se 'usuario' é definido antes de acessar suas propriedades
-        if (usuario && usuario.email) {
+    
+        // Verifique se 'usuario' é verdadeiro antes de acessar suas propriedades
+        if (usuario) {
             dispatch(loginUsuario({ email, senha })); // Passando as credenciais corretamente
         } else {
             // Lógica apropriada para lidar com 'usuario' sendo undefined
-            console.error("Usuário não está definido ou não possui um e-mail.");
+            console.error("Usuário não está definido.");
         }
     };
-
+    
     return (
         <div className="container mt-5">
             <div className="row justify-content-center">
@@ -53,7 +53,7 @@ const Login = () => {
                                         required
                                     />
                                 </div>
-                                <button type="submit" className="btn btn-primary" onClick={() => dispatch(loginUsuario())}>Login</button>
+                                <button type="submit" className="btn btn-primary">Login</button>
                             </form>
                         </div>
                         <div className="card-footer">

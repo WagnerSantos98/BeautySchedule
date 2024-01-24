@@ -38,7 +38,8 @@ function usuario(state = INITIAL_STATE, action){
         }
         case types.LOGIN_USUARIO: {
             return produce(state, (draft) => {
-                Object.assign(draft, action.payload);;
+                draft.usuario = action.usuario;
+                draft.isAuthenticated = true;
                 
             });
         }
