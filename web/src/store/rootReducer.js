@@ -6,6 +6,7 @@ import colaborador from './modules/colaborador/reducer';
 import servico from './modules/servico/reducer';
 import horario from './modules/horario/reducer';
 import usuario from './modules/usuario/reducer';
+import salao from './modules/salao/reducer';
 
 
 export default combineReducers({
@@ -14,5 +15,6 @@ export default combineReducers({
     colaborador,
     servico,
     horario,
-    usuario
+    usuario,
+    salao
 });

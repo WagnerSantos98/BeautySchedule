@@ -7,13 +7,14 @@ const Login = () => {
     const [email, setEmail] = useState('');
     const [senha, setSenha] = useState('');
     const dispatch = useDispatch();
-    const { usuario } = useSelector((state) => state.usuario);
+    const { isAuthenticated } = useSelector((state) => state.usuario);
 
     const handleLogin = (e) => {
         e.preventDefault();
+        console.log('Handle Login called');
     
         // Verifique se 'usuario' é verdadeiro antes de acessar suas propriedades
-        if (usuario) {
+        if (!isAuthenticated) {
             dispatch(loginUsuario({ email, senha })); // Passando as credenciais corretamente
         } else {
             // Lógica apropriada para lidar com 'usuario' sendo undefined

@@ -6,7 +6,6 @@ const types = {
     RESET_USUARIO: '@usuario/RESET',
     UNLINK_USUARIO: '@usuario/UNLINK',
     LOGIN_USUARIO: '@usuario/LOGIN_USUARIO',
-    GET_SALAO: '@salao/GET',
 };
 
 export default types;

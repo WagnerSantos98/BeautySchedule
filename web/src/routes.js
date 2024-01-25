@@ -16,7 +16,7 @@ import Usuarios from "./pages/Usuarios";
 import Login from "./pages/Login";
 
 const App = () => {
-    const isAuthenticated = useSelector((state) => state.usuario.isAuthenticated);
+    const isAuthenticated = true;
 
     return (
         <>
