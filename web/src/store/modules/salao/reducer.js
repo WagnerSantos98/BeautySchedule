@@ -14,14 +14,9 @@ const INITIAL_STATE = {
     },
     saloes: [],
     salao:{
-        email: '',
         nome: '',
+        email: '',
         telefone: '',
-        dataNascimento: '',
-        documento:{
-            tipo: 'cpf',
-            numero: '',
-        },
         endereco:{
             cidade: '',
             bairro: '',
@@ -29,6 +24,9 @@ const INITIAL_STATE = {
             cep: '',
             logradouro: '',
             numero: '',
+        },
+        geo:{
+            coordinates: '',
         },
     },
 };

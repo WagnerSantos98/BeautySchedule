@@ -79,7 +79,7 @@ const Saloes = () => {
             }}
             >
                 <Drawer.Body>
-                    <h3>{behavior === 'create' ? 'Criar novo' : 'Atulizar' } cliente</h3>
+                    <h3>{behavior === 'create' ? 'Criar novo' : 'Atulizar' } salão</h3>
                     <div className="row mt-4">
                         <div className="form-group col-12 mb-3">
                             <b>Email</b>
@@ -321,7 +321,7 @@ const Saloes = () => {
             <div className="row">
                 <div className="col-12">
                     <div className="w-100 d-flex justify-content-between">
-                        <h2 className="mb-4 mt-0">Clientes</h2>
+                        <h2 className="mb-4 mt-0">Salões</h2>
                         <div>
                             <button 
                                 className="btn btn-primary btn-lg"
@@ -335,7 +335,7 @@ const Saloes = () => {
                                     setComponent('drawer', true);
                                 }}
                             >
-                                <span className="mdi mdi-plus">Novo Cliente</span>
+                                <span className="mdi mdi-plus">Novo Salão</span>
                             </button>
                         </div>
                     </div>
