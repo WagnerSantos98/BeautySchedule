@@ -45,9 +45,15 @@ const Sidebar = () => {
                         <text>Usuários</text>
                     </Link>
                 </li>
+                <li>
+                    <Link to="/saloes" className={location.pathname === '/saloes' ? 'active' : ''}>
+                        <span className="mdi mdi-store"></span>
+                        <text>Salões</text>
+                    </Link>
+                </li>
             </ul>
 
-            <div className="sidebar-footer" style={{padding: '120px 0px'}}>
+            <div className="sidebar-footer" style={{padding: '80px 0px'}}>
                 <ul  className="p-0 m-0">
                     <li>
                     <Link to="/sair" className={location.pathname === '/sair' ? 'active' : ''}>

@@ -13,7 +13,9 @@ import Colaboradores from "./pages/Colaboradores";
 import Servicos from "./pages/Servicos";
 import Horarios from "./pages/Horarios";
 import Usuarios from "./pages/Usuarios";
+import Saloes from "./pages/Saloes";
 import Login from "./pages/Login";
+
 
 const App = () => {
     const isAuthenticated = true;
@@ -38,6 +40,7 @@ const App = () => {
                                     <Route path="/servicos" element={<Servicos />} />
                                     <Route path="/horarios" element={<Horarios />} />
                                     <Route path="/usuarios" element={<Usuarios />} />
+                                    <Route path="/saloes" element={<Saloes />} />
                                 </>
                             ) : (
                                 // Redireciona para a página de login se o usuário não estiver autenticado

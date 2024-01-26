@@ -1,15 +1,38 @@
-import types from './types';
+import types from "./types"
 
-
-export function getSalao(){
-    return{
-        type: types.GET_SALAO,
-    }
+export function allSaloes(){
+    return {
+        type: types.ALL_SALOES,
+    };
 }
 
-export function updateSalao(salao){
-    return{
+export function updateSalao(payload){
+    return {
         type: types.UPDATE_SALAO,
-        salao
-    }
+        payload
+    };
+}
+
+export function filterSaloes(){
+    return {
+        type: types.FILTER_SALOES,
+    };
+}
+
+export function addSalao(){
+    return {
+        type: types.ADD_SALAO,
+    };
+}
+
+export function resetSalao(){
+    return {
+        type: types.RESET_SALAO,
+    };
+}
+
+export function unlinkSalao(){
+    return {
+        type: types.UNLINK_SALAO,
+    };
 }
