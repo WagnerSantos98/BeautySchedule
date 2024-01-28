@@ -12,18 +12,12 @@ const INITIAL_STATE = {
         disabled: false,
         saving: false,
     },
-    saloes: [],
     salao:{
-        nome: '',
         email: '',
+        nome: '',
         telefone: '',
         endereco:{
             cidade: '',
-            bairro: '',
-            uf: '',
-            cep: '',
-            logradouro: '',
-            numero: '',
         },
         geo:{
             coordinates: '',

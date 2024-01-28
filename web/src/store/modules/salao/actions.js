@@ -1,8 +1,9 @@
 import types from "./types"
 
-export function allSaloes(){
+export function allSaloes(salao){
     return {
         type: types.ALL_SALOES,
+        salao
     };
 }
 
