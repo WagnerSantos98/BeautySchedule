@@ -11,10 +11,9 @@ const Header = () => {
             <div className="d-flex align-items-center">
                 <div>
                     <span className="d-block m-0 p-0 text-white">Beauty Schedule</span>
-                    <small className="m-0 p-0 text-white">{user.nome}</small>
+                    <small className="m-0 p-0 text-white">{user?.nome}</small>
                 </div>
-                <img src={user.foto} alt="Salão Logo" />
-                <span className="mdi mdi-chevron-down text-white"></span>
+                <img src={user?.foto} alt="Salão Logo" />
             </div>
         </header>
     );
