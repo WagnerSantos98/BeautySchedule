@@ -1,5 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
+import api from '../../services/api'
 import { useDispatch, useSelector } from 'react-redux';
 import { loginUsuario } from '../../store/modules/usuario/actions';
 
@@ -9,8 +10,19 @@ const Login = () => {
         email: '',
         senha: ''
     });
-    const login = () => {
-        console.log(credenciais);
+    const login = async () => {
+        try{
+            const response = await api.post('/usuario/login', credenciais);
+            const res = response.data;
+
+            if(res.error){
+                alert(res.message);
+                return false;
+            }
+
+        }catch(err){
+            alert(err.message);
+        }
     }
     
     return (
