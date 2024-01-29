@@ -1,8 +1,6 @@
 import React, { useState } from 'react';
 import { Link } from 'react-router-dom';
 import api from '../../services/api'
-import { useDispatch, useSelector } from 'react-redux';
-import { loginUsuario } from '../../store/modules/usuario/actions';
 
 const Login = () => {
     

@@ -20,7 +20,7 @@ const INITIAL_STATE = {
         telefone: '',
         dataNascimento: '',
         vinculo: 'A',
-        nivelAcesso: 'P'        
+        nivelAcesso: ''        
     },
 };
 

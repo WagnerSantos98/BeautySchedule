@@ -18,25 +18,41 @@ import Login from "./pages/Login";
 
 
 const App = () => {
-    const logado = localStorage.getItem('@user');
+    const userData = JSON.parse(localStorage.getItem('@user'));
+    const nivelAcesso = userData ? userData.nivelAcesso : null;
+
+    const rotasNivelP = [
+        { path: "/", element: <Agendamentos /> },
+        { path: "/clientes", element: <Clientes /> },
+        { path: "/colaboradores", element: <Colaboradores /> },
+        { path: "/servicos", element: <Servicos /> },
+    ];
+
+    const rotasNivelA = [
+        { path: "/", element: <Agendamentos /> },
+        { path: "/clientes", element: <Clientes /> },
+        { path: "/colaboradores", element: <Colaboradores /> },
+        { path: "/servicos", element: <Servicos /> },
+        { path: "/horarios", element: <Horarios /> },
+        { path: "/usuarios", element: <Usuarios /> },
+        { path: "/saloes", element: <Saloes /> },
+    ];
 
     return (
         <>
-            {logado &&<Header/>}
+            {userData && <Header />}
             <div className="container-fluid h-100">
                 <div className="row h-100">
                     <Router>
-                       {logado &&<Sidebar/>}
+                        {userData && <Sidebar />}
                         <Routes>
-                            
-                                    {logado && <Route path="/" element={<Agendamentos />} />}
-                                    {logado && <Route path="/clientes" element={<Clientes />} />}
-                                    {logado &&<Route path="/colaboradores" element={<Colaboradores />} />}
-                                    {logado &&<Route path="/servicos" element={<Servicos />} />}
-                                    {logado &&<Route path="/horarios" element={<Horarios />} />}
-                                    {logado &&<Route path="/usuarios" element={<Usuarios />} />}
-                                    {logado &&<Route path="/saloes" element={<Saloes />} />}   
-                                    {!logado && <Route path="/" element={<Login />}/>}
+                            {userData && nivelAcesso === 'P' && rotasNivelP.map((rota, index) => (
+                                <Route key={index} path={rota.path} element={rota.element} />
+                            ))}
+                            {userData && nivelAcesso === 'A' && rotasNivelA.map((rota, index) => (
+                                <Route key={index} path={rota.path} element={rota.element} />
+                            ))}
+                            {!userData && <Route path="/" element={<Login />} />}
                         </Routes>
                     </Router>
                 </div>
