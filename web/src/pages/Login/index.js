@@ -4,24 +4,14 @@ import { useDispatch, useSelector } from 'react-redux';
 import { loginUsuario } from '../../store/modules/usuario/actions';
 
 const Login = () => {
-    const [email, setEmail] = useState('');
-    const [senha, setSenha] = useState('');
-    const dispatch = useDispatch();
-    const { isAuthenticated } = useSelector((state) => state.usuario);
-
-    const handleLogin = (e) => {
-        e.preventDefault();
-        console.log('Handle Login called');
     
-        // Verifique se 'usuario' é verdadeiro antes de acessar suas propriedades
-        if (!isAuthenticated) {
-            dispatch(loginUsuario({ email, senha })); // Passando as credenciais corretamente
-        } else {
-            // Lógica apropriada para lidar com 'usuario' sendo undefined
-            console.error("Usuário não está definido.");
-        }
-    };
-
+    const [credenciais, setCredenciais] = useState({
+        email: '',
+        senha: ''
+    });
+    const login = () => {
+        console.log(credenciais);
+    }
     
     return (
         <div className="container mt-5">
@@ -32,16 +22,19 @@ const Login = () => {
                             <h4 className="card-title">Login</h4>
                         </div>
                         <div className="card-body">
-                            <form onSubmit={handleLogin}>
+                            <>
                                 <div className="mb-3">
                                     <label htmlFor="email" className="form-label">Email</label>
                                     <input
                                         type="email"
                                         className="form-control"
-                                        id="email"
-                                        value={email}
-                                        onChange={(e) => setEmail(e.target.value)}
-                                        required
+                                        placeholder="Email"
+                                        onChange={(e) => {
+                                            setCredenciais({
+                                                ...credenciais,
+                                                email: e.target.value
+                                            })
+                                        }}
                                     />
                                 </div>
                                 <div className="mb-3">
@@ -49,14 +42,17 @@ const Login = () => {
                                     <input
                                         type="password"
                                         className="form-control"
-                                        id="senha"
-                                        value={senha}
-                                        onChange={(e) => setSenha(e.target.value)}
-                                        required
+                                        placeholder="Senha"
+                                        onChange={(e) => {
+                                            setCredenciais({
+                                                ...credenciais,
+                                                senha: e.target.value
+                                            })
+                                        }}
                                     />
                                 </div>
-                                <button type="submit" className="btn btn-primary">Login</button>
-                            </form>
+                                <button type="submit" className="btn btn-primary" onc>Login</button>
+                            </>
                         </div>
                         <div className="card-footer">
                             <p className="text-muted mb-0">Esqueceu a senha? <Link to="/register">Clique aqui</Link></p>
