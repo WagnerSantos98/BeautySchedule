@@ -1,9 +1,15 @@
-import { Link } from 'react-router-dom';
-import { useLocation } from 'react-router-dom';
+
+import React, {useEffect, useState} from 'react';
+import { Link, useLocation } from 'react-router-dom';
 import logo from '../../assets/logo.png';
 
 const Sidebar = () => {
     const location = useLocation();
+
+    const logout = () => {
+        localStorage.clear();
+        window.location.reload();
+    }
     
     return (
         <sidebar className="col-2 h-100">
@@ -56,7 +62,7 @@ const Sidebar = () => {
             <div className="sidebar-footer" style={{padding: '80px 0px'}}>
                 <ul  className="p-0 m-0">
                     <li>
-                    <Link to="/sair" className={location.pathname === '/sair' ? 'active' : ''}>
+                    <Link to="/sair" className={location.pathname === '/sair' ? 'active' : ''} onClick={logout}>
                         <span className="mdi mdi-logout"></span>
                         <text>Sair</text>
                     </Link>

@@ -20,6 +20,8 @@ const Login = () => {
                 return false;
             }
 
+            localStorage.setItem('@user', JSON.stringify(res.usuario));
+            window.location.reload();
         }catch(err){
             alert(err.message);
         }

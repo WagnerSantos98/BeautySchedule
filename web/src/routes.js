@@ -18,22 +18,25 @@ import Login from "./pages/Login";
 
 
 const App = () => {
+    const logado = localStorage.getItem('@user');
 
     return (
         <>
-            <Header/>
+            {logado &&<Header/>}
             <div className="container-fluid h-100">
                 <div className="row h-100">
                     <Router>
+                       {logado &&<Sidebar/>}
                         <Routes>
-                                    <Route path="/" element={<Agendamentos />} />
-                                    <Route path="/clientes" element={<Clientes />} />
-                                    <Route path="/colaboradores" element={<Colaboradores />} />
-                                    <Route path="/servicos" element={<Servicos />} />
-                                    <Route path="/horarios" element={<Horarios />} />
-                                    <Route path="/usuarios" element={<Usuarios />} />
-                                    <Route path="/saloes" element={<Saloes />} />       
-                                    <Route path="/login" element={<Login />} />
+                            
+                                    {logado && <Route path="/" element={<Agendamentos />} />}
+                                    {logado && <Route path="/clientes" element={<Clientes />} />}
+                                    {logado &&<Route path="/colaboradores" element={<Colaboradores />} />}
+                                    {logado &&<Route path="/servicos" element={<Servicos />} />}
+                                    {logado &&<Route path="/horarios" element={<Horarios />} />}
+                                    {logado &&<Route path="/usuarios" element={<Usuarios />} />}
+                                    {logado &&<Route path="/saloes" element={<Saloes />} />}   
+                                    {!logado && <Route path="/" element={<Login />}/>}
                         </Routes>
                     </Router>
                 </div>
