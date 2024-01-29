@@ -51,7 +51,7 @@ const Login = () => {
                                         }}
                                     />
                                 </div>
-                                <button type="submit" className="btn btn-primary" onc>Login</button>
+                                <button type="submit" className="btn btn-primary" onClick={login}>Acessar</button>
                             </>
                         </div>
                         <div className="card-footer">
