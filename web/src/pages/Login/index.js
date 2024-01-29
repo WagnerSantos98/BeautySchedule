@@ -18,7 +18,10 @@ const Login = () => {
                 return false;
             }
 
-            localStorage.setItem('@user', JSON.stringify(res.usuario));
+            const userWithoutSensitiveInfo = { ...res.usuario };
+            delete userWithoutSensitiveInfo.senha;
+
+            localStorage.setItem('@user', JSON.stringify(userWithoutSensitiveInfo));
             window.location.reload();
         }catch(err){
             alert(err.message);
