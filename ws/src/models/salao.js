@@ -21,6 +21,7 @@ const salao = new Schema({
     },
     telefone: String,
     endereco: {
+        rua: String,
         cidade: String,
         uf: String,
         cep: String,

@@ -1,5 +1,5 @@
 export default {
-    salaoId: '65a2fc6bd947a6875e2f016c',
-    clienteId: '65a2fcbed947a6875e2f017c',
+    salaoId: '65ba5f73de8a0c891288831d',
+    clienteId: '65ba60a1de8a0c8912888339',
     bucketUrl: 'https://beauty-schedule-dev.s3.amazonaws.com'
 };

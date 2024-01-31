@@ -19,9 +19,9 @@ const Agendamentos = () => {
     const { agendamentos } = useSelector((state) => state.agendamento)
 
     const formatEventos = agendamentos.map((agendamento) => ({
-            title: `${agendamento.servicoId.titulo} - ${agendamento.clienteId.nome} - ${agendamento.colaboradorId.nome}`, 
-            start: moment(agendamento.data).toDate(), 
-            end: moment(agendamento.data).add(util.hourToMinutes(moment(agendamento.servicoId.duracao).format('HH:mm')), 'minutes').toDate(),
+            title: `${agendamento?.servicoId?.titulo} - ${agendamento?.clienteId?.nome} - ${agendamento?.colaboradorId?.nome}`, 
+            start: moment(agendamento?.data).toDate(), 
+            end: moment(agendamento?.data).add(util.hourToMinutes(moment(agendamento.servicoId.duracao).format('HH:mm')), 'minutes').toDate(),
     }));
     
     const formatRange = (periodo) => {
