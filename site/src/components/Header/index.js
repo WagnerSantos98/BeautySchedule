@@ -1,5 +1,4 @@
 import React from 'react';
-
 import salon from '../../assets/salon.jpg';
 import demo_image_01 from '../../assets/demo_image_01.jpg';
 import demo_image_02 from '../../assets/demo_image_02.jpg';
