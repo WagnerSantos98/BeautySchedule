@@ -1,7 +1,6 @@
 import React from 'react';
 
 import salon from '../../assets/salon.jpg';
-import bg_signup from '../../assets/bg_signup.jpg';
 import demo_image_01 from '../../assets/demo_image_01.jpg';
 import demo_image_02 from '../../assets/demo_image_02.jpg';
 import ipad from '../../assets/ipad.png';
@@ -46,11 +45,16 @@ const Header = () => {
             <div class="container px-4 px-lg-5">
                 <div class="row gx-4 gx-lg-5 justify-content-center">
                     <div class="col-lg-8">
-                        <h2 class="text-white mb-4">Fashion Hair | </h2>
+                        <h2 class="text-white mb-4">Sobre nós</h2>
                         <p class="text-white-50">
-                            
-                            <a href="https://startbootstrap.com/theme/grayscale/">the preview page.</a>
-                            The theme is open source, and you can use it for any purpose, personal or commercial.
+                        O Institut Belle Maison abriu suas portas pela primeira vez em 2012 e tem crescido desde então. Em 2014, abriu sua segunda unidade como resultado de muito trabalho e reconhecido sucesso! 
+                        Somos uma rede familiar de salões que oferece serviços capilares, manicure, podologia, depilação, estética e dia da noiva.
+                        </p>
+                    </div>
+                    <div class="col-lg-8">
+                        <h2 class="text-white mb-4">Nossa visão</h2>
+                        <p class="text-white-50">
+                        Nossa missão é oferecer um verdadeiro momento de descontração, relaxamento e bem estar em uma atmosfera aconchegante por profissionais altamente qualificados e antenados nas novas tendências.
                         </p>
                     </div>
                 </div>
@@ -79,7 +83,7 @@ const Header = () => {
                         <div class="bg-black text-center h-100 project">
                             <div class="d-flex h-100">
                                 <div class="project-text w-100 my-auto text-center text-lg-left">
-                                    <h4 class="text-white">Misty</h4>
+                                    <h4 class="text-white">Equipe</h4>
                                     <p class="mb-0 text-white-50">An example of where you can put an image of a project, or anything else, along with a description.</p>
                                 </div>
                             </div>
