@@ -98,7 +98,7 @@ const Header = () => {
                             <div class="d-flex h-100">
                                 <div class="project-text w-100 my-auto text-center text-lg-right">
                                     <h4 class="text-white">Mountains</h4>
-                                    <p class="mb-0 text-white-50">Another example of a project with its respective description. These sections work well responsively as well!</p>
+                                    <p class="mb-0 text-white-50">[Inserir carousel com a equipe]</p>
                                 </div>
                             </div>
                         </div>
