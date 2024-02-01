@@ -1,6 +1,9 @@
 import React from 'react';
+import Carousel from '../Carousel';
+
 const Header = () => {
     return(
+        <>
         <nav class="navbar navbar-expand-lg navbar-light bg-light">
         <a class="navbar-brand" href="#">Navbar</a>
         <button class="navbar-toggler" type="button" data-toggle="collapse" data-target="#navbarNavAltMarkup" aria-controls="navbarNavAltMarkup" aria-expanded="false" aria-label="Toggle navigation">
@@ -13,7 +16,8 @@ const Header = () => {
             </div>
         </div>
         </nav>
-        
+        <Carousel/>
+        </>
     );
 };
 
