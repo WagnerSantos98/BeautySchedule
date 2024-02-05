@@ -4,6 +4,8 @@ import demo_image_01 from '../../assets/demo_image_01.jpg';
 import demo_image_02 from '../../assets/demo_image_02.jpg';
 import ipad from '../../assets/ipad.png';
 
+import app from './app';
+
 const Header = () => {
     return(
         <>
@@ -166,6 +168,7 @@ const Header = () => {
         {/*Footer*/}
         <footer class="footer bg-black small text-center text-white-50"><div class="container px-4 px-lg-5">Copyright &copy; Fashion Hair 2024</div></footer>
         
+        <script type="text/javascript" src={app}></script>
         </>
     );
 };
