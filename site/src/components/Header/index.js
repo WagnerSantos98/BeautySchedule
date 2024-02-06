@@ -94,7 +94,16 @@ const Header = () => {
                 
                 
                 <div class="row gx-0 justify-content-center">
-                    <div class="col-lg-6"><img class="img-fluid" src={demo_image_02}  alt="..." /></div>
+                <div class="col-lg-6 order-lg-first">
+                        <div class="bg-black text-center h-100 project">
+                            <div class="d-flex h-100">
+                                <div class="project-text w-100 my-auto text-center text-lg-right">
+                                    <h4 class="text-white">Mountains</h4>
+                                    <p class="mb-0 text-white-50">[Inserir carousel com a equipe]</p>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
                     <div class="col-lg-6 order-lg-first">
                         <div class="bg-black text-center h-100 project">
                             <div class="d-flex h-100">
