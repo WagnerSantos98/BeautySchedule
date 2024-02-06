@@ -76,6 +76,49 @@ const Header = () => {
                         </div>
                     </div>
                 </div>
+                <div class="row gx-0 mb-4 mb-lg-5">
+                    <div class="col-xl-12 col-lg-7 d-flex justify-content-center">
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front card1">
+                                    <h1>Cabelos</h1>
+                                </div>
+                                <div class="flip-card-back card1">
+                                <p>Cortes, tratamentos, penteados</p> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front card2">
+                                    <h1>Mãos e pés</h1> 
+                                </div>
+                                <div class="flip-card-back card2">
+                                <p>Manicure, pedicure, e muito mais</p> 
+                                </div>
+                            </div>
+                        </div>
+                        <div class="flip-card">
+                            <div class="flip-card-inner">
+                                <div class="flip-card-front card3">
+                                    <h1>Rosto e corpo</h1> 
+                                </div>
+                                <div class="flip-card-back card3">
+                                <p>Epilação, massagem, maquiagem</p> 
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <div class="container px-4 px-lg-5 mb-lg-5">
+                    <div class="row gx-4 gx-lg-5 justify-content-center">
+                        <div class="col-lg-8">
+                            <h2 class="text-black mb-4">Conheça nossa lista completa de serviços</h2>
+                            <button type="button" class="btn btn-outline-primary"> <i className="mdi mdi-format-list-bulleted" style={{fontSize: 16}}> Ver todos os serviços</i></button>
+                        </div>                    
+                    </div>
+                </div>
                 
                 <section id="group">
                 <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
@@ -98,8 +141,7 @@ const Header = () => {
                         <div class="bg-black text-center h-100 project">
                             <div class="d-flex h-100">
                                 <div class="project-text w-100 my-auto text-center text-lg-right">
-                                    <h4 class="text-white">Mountains</h4>
-                                    <p class="mb-0 text-white-50">[Inserir carousel com a equipe]</p>
+                                    
                                 </div>
                             </div>
                         </div>
