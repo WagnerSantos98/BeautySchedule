@@ -14,6 +14,7 @@ const INITIAL_STATE = {
         saving: false,
     },
     servicos: [],
+    agenda: [],
     servico:{
         titulo: '',
         preco: '',

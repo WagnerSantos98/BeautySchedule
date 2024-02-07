@@ -1,22 +1,28 @@
 import React from 'react';
 import { useEffect } from 'react';
 import {Link, useLocation} from 'react-router-dom';
-import { Button, Drawer, Modal, Tag, DatePicker, Uploader } from 'rsuite';
-import RemindFill from '@rsuite/icons/RemindFill';
-import CameraRetroIcon from '@rsuite/icons/legacy/CameraRetro';
+import { Button, Drawer } from 'rsuite';
 import Table from '../../components/Table';
 import moment from 'moment';
 import 'rsuite/dist/rsuite.css';
-
-
 import { useDispatch, useSelector } from 'react-redux';
-import { allServicos, updateServico, addServico, removeServico, removeArquivo, resetServico } from '../../store/modules/servico/actions';
-import { updateForm } from '../../store/modules/salao/actions';
+import { allServicos, updateServico, addServico } from '../../store/modules/servico/actions';
+import { updateForm, updateAgendamento } from '../../store/modules/salao/actions';
 import consts from '../../consts';
+import util from '../../util';
+import { Touchable, Text } from 'react-native';
+
+import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
+import { Swiper, SwiperSlide } from 'swiper/react'
+
+// Import Swiper styles
+import 'swiper/css';
+import 'swiper/css/navigation';
+import 'swiper/css/pagination';
+import 'swiper/css/scrollbar';
 
 
-
-const Agendar = () => {
+const Agendar = ({ agenda = [], dataSelecionada, horaSelecionada, horariosDisponiveis}) => {
     const location = useLocation();
 
     const dispatch = useDispatch();
@@ -42,13 +48,17 @@ const Agendar = () => {
         dispatch(addServico());
     };
 
-    const remove = () => {
-        dispatch(removeServico());
-    };
-
+    
     useEffect(() => {
         dispatch(allServicos());        
     },[dispatch]);
+
+        
+        const setAgendamento = (value, isTime = false) => {
+            const { horariosDisponiveis } = util.selectAgendamento(agenda, isTime ? dataSelecionada : value);
+            let data = !isTime ? `${value}T${horariosDisponiveis[0][0]}` : `${dataSelecionada}T${value}`;
+            dispatch(updateAgendamento({data}))
+        }
 
     return(
         <>
@@ -119,7 +129,7 @@ const Agendar = () => {
                         </div>
                         <div className="form-group col-3">
                             <b>Preço</b><br></br>
-                            <label>R$ {servico.preco?.toFixed(2)}</label>
+                            <label>R$ {}</label>
                         </div>
                         <div className="form-group col-4 mt-3">
                             <b className="">Duração</b><br></br>
@@ -144,14 +154,41 @@ const Agendar = () => {
                             <img src={`${ consts.bucketUrl }/${servico?.arquivos[0]?.caminho}`} style={{width: 100, height: 120, borderRadius: 3}}/>
                         </div>
                         <div className="form-group col-12 mt-3">
-                            <div className="swiper-container">
-                                <div className="swiper-wrapper">
-                                    <div className="swiper-slide">Slide 1</div>
-                                    <div className="swiper-slide">Slide 2</div>
-                                </div>
-                                <div className="swiper-button-prev"></div>
-                                <div className="swiper-button-next"></div>
-                            </div>
+                        <Swiper
+  modules={[Navigation, Pagination, Scrollbar, A11y]}
+  spaceBetween={-50}
+  slidesPerView={3}
+  navigation
+  onSwiper={(swiper) => console.log(swiper)}
+  onSlideChange={() => console.log('slide change')}
+>
+  {agenda && agenda.map((item) => {
+    const date = moment(Object.keys(item)[0]);
+    const dateISO = moment(date).format('YYYY-MM-DD');
+    const selected = dateISO === dataSelecionada;
+
+    return (
+      <SwiperSlide key={dateISO}>
+        <Touchable
+          width="70px"
+          height="80px"
+          spacing="0 10px 0 0"
+          rounded="10px"
+          direction="column"
+          justify="center"
+          align="center"
+          //border={`1px solid ${selected ? theme.colors.primary : util.toAlpha(theme.colors.muted, 50)}`}
+          background={selected ? 'primary' : 'light'}
+          onPress={() => setAgendamento(dateISO)}
+        >
+          <Text small color={selected ? 'light' : undefined}>{util.diasSemana[date.day()]}</Text>
+          <Text small color={selected ? 'light' : undefined}>{date.format('DD')}</Text>
+          <Text small color={selected ? 'light' : undefined}>{date.format('MMMM')}</Text>
+        </Touchable>
+      </SwiperSlide>
+    );
+  })}
+</Swiper>
                         </div>
                     </div>
                     <Button 
@@ -259,6 +296,7 @@ const Agendar = () => {
         {/*Footer*/}
         <footer class="footer bg-black small text-center text-white-50"><div class="container px-4 px-lg-5">Copyright &copy; Fashion Hair 2024</div></footer>
 
+       
         </>
     );
 };
