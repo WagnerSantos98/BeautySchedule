@@ -1,12 +1,16 @@
-import React from 'react';
+import React, {useState} from 'react';
 import salon from '../../assets/salon.jpg';
 import demo_image_01 from '../../assets/demo_image_01.jpg';
-import demo_image_02 from '../../assets/demo_image_02.jpg';
 import ipad from '../../assets/ipad.png';
 
 import app from './app';
 
 const Header = () => {
+    const [isDivVisible, setDivVisibility] = useState(false);
+    const toggleDiv = () => {
+        setDivVisibility(!isDivVisible);
+    };
+
     return(
         <>
         {/*Navigation*/}
@@ -35,7 +39,6 @@ const Header = () => {
                 <div class="d-flex justify-content-center">
                     <div class="text-center">
                         <h1 class="mx-auto my-0 text-uppercase">Fashion Hair</h1>
-                        <h2 class="text-white-50 mx-auto mt-2 mb-5"></h2>
                     </div>
                 </div>
             </div>
@@ -112,50 +115,174 @@ const Header = () => {
                 </div>
 
                 <div class="container px-4 px-lg-5 mb-lg-5">
-                    <div class="row gx-4 gx-lg-5 justify-content-center">
-                        <div class="col-lg-8">
+                    <div class="row gx-4 gx-lg-5 justify-content-center align-items-center">
+                        <div class="col-lg-8 text-center">
                             <h2 class="text-black mb-4">Conheça nossa lista completa de serviços</h2>
-                            <button type="button" class="btn btn-outline-primary"> <i className="mdi mdi-format-list-bulleted" style={{fontSize: 16}}> Ver todos os serviços</i></button>
+                            <button type="button" class="btn btn-outline-primary btn-lg" onClick={toggleDiv}> <i className="mdi mdi-format-list-bulleted" style={{fontSize: 16}}> Ver todos os serviços</i></button>
                         </div>                    
                     </div>
                 </div>
-                
-                <section id="group">
-                <div class="row gx-0 mb-5 mb-lg-0 justify-content-center">
-                    <div class="col-lg-6"><img class="img-fluid" src={demo_image_01}  alt="..." /></div>
-                    <div class="col-lg-6">
-                        <div class="bg-black text-center h-100 project">
-                            <div class="d-flex h-100">
-                                <div class="project-text w-100 my-auto text-center text-lg-left">
-                                    <h4 class="text-white">Equipe</h4>
-                                    <p class="mb-0 text-white-50">An example of where you can put an image of a project, or anything else, along with a description.</p>
-                                </div>
+
+                <div id="myDiv" class="container px-4 px-lg-5 mb-lg-5" className={isDivVisible ? 'visible' : 'hidden'}>
+                    <div class="row gx-4 gx-lg-5 justify-content-center">
+                        <div class="col-lg-4">
+                            <h2 class="text-black mb-4 text-center">Cabelo</h2>
+                            <div class="text-black-50">
+                                <p><i className="mdi mdi-checkbox-marked"></i> Alinhamento capilar (com e sem formol)</p>
+                                <p><i className="mdi mdi-checkbox-marked"></i> Alongamento capilar</p>
+                                <p><i className="mdi mdi-checkbox-marked"></i> Coloração/Matização</p>
+                                <p><i className="mdi mdi-checkbox-marked"></i> Corte</p>
+                                <p><i className="mdi mdi-checkbox-marked"></i> Corte bordado</p>
+                                <p><i className="mdi mdi-checkbox-marked"></i> Escova</p>
+                                <p><i className="mdi mdi-checkbox-marked"></i> Mechas</p>
+                                <p><i className="mdi mdi-checkbox-marked"></i> Penteado</p>
+                                <p><i className="mdi mdi-checkbox-marked"></i> Tratamentos capilares (hidratação, nutrição, reconstrução e detox)</p>
                             </div>
+                            
                         </div>
+                        <div class="col-lg-4">
+                            <h2 class="text-black mb-4 text-center">Maõs</h2>
+                            <div class="text-black-50">
+                                <p><i className="mdi mdi-checkbox-marked"></i> Alongamento de unhas</p>
+                                <p><i className="mdi mdi-checkbox-marked"></i> Esmaltação em gel</p>
+                                <p><i className="mdi mdi-checkbox-marked"></i> Manicure</p>
+                                <p><i className="mdi mdi-checkbox-marked"></i> Massagem dos pés</p>
+                                <p><i className="mdi mdi-checkbox-marked"></i> Pedicure</p>
+                                <p><i className="mdi mdi-checkbox-marked"></i> Plástica dos pés</p>
+                                <p><i className="mdi mdi-checkbox-marked"></i> Podal Russo</p>
+                                <p><i className="mdi mdi-checkbox-marked"></i> SPA das mãos e pés</p>
+                            </div>
+                            
+                        </div> 
+                        <div class="col-lg-4">
+                            <h2 class="text-black mb-4 text-center">Rosto e Corpo</h2>
+                            <div class="text-black-50">
+                                <p><i className="mdi mdi-checkbox-marked"></i> Coloração de cílios e sobrancelhas</p>
+                                <p><i className="mdi mdi-checkbox-marked"></i> Design de sobrancelha</p>
+                                <p><i className="mdi mdi-checkbox-marked"></i> Equilação com cera (feminina e masculina)</p>
+                                <p><i className="mdi mdi-checkbox-marked"></i> Equilação egípcia</p>
+                                <p><i className="mdi mdi-checkbox-marked"></i> Lash Lifting</p>
+                                <p><i className="mdi mdi-checkbox-marked"></i> Limpeza de pele</p>
+                                <p><i className="mdi mdi-checkbox-marked"></i> Maquiagem</p>
+                                <p><i className="mdi mdi-checkbox-marked"></i> Massagem</p>
+                            </div>
+                            
+                        </div>                               
                     </div>
                 </div>
+
+        
                 
+                <section id="group">
+                                
                 
                 <div class="row gx-0 justify-content-center">
-                <div class="col-lg-6 order-lg-first">
+                <div class="col-lg-12 order-lg-first">
                         <div class="bg-black text-center h-100 project">
                             <div class="d-flex h-100">
                                 <div class="project-text w-100 my-auto text-center text-lg-right">
-                                    
+                                <div class="testimonial-slider">
+  <div id="carouselExampleControls" class="carousel carousel-dark">
+    <div class="container-fluid">
+      <div class="row">
+        <div class="col-md-4">
+          <div class="testimonial-title">
+            <i class="bi bi-quote display-1"></i>
+            <h2 class="fw-bold display-6">Conheça nossa equipe</h2>
+          </div>
+          <button class="carousel-control-prev" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="prev">
+            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Previous</span>
+          </button>
+          <button class="carousel-control-next" type="button" data-bs-target="#carouselExampleControls" data-bs-slide="next">
+            <span class="carousel-control-next-icon" aria-hidden="true"></span>
+            <span class="visually-hidden">Next</span>
+          </button>
+        </div>
+        <div class="col-md-8">
+          <div class="carousel-inner">
+            <div class="carousel-item active">
+              <div class="card">
+                <div class="img-wrapper"><img src="https://codingyaar.com/wp-content/uploads/headshot-1-scaled.jpg" class="d-block w-100" alt="..."/> </div>
+                <div class="card-body">
+                  <h5 class="card-title">Card title 1</h5>
+                  <i class="bi bi-star-fill text-warning pe-1"></i>
+                  <i class="bi bi-star-fill text-warning pe-1"></i>
+                  <i class="bi bi-star-fill text-warning pe-1"></i>
+                  <i class="bi bi-star-fill text-warning pe-1"></i>
+                  <i class="bi bi-star-fill text-warning pe-1"></i>
+                  <p class="card-text">Some quick example text to build on the card title and make up
+                    the bulk of the
+                    card's content.</p>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="card">
+                <div class="img-wrapper"><img src="https://codingyaar.com/wp-content/uploads/headshot-2-scaled.jpg" class="d-block w-100" alt="..."/> </div>
+                <div class="card-body">
+                  <h5 class="card-title">Card title 2</h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up
+                    the bulk of the
+                    card's content.</p>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="card">
+                <div class="img-wrapper"><img src="https://codingyaar.com/wp-content/uploads/headshot-3-scaled.jpg" class="d-block w-100" alt="..."/> </div>
+                <div class="card-body">
+                  <h5 class="card-title">Card title 3</h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up
+                    the bulk of the
+                    card's content.</p>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="card">
+                <div class="img-wrapper"><img src="https://codingyaar.com/wp-content/uploads/headshot-4-scaled.jpg" class="d-block w-100" alt="..."/> </div>
+                <div class="card-body">
+                  <h5 class="card-title">Card title 4</h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up
+                    the bulk of the
+                    card's content.</p>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="card">
+                <div class="img-wrapper"><img src="https://codingyaar.com/wp-content/uploads/headshot-5-scaled.jpg" class="d-block w-100" alt="..."/> </div>
+                <div class="card-body">
+                  <h5 class="card-title">Card title 5</h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up
+                    the bulk of the
+                    card's content.</p>
+                </div>
+              </div>
+            </div>
+            <div class="carousel-item">
+              <div class="card">
+                <div class="img-wrapper"><img src="https://codingyaar.com/wp-content/uploads/headshot-6-scaled.jpg" class="d-block w-100" alt="..."/> </div>
+                <div class="card-body">
+                  <h5 class="card-title">Card title 6</h5>
+                  <p class="card-text">Some quick example text to build on the card title and make up
+                    the bulk of the
+                    card's content.</p>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
                                 </div>
                             </div>
                         </div>
                     </div>
-                    <div class="col-lg-6 order-lg-first">
-                        <div class="bg-black text-center h-100 project">
-                            <div class="d-flex h-100">
-                                <div class="project-text w-100 my-auto text-center text-lg-right">
-                                    <h4 class="text-white">Mountains</h4>
-                                    <p class="mb-0 text-white-50">[Inserir carousel com a equipe]</p>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
+                    
                 </div>
                 </section>
             </div>
@@ -220,6 +347,8 @@ const Header = () => {
         <footer class="footer bg-black small text-center text-white-50"><div class="container px-4 px-lg-5">Copyright &copy; Fashion Hair 2024</div></footer>
         
         <script type="text/javascript" src={app}></script>
+
+        
         </>
     );
 };
