@@ -1,31 +1,25 @@
+import React from 'react';
 import { BrowserRouter as Router, Route, Routes } from 'react-router-dom';
-
 import Header from './components/Header';
-
-import Agendamentos from "./pages/Agendamentos";
-import Sobre from "./pages/Sobre";
 import Agendar from "./pages/Agendar";
-
-//Css
+import Sobre from "./pages/Sobre";
 import './styles.css';
 
-
 const App = () => {
-    return(
-        <>
-        <Header/>
-        <div className="container-fluid h-100">
-            <div className="row h-100">
-            <Router>
-                <Routes>
-                    <Route path="/" exact component={Agendamentos}/>
-                    <Route path="/sobre-nos" exact component={Sobre}/>
-                    <Route path="/agendar" exact component={Agendar}/>
-                </Routes>
-            </Router>
-            </div>
-        </div>
-        </>
+    return (
+        <Router>
+            <>
+                <Header />
+                <div className="container-fluid h-100">
+                    <div className="row h-100">
+                        <Routes>
+                            <Route path="/agendar" excat element={<Agendar />} />
+                            <Route path="/sobre-nos" excat element={<Sobre />} />
+                        </Routes>
+                    </div>
+                </div>
+            </>
+        </Router>
     );
 };
 

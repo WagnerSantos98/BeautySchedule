@@ -1,11 +1,15 @@
 import React, {useState} from 'react';
+import {Link, useLocation} from 'react-router-dom';
+
 import salon from '../../assets/salon.jpg';
-import demo_image_01 from '../../assets/demo_image_01.jpg';
 import ipad from '../../assets/ipad.png';
 
 import app from './app';
 
+
 const Header = () => {
+    const location = useLocation();
+
     const [isDivVisible, setDivVisibility] = useState(false);
     const toggleDiv = () => {
         setDivVisibility(!isDivVisible);
@@ -27,6 +31,11 @@ const Header = () => {
                         <li class="nav-item"><a class="nav-link" href="#services">Serviços</a></li>
                         <li class="nav-item"><a class="nav-link" href="#group">Equipe</a></li>
                         <li class="nav-item"><a class="nav-link" href="#signup">Contato</a></li>
+                        <li class="nav-item">
+                            <Link to="/agendar" className={location.pathname === '/agendar' ? 'active' : ''}>
+                            <a class="nav-link">Agendar Agora</a>
+                            </Link>
+                        </li>
                         <li class="nav-item"><a class="nav-link" href="#login">Acessar</a></li>
                     </ul>
                 </div>
