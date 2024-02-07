@@ -1,8 +1,8 @@
 const INITAL_STATE = {
-    agendamento: [],
+    agendar: [],
 };
 
-function agendamento(state = INITAL_STATE, action){
+function agendar(state = INITAL_STATE, action){
     switch(action.type){
         case '@agendamento/ALL': {
             //
@@ -12,4 +12,4 @@ function agendamento(state = INITAL_STATE, action){
     }
 }
 
-export default agendamento;
+export default agendar;

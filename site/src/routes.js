@@ -9,10 +9,10 @@ const App = () => {
     return (
         <Router>
             <>
-                <Header />
                 <div className="container-fluid h-100">
                     <div className="row h-100">
                         <Routes>
+                            <Route path="/" excat element={<Header/>}/>
                             <Route path="/agendar" excat element={<Agendar />} />
                             <Route path="/sobre-nos" excat element={<Sobre />} />
                         </Routes>
