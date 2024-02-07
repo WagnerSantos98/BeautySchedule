@@ -1,109 +1,280 @@
 import React from 'react';
-import {Link, useLocation} from 'react-router-dom';
+import { useEffect } from 'react';
+import { Button, Drawer, Modal, Tag, DatePicker, Uploader } from 'rsuite';
+import RemindFill from '@rsuite/icons/RemindFill';
+import CameraRetroIcon from '@rsuite/icons/legacy/CameraRetro';
+import Table from '../../components/Table';
+import moment from 'moment';
+import 'rsuite/dist/rsuite.css';
 
-import app from '../../components/Header/app';
+import { useDispatch, useSelector } from 'react-redux';
+import { allServicos, updateServico, addServico, removeServico, removeArquivo, resetServico } from '../../store/modules/servico/actions';
+import consts from '../../consts';
 
 
-const Agendar = () => {
-    const location = useLocation();
+
+const Servicos = () => {
+
+    const dispatch = useDispatch();
+    const { servicos, servico, form, components, behavior } = useSelector((state) => state.servico);
+
     
 
+    const setComponent = (component, state) => {
+        dispatch(updateServico({
+            components: { ...components, [component]: state }, 
+        }));
+    };
+
+    const setServico = (key, value) => {
+        dispatch(
+            updateServico({
+                servico: { ...servico, [key]: value },
+            }));
+    }
+
+    const save = () => {
+        dispatch(addServico());
+    };
+
+    const remove = () => {
+        dispatch(removeServico());
+    };
+
+    useEffect(() => {
+        dispatch(allServicos());        
+    },[dispatch]);
+
     return(
-        <>
-        {/*Navigation*/}
-        <nav class="navbar navbar-expand-lg navbar-light fixed-top" id="mainNav">
-            <div class="container px-4 px-lg-5">
-                <a class="navbar-brand" href="#page-top">Fashion Hair</a>
-                <button class="navbar-toggler navbar-toggler-right" type="button" data-bs-toggle="collapse" data-bs-target="#navbarResponsive" aria-controls="navbarResponsive" aria-expanded="false" aria-label="Toggle navigation">
-                    Menu
-                    <i class="fas fa-bars"></i>
-                </button>
-                <div class="collapse navbar-collapse" id="navbarResponsive">
-                    <ul class="navbar-nav ms-auto">
-                        <li class="nav-item"><a class="nav-link" href="#about">Sobr-nós</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#services">Serviços</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#group">Equipe</a></li>
-                        <li class="nav-item"><a class="nav-link" href="#signup">Contato</a></li>
-                        <li class="nav-item">
-                            <Link to="/agendar" className={location.pathname === '/agendar' ? 'active' : ''}>
-                            <a class="nav-link">Agendar Agora</a>
-                            </Link>
-                        </li>
-                        <li class="nav-item"><a class="nav-link" href="#login">Acessar</a></li>
-                    </ul>
-                </div>
-            </div>
-        </nav>
+        <div className="col p-5 overflow-auto h-100">
+            <Drawer 
+            
+            open={components.drawer}
+            size="sm"
+            onHide={() => {
+                setComponent('drawer', false);
+            }}
+            onClose={() => {
+                setComponent('drawer', false);
+            }}
+            >
+                <Drawer.Body>
+                    <h3>{behavior === 'create' ? 'Criar novo' : 'Atulizar' } serviço</h3>
+                    <div className="row mt-3">
+                        <div className="form-group col-6">
+                            <b>Título</b>
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Título do serviço"
+                                value={servico.titulo}
+                                onChange={(e) => {
+                                    setServico('titulo', e.target.value);
+                                }}
+                            />
+                        </div>
+                        <div className="form-group col-3">
+                            <b>Preço R$</b>
+                            <input
+                                type="number"
+                                className="form-control"
+                                placeholder="Preço do serviço"
+                                value={servico.preco}
+                                onChange={(e) => {
+                                    setServico('preco', e.target.value);
+                                }}
+                            />
+                        </div>
+                        <div className="form-group col-3">
+                            <b>Comissão %</b>
+                            <input
+                                type="number"
+                                className="form-control"
+                                placeholder="Comissão do serviço"
+                                value={servico.comissao}
+                                onChange={(e) => {
+                                    setServico('comissao', e.target.value);
+                                }}
+                            />
+                        </div>
+                        <div className="form-group col-4 mt-3">
+                            <b>Recorrência</b>
+                            <input
+                                type="text"
+                                className="form-control"
+                                placeholder="Recorrência do serviço"
+                                value={servico.recorrencia}
+                                onChange={(e) => {
+                                    setServico('recorrencia', e.target.value);
+                                }}
+                            />
+                        </div>
+                        <div className="form-group col-4 mt-3">
+                            <b className="">Duração</b>
+                            <DatePicker
+                                block
+                                format="HH:mm"
+                                value={servico.duracao}
+                                hideMinutes={(min) => ![0, 30].includes(min)}
+                                onChange={(e) => {
+                                    setServico('duracao', e);
+                                }}
+                            />
+                        </div>
+                        <div className="form-group col-4 mt-3">
+                            <b>Status</b>
+                            <select 
+                                className="form-control"
+                                value={servico.status}
+                                onChange={(e) => setServico('status', e.target.value)}
+                            >
+                                <option value="A">Ativo</option>
+                                <option value="I">Inativo</option>
+                            </select>
+                        </div>
+                        <div className="form-group col-12 mt-3">
+                            <b>Descrição</b>
+                            <textarea 
+                                className="form-control"
+                                rows="5"
+                                placeholder="Descrição do servico..."
+                                value={servico.descricao}
+                                onChange={(e) => setServico('descricao', e.target.value)}
+                            >
+                                <option value="A">Ativo</option>
+                                <option value="I">Inativo</option>
+                            </textarea>
+                        </div>
+                        <div className="form-group col-12 mt-3">
+                            <b className="d-block">Imagens do serviço</b>
+                            <Uploader 
+                                multiple 
+                                listType="picture" 
+                                autoUpload={false}
+                                defaultFileList={servico.arquivos.map((servico, index) => ({
+                                    name: servico?.caminho,
+                                    fileKey: index,
+                                    url: `${consts.bucketUrl}/${servico?.caminho}`,
+                                }))}
+                                onChange={(files) => {
+                                    const arquivos = files.filter((f) => f.blobFile).map((f) => f.blobFile);
 
-        <header class="masthead">
-            <div class="container px-4 px-lg-5 d-flex h-100 align-items-center justify-content-center">
-                <div class="d-flex justify-content-center">
-                    <div class="text-center">
-                        <h1 class="mx-auto my-0 text-uppercase">Agendar Agora</h1>
+                                    setServico('arquivos', arquivos);
+                                }}
+                                onRemove={(file) => {
+                                    if(behavior === 'update' && file.url){
+                                        dispatch(removeArquivo(file.name));
+                                    }
+                                }}
+                            >
+                                <button>
+                                    <CameraRetroIcon/>
+                                </button>
+                            </Uploader>
+                        </div>
                     </div>
-                </div>
-            </div>
-        </header>
+                    <Button 
+                        block
+                        className="mt-3"
+                        appearance="primary"
+                        color={behavior === 'create' ? 'green' : 'primary'}
+                        size="lg"
+                        loading={form.saving}
+                        onClick={() => save()}
+                    >
+                       {behavior === 'create' ? 'Salvar' : 'Finalizar'} agendamento
+                    </Button>
+                    {behavior === 'update' && (
+                    <Button 
+                        block
+                        className="mt-3"
+                        appearance="primary"
+                        color="red"
+                        size="lg"
+                        loading={form.saving}
+                        onClick={() => setComponent('confirmDelete', true)}
+                    >
+                        Remover serviço
+                    </Button>
+                    )}                    
+                </Drawer.Body>
+            </Drawer>
 
-        <div className="row">
+            <Modal
+                open={components.confirmDelete}
+                onHide={() => setComponent('confirmDelete', false)}
+                size="xs"
+            >
+                <Modal.Body>
+                    <RemindFill
+                        style={{
+                            color:'#ffb300',
+                            fontSize: 24,
+                        }}
+                    />
+                    {' '} Tem certeza que deseja excluir? Essa ação será irreversível!
+                </Modal.Body>
+                <Modal.Footer>
+                    <Button  loading={form.saving} onClick={() => remove()} color="red" appearance="primary">
+                        Sim, tenho certeza!
+                    </Button>
+                    <Button onClick={() => setComponent('confirmDelete', false)} appearance="subtle">
+                        Cancelar
+                    </Button>
+                </Modal.Footer>
+            </Modal>
+            
+            <div className="row">
                 <div className="col-12">
                     <div className="w-100 d-flex justify-content-between">
-                        <h2 className="mb-4 mt-0">Agendar Agora</h2>
-                    </div>
-                </div>        
-        </div>
-
-         {/*Contato*/}
-         <section class="contact-section bg-black">
-            <div class="container px-4 px-lg-5">
-                <div class="row gx-4 gx-lg-5">
-                    <div class="col-md-4 mb-3 mb-md-0">
-                        <div class="card py-4 h-100">
-                            <div class="card-body text-center">
-                                <i class="fas fa-map-marked-alt text-primary mb-2"></i>
-                                <h4 class="text-uppercase m-0">Endereço</h4>
-                                <hr class="my-4 mx-auto" />
-                                <div class="small text-black-50">R. José Domingues, 750 - Centro, Bragança Paulista - SP</div>
-                            </div>
+                        <h2 className="mb-4 mt-0">Serviços</h2>
+                        <div>
+                            <button 
+                                className="btn btn-primary btn-lg"
+                                onClick={() => {
+                                    dispatch(resetServico());
+                                    dispatch(
+                                        updateServico({
+                                            behavior: 'create',
+                                        })
+                                    );
+                                    setComponent('drawer', true);
+                                }}
+                            >
+                                <span className="mdi mdi-plus">Novo Serviço</span>
+                            </button>
                         </div>
                     </div>
-                    <div class="col-md-4 mb-3 mb-md-0">
-                        <div class="card py-4 h-100">
-                            <div class="card-body text-center">
-                                <i class="fas fa-envelope text-primary mb-2"></i>
-                                <h4 class="text-uppercase m-0">Email</h4>
-                                <hr class="my-4 mx-auto" />
-                                <div class="small text-black-50"><a href="mailto:fashion_hair@gmail.com">fashion_hair@gmail.com</a></div>
-                            </div>
-                        </div>
-                    </div>
-                    <div class="col-md-4 mb-3 mb-md-0">
-                        <div class="card py-4 h-100">
-                            <div class="card-body text-center">
-                                <i class="fas fa-mobile-alt text-primary mb-2"></i>
-                                <h4 class="text-uppercase m-0">Telefone</h4>
-                                <hr class="my-4 mx-auto" />
-                                <div class="small text-black-50">(11)4032-5589</div>
-                            </div>
-                        </div>
-                    </div>
-                </div>
-                <div class="social d-flex justify-content-center">
-                    <a class="mx-2" href="#!"><i class="mdi mdi-twitter"></i></a>
-                    <a class="mx-2" href="#!"><i class="mdi mdi-facebook"></i></a>
-                    <a class="mx-2" href="#!"><i class="mdi mdi-instagram"></i></a>
+                    <Table
+                    loading={form.filtering}
+                    data={servicos}
+                    config={[
+                        {label: 'Imagem', key: 'foto', width: 200, fixed: true},
+                        { label: 'Título', key: 'titulo'},
+                        { label: 'Preço R$', content: (servico) => `R$ ${servico.preco.toFixed(2)}` },
+                        { label: 'Duração', key: 'duracao', content: (servico) => moment(servico.duracao).format('HH:mm')},
+                    ]}
+                    actions={(servico) => (
+                        <Button color="primary" size="xs"><i className="mdi mdi-clock-check-outline"></i> Agendar</Button>
+                    )}
+                    onRowClick={(servico) => {
+                        dispatch(
+                            updateServico({
+                                behavior: 'update',
+                            })
+                        );
+                        dispatch(
+                            updateServico({
+                                servico,
+                            })
+                        );
+                        setComponent('drawer', true);
+                    }}
+                    />
                 </div>
             </div>
-        </section>
-        
-        {/*Footer*/}
-        <footer class="footer bg-black small text-center text-white-50"><div class="container px-4 px-lg-5">Copyright &copy; Fashion Hair 2024</div></footer>
-        
-        <script type="text/javascript" src={app}></script>
-
-        
-        </>
+        </div>
     );
 };
 
-export default Agendar;
+export default Servicos;

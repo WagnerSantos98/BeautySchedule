@@ -1,7 +1,8 @@
 import { all } from 'redux-saga/effects';
 
-import agendar from './modules/agendar/sagas';
+import salao from './modules/salao/sagas';
+import servicos from './modules/servico/sagas';
 
 export default function* rootSaga(){
-    return yield all([agendar,]);
+    return yield all([salao, servicos]);
 }
