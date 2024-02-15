@@ -155,17 +155,17 @@ const Agendar = ({ agenda = [], dataSelecionada, horaSelecionada, horariosDispon
                         </div>
                         <div className="form-group col-12 mt-3">
                         <Swiper
-  modules={[Navigation, Pagination, Scrollbar, A11y]}
-  spaceBetween={-50}
-  slidesPerView={3}
-  navigation
-  onSwiper={(swiper) => console.log(swiper)}
-  onSlideChange={() => console.log('slide change')}
->
-  {agenda && agenda.map((item) => {
-    const date = moment(Object.keys(item)[0]);
-    const dateISO = moment(date).format('YYYY-MM-DD');
-    const selected = dateISO === dataSelecionada;
+                            modules={[Navigation, Pagination, Scrollbar, A11y]}
+                            spaceBetween={-50}
+                            slidesPerView={3}
+                            navigation
+                            onSwiper={(swiper) => console.log(swiper)}
+                            onSlideChange={() => console.log('slide change')}
+                        >
+                        {agenda && agenda.map((item) => {
+                            const date = moment(Object.keys(item)[0]);
+                            const dateISO = moment(date).format('YYYY-MM-DD');
+                            const selected = dateISO === dataSelecionada;
 
     return (
       <SwiperSlide key={dateISO}>
@@ -224,7 +224,7 @@ const Agendar = ({ agenda = [], dataSelecionada, horaSelecionada, horariosDispon
                     loading={form.filtering}
                     data={servicos}
                     config={[
-                        {label: 'Imagem', key: 'foto', width: 200, fixed: true},
+                        { label: 'Imagem', key: 'foto', content: (servico) => <img src={`${consts.bucketUrl}/${servico?.arquivos[0]?.caminho}`}/>, width: 100, height: 50, fixed: true},
                         { label: 'Título', key: 'titulo'},
                         { label: 'Preço R$', content: (servico) => `R$ ${servico?.preco?.toFixed(2)}` },
                         { label: 'Duração', key: 'duracao', content: (servico) => moment(servico.duracao).format('HH:mm')},
