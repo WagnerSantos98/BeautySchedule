@@ -226,7 +226,7 @@ const Agendar = ({ agenda = [], dataSelecionada, horaSelecionada, horariosDispon
                     config={[
                         {label: 'Imagem', key: 'foto', width: 200, fixed: true},
                         { label: 'Título', key: 'titulo'},
-                        { label: 'Preço R$', content: (servico) => `R$ ${servico.preco.toFixed(2)}` },
+                        { label: 'Preço R$', content: (servico) => `R$ ${servico?.preco?.toFixed(2)}` },
                         { label: 'Duração', key: 'duracao', content: (servico) => moment(servico.duracao).format('HH:mm')},
                     ]}
                     actions={(servico) => (
