@@ -125,11 +125,11 @@ const Agendar = ({ agenda = [], dataSelecionada, horaSelecionada, horariosDispon
                     <div className="row mt-3">
                         <div className="form-group col-6">
                             <b>Título</b><br></br>
-                            <label>{servico.titulo}</label>
+                            <label>{servico?.titulo}</label>
                         </div>
                         <div className="form-group col-3">
                             <b>Preço</b><br></br>
-                            <label>R$ {}</label>
+                            <label>R$ {servico?.preco?.toFixed(2)}</label>
                         </div>
                         <div className="form-group col-4 mt-3">
                             <b className="">Duração</b><br></br>
