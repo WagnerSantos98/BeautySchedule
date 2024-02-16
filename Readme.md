@@ -6,6 +6,7 @@ Sistema de agendamento para salão de beleza
 ## Índice
 
 - <a href="#funcionalidades-do-projeto">Funcionalidades do Projeto</a>
+- <a href="#funcionalidades-do-site">Funcionalidades do Projeto</a>
 - <a href="#layout">Layout</a>
 - <a href="#diagrama-de-classe">Diagrama de Classe</a>
 - <a href="#demonstração">Demonstração</a>
@@ -22,6 +23,15 @@ Sistema de agendamento para salão de beleza
 - [x] Agendamento de horário
 - [x] Serviços prestados
 - [x] Colaboradores de acordo com cada área de atuação
+
+## Funcionalidades do Site
+
+- [x] Login
+- [x] Cadastro do estabelecimento
+- [x] Cadastro de cliente, colaborador e serviços
+- [x] Agendamento de horário
+- [x] Serviços prestados
+- [x] Colaboradores de acordo com cada área de atuaçã
 
 ## Layout
 
