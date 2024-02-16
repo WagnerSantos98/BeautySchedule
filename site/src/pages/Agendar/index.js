@@ -1,8 +1,9 @@
 import React from 'react';
 import { useEffect } from 'react';
 import {Link, useLocation} from 'react-router-dom';
-import { Button, Drawer } from 'rsuite';
+import { Button, Calendar, Drawer } from 'rsuite';
 import Table from '../../components/Table';
+import SwiperWrapper from '../../components/Swiper';
 import moment from 'moment';
 import 'rsuite/dist/rsuite.css';
 import { useDispatch, useSelector } from 'react-redux';
@@ -10,10 +11,8 @@ import { allServicos, updateServico, addServico } from '../../store/modules/serv
 import { updateForm, updateAgendamento } from '../../store/modules/salao/actions';
 import consts from '../../consts';
 import util from '../../util';
-import { Touchable, Text } from 'react-native';
 
-import { Navigation, Pagination, Scrollbar, A11y } from 'swiper/modules';
-import { Swiper, SwiperSlide } from 'swiper/react'
+
 
 // Import Swiper styles
 import 'swiper/css';
@@ -154,41 +153,7 @@ const Agendar = ({ agenda = [], dataSelecionada, horaSelecionada, horariosDispon
                             <img src={`${ consts.bucketUrl }/${servico?.arquivos[0]?.caminho}`} style={{width: 100, height: 120, borderRadius: 3}}/>
                         </div>
                         <div className="form-group col-12 mt-3">
-                        <Swiper
-                            modules={[Navigation, Pagination, Scrollbar, A11y]}
-                            spaceBetween={-50}
-                            slidesPerView={3}
-                            navigation
-                            onSwiper={(swiper) => console.log(swiper)}
-                            onSlideChange={() => console.log('slide change')}
-                        >
-                        {agenda && agenda.map((item) => {
-                            const date = moment(Object.keys(item)[0]);
-                            const dateISO = moment(date).format('YYYY-MM-DD');
-                            const selected = dateISO === dataSelecionada;
-
-    return (
-      <SwiperSlide key={dateISO}>
-        <Touchable
-          width="70px"
-          height="80px"
-          spacing="0 10px 0 0"
-          rounded="10px"
-          direction="column"
-          justify="center"
-          align="center"
-          //border={`1px solid ${selected ? theme.colors.primary : util.toAlpha(theme.colors.muted, 50)}`}
-          background={selected ? 'primary' : 'light'}
-          onPress={() => setAgendamento(dateISO)}
-        >
-          <Text small color={selected ? 'light' : undefined}>{util.diasSemana[date.day()]}</Text>
-          <Text small color={selected ? 'light' : undefined}>{date.format('DD')}</Text>
-          <Text small color={selected ? 'light' : undefined}>{date.format('MMMM')}</Text>
-        </Touchable>
-      </SwiperSlide>
-    );
-  })}
-</Swiper>
+                            <SwiperWrapper/>
                         </div>
                     </div>
                     <Button 
