@@ -51,7 +51,7 @@ Sistema de agendamento para salão de beleza
 
 ## Tecnologias Utilizadas
 
-### Web e Web Service
+### Web, Website e Web Service
 1. [React](https://react.dev/)
 3. [Turf Js](https://turfjs.org/)
 4. [Redux](https://redux.js.org/)
