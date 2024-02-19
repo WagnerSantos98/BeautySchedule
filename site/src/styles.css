@@ -11357,8 +11357,59 @@ body {
   }
 }
 
+/*swiper*/
+.carousel-container{
+  position: relative;
+  overflow: hidden;
+}
 
+.swiper-wrapper{
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
 
+.swiper-slide{
+  width: 60px;
+  height: 60px;
+  background-color: #ccc;
+  border-radius: 10px;
+  padding: 10px;
+  text-align: center;
+  justify-content: center;
+  align-items: center;
+}
+
+.title-week{
+  margin: 0;
+  font-size: 20px;
+  font-weight: bold;
+}
+
+.title-day-week{
+  margin: 0;
+  font-size: 16px;
+}
+
+.custom-swiper-button{
+  top: 50%;
+  transform: translateY(-50%);
+  width: 30px;
+  height: 30px;
+  border-radius: 50%;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  cursor: pointer;
+}
+
+.custom-swiper-button-next{
+  right: 10px;
+}
+
+.custom-swiper-button-prev{
+  left: 10px;
+}
 
 
 

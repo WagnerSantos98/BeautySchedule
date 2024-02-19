@@ -4,7 +4,6 @@ import {Link, useLocation} from 'react-router-dom';
 import { Button, Drawer } from 'rsuite';
 import Table from '../../components/Table';
 import moment from 'moment';
-import Swiper from 'swiper';
 import 'rsuite/dist/rsuite.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { allServicos, updateServico, addServico } from '../../store/modules/servico/actions';
@@ -60,14 +59,14 @@ const Agendar = ({ agenda = [], dataSelecionada, horaSelecionada, horariosDispon
         }
 
         //Swiper
-        const swiper = new Swiper('.carousel-container', {
+        /*const swiper = new Swiper('.carousel-container', {
             slidesPerView: 5,
             spaceBettween: 10,
             navigation: {
                 nextEl: '.custom-swiper-button-next',
                 prevEl: '.custom-swiper-button-prev',
             },
-        });
+        });*/
 
     return(
         <>
@@ -164,34 +163,34 @@ const Agendar = ({ agenda = [], dataSelecionada, horaSelecionada, horariosDispon
                         </div>
                         <div className="form-group col-12 mt-3">
                             <div className="carousel-container">
-                                <div className="swiper-container">
+                                <div className="swiper-wrapper">
                                     <div className="swiper-slide">
-                                        <h2>Dom</h2>
-                                        <p>01</p>
+                                        <h2 className="title-week">Dom</h2>
+                                        <p className="title-day-week">01</p>
                                     </div>
                                     <div className="swiper-slide">
-                                        <h2>Seg</h2>
-                                        <p>02</p>
+                                        <h2 className="title-week">Seg</h2>
+                                        <p className="title-day-week">02</p>
                                     </div>
                                     <div className="swiper-slide">
-                                        <h2>Ter</h2>
-                                        <p>03</p>
+                                        <h2 className="title-week">Ter</h2>
+                                        <p className="title-day-week">03</p>
                                     </div>
                                     <div className="swiper-slide">
-                                        <h2>Qua</h2>
-                                        <p>04</p>
+                                        <h2 className="title-week">Qua</h2>
+                                        <p className="title-day-week">04</p>
                                     </div>
                                     <div className="swiper-slide">
-                                        <h2>Qui</h2>
-                                        <p>05</p>
+                                        <h2 className="title-week">Qui</h2>
+                                        <p className="title-day-week">05</p>
                                     </div>
                                     <div className="swiper-slide">
-                                        <h2>Sex</h2>
-                                        <p>06</p>
+                                        <h2 className="title-week">Sex</h2>
+                                        <p className="title-day-week">06</p>
                                     </div>
                                     <div className="swiper-slide">
-                                        <h2>Sáb</h2>
-                                        <p>07</p>
+                                        <h2 className="title-week">Sáb</h2>
+                                        <p className="title-day-week">07</p>
                                     </div>
                                 </div>
 
