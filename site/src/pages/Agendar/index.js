@@ -1,10 +1,10 @@
 import React from 'react';
 import { useEffect } from 'react';
 import {Link, useLocation} from 'react-router-dom';
-import { Button, Calendar, Drawer } from 'rsuite';
+import { Button, Drawer } from 'rsuite';
 import Table from '../../components/Table';
-import SwiperWrapper from '../../components/Swiper';
 import moment from 'moment';
+import Swiper from 'swiper';
 import 'rsuite/dist/rsuite.css';
 import { useDispatch, useSelector } from 'react-redux';
 import { allServicos, updateServico, addServico } from '../../store/modules/servico/actions';
@@ -58,6 +58,16 @@ const Agendar = ({ agenda = [], dataSelecionada, horaSelecionada, horariosDispon
             let data = !isTime ? `${value}T${horariosDisponiveis[0][0]}` : `${dataSelecionada}T${value}`;
             dispatch(updateAgendamento({data}))
         }
+
+        //Swiper
+        const swiper = new Swiper('.carousel-container', {
+            slidesPerView: 5,
+            spaceBettween: 10,
+            navigation: {
+                nextEl: '.custom-swiper-button-next',
+                prevEl: '.custom-swiper-button-prev',
+            },
+        });
 
     return(
         <>
@@ -153,7 +163,41 @@ const Agendar = ({ agenda = [], dataSelecionada, horaSelecionada, horariosDispon
                             <img src={`${ consts.bucketUrl }/${servico?.arquivos[0]?.caminho}`} style={{width: 100, height: 120, borderRadius: 3}}/>
                         </div>
                         <div className="form-group col-12 mt-3">
-                            <SwiperWrapper/>
+                            <div className="carousel-container">
+                                <div className="swiper-container">
+                                    <div className="swiper-slide">
+                                        <h2>Dom</h2>
+                                        <p>01</p>
+                                    </div>
+                                    <div className="swiper-slide">
+                                        <h2>Seg</h2>
+                                        <p>02</p>
+                                    </div>
+                                    <div className="swiper-slide">
+                                        <h2>Ter</h2>
+                                        <p>03</p>
+                                    </div>
+                                    <div className="swiper-slide">
+                                        <h2>Qua</h2>
+                                        <p>04</p>
+                                    </div>
+                                    <div className="swiper-slide">
+                                        <h2>Qui</h2>
+                                        <p>05</p>
+                                    </div>
+                                    <div className="swiper-slide">
+                                        <h2>Sex</h2>
+                                        <p>06</p>
+                                    </div>
+                                    <div className="swiper-slide">
+                                        <h2>Sáb</h2>
+                                        <p>07</p>
+                                    </div>
+                                </div>
+
+                                <div className="custom-swiper-button custom-swiper-button-prev">&#9664;</div>
+                                <div className="custom-swiper-button custom-swiper-button-next">&#9664;</div>
+                            </div>
                         </div>
                     </div>
                     <Button 
